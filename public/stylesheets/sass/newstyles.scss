@@ -22,7 +22,7 @@ text-align:center;
   border:1px solid #ececec;
 }
 
-.candidate_box > a > img {
+.candidate_box > .candidate_info > img {
   @include center-block();
   max-height:200px;
 }

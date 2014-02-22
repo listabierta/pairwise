@@ -3,6 +3,8 @@
   .grid_3
     &nbsp;
   .grid_8
+    %a{:href => "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}/addphotos"}
+      Agregar mas candidatos
     %table.admin
       %thead 
         %tr.row0

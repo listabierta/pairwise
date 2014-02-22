@@ -11,13 +11,13 @@
     <meta property="og:site_name" content="Europas 2014"/>
     %link{:rel => "shortcut icon", :href => "favicon.ico"}
     =stylesheet_link_tag '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css', 'facebox', 'newstyles'
-    =javascript_include_tag '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js', 'photocracy/jquery.min', 'photocracy/jquery-ui.min', 'photocracy/application', 'photocracy/jquery.timeago', 'photocracy/ajaxupload.3.9', 'facebox'
+    =javascript_include_tag 'photocracy/jquery.min', 'photocracy/jquery-ui.min', 'photocracy/application', 'photocracy/jquery.timeago', 'photocracy/ajaxupload.3.9', 'facebox', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'
 
     :javascript 
       var AUTH_TOKEN = #{form_authenticity_token.to_json};
       var PAGE_LOADED_AT = new Date();
       var RAILS_LOCALE = '#{I18n.locale}';
-      var VOTE_CROSSFADE_TRANSITION = #{@vote_crossfade_transition.nil? ? 'false' : @vote_crossfade_transition};
+      var VOTE_CROSSFADE_TRANSITION = false;
       var FADE_TIME = #{@crossfade_time.nil? ? 1100 : @crossfade_time};
       var FADE_IN_TIME = 250
 

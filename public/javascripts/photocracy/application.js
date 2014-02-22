@@ -4,12 +4,11 @@ $.ajaxSetup({
 
 $(document).ready(function() {
 	// voting
-  $('a.vote').live('click', function(e) {
+  $('a.vote').on('click', function(e) {
 		if ($(this).hasClass('loading')) {
 			alert("One sec, we're loading the next pair...");
 		} else {
 			// visible if the users hasn't voted
-			$('.click_to_vote').hide();
 
 			$(this).addClass('checked');
 
@@ -91,7 +90,7 @@ $(document).ready(function() {
 	});
 
 	// view ajax graph
-	$('a.ajax_graph').live('click', function(e) {
+	$('a.ajax_graph').on('click', function(e) {
 		$('#graphs > li > a').removeClass('active');
 		$(this).addClass('active');
 
@@ -114,18 +113,18 @@ $(document).ready(function() {
 	});
 
 	// toggle activation on admin
-	$('input.activation').live('click', function(e) {
+	$('input.activation').on('click', function(e) {
 		toggleChoiceActivation($(this));
 	});
 
-	$('input.auto_activation').live('click', function(e) {
+	$('input.auto_activation').on('click', function(e) {
 		toggleQuestionAutoActivation($(this));
 	});
 });
 
-function submitCantDecide(form) {
+function submitCantDecide(button) {
 	var VOTE_CAST_AT = new Date();
-	var reason = $('input[name=cant_decide_reason]:checked').val();
+	var reason = 'other';
 
 	if (reasonValid(reason)) {
 		clearImages();
@@ -137,7 +136,7 @@ function submitCantDecide(form) {
 		jQuery.ajax({
 			type: 'POST',
 			dataType: 'json',
-		  url: form.attr('action'),
+		  url: $(button).attr('data-action'),
 		  data: {
 				cant_decide_reason: reason,
 				prompt_id: $('#prompt_id').val(),
@@ -322,15 +321,7 @@ function toggleQuestionAutoActivation(checkbox) {
 }
 
 function calculateClickOffset(axis, e, choice) {
-	var offset = $(choice).find('img').offset();
-
-	// if there is any border on the image
-	// you need to subtract it from the offset here (ie 3 px)
-	if (axis == 'x') {
-		return (e.pageX - offset.left - 3);
-	} else {
-		return (e.pageY - offset.top - 3);
-	}
+	return 0;
 }
 
 function updateVotingHistory(data, update_visitor_votes) {
@@ -372,13 +363,13 @@ function updateVisitorVotes(number_of_votes) {
 
 function loadNextPrompt(data) {
 	jQuery.each(['left', 'right'], function(index, side) {
-		var current_table = $('a.vote.' + side + ' > table.current');
+		var candidate_box = $('div.candidate_box.' + side + ' > .candidate_info');
 
 		// change photos
-		current_table.html("<tr><td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td></tr>");
+		candidate_box.html("<img style='display:none;' src='" + data['new' + side + '_photo'] + "'/>");
 
 		// fade in photo - don't vary fade in time
-		current_table.find('img').fadeIn(FADE_IN_TIME, function() {
+		candidate_box.find('img').fadeIn(FADE_IN_TIME, function() {
 			// allow voting after fully faded in
 			$('a.vote.' + side).removeClass('loading');
 		});
@@ -390,16 +381,16 @@ function clearImagesCrossfade() {
 	jQuery.each(['left', 'right'], function(index, side) {
 		// current table
 		var link = $('a.vote.' + side);
-		var current_table = $('a.vote.' + side + ' > table.current');
-		var current_image = current_table.find('img');
+		var candidate_box = $('div.candidate_box.' + side + ' > table.current');
+		var current_image = candidate_box.find('img');
 
-		var fade_table = current_table.clone();
+		var fade_table = candidate_box.clone();
         fade_table.prependTo(link);
 		// duplicate the table holding the image
 		// add the class 'fade' to it and remove 'current'
 		fade_table.removeClass('current').addClass('fade');
 
-		// switch the current_tables img to the next photo
+		// switch the candidate_boxs img to the next photo
 		current_image.attr('src', link.attr('future_photo'));
 
 		// fade out and remove the fade_table
@@ -448,11 +439,11 @@ function decrement(number){
 }
 
 function clearImages() {
-	$('a.vote.right > table').find('img').fadeOut(FADE_TIME, function() {
+	$('.candidate_box.right > .candidate_info').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
 	
-	$('a.vote.left > table').find('img').fadeOut(FADE_TIME, function() {
+	$('.candidate_box.left > .candidate_info').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
 }

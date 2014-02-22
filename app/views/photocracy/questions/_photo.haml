@@ -1,6 +1,5 @@
-.candidate_box
-  %a{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
-                :thumb => photo.image.url(:thumb), :choice_url => url_for(:action => :show, :controller => :choices, :id => choice, :question_id => params[:id]), :class => "#{direction} vote", :direction => direction, :future_photo => future_photo.image.url(:medium), :id => direction == "left" ? "leftside" : "rightside" }
+%div{:class => "candidate_box #{direction}"}
+  .candidate_info
     =image_tag(photo.image.url(:medium))
     %dl.dl-horizontal
       %dt
@@ -38,7 +37,8 @@
       
 
   .form_actions
-    .btn.btn-primary.big-btn
+    %a{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
+              :thumb => photo.image.url(:thumb), :choice_url => url_for(:action => :show, :controller => :choices, :id => choice, :question_id => params[:id]), :class => "#{direction} vote btn btn-primary big-btn", :direction => direction, :future_photo => future_photo.image.url(:medium), :id => direction == "left" ? "leftside" : "rightside" }
       Lo prefiero
     %br
     %br

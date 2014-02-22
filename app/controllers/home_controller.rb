@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   skip_before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :only => [:cookies_blocked]
 
   def index
+    redirect_to "/candidatos"
     @example_earl = 'planyc_example'
     Question.timeout = 0.5
     begin

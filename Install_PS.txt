@@ -15,6 +15,8 @@ bundle exec ruby ./script/server -p 3000
 
 ./bin/rake util:useradd[pabloseibelt@gmail.com,admin]
 
-User.new(:email => 'pabloseibelt@gmail.com',
+u = User.new(:email => 'pabloseibelt@gmail.com',
                      :password => 'sicarul',
                      :password_confirmation => 'sicarul')
+u.admin = true
+u.save

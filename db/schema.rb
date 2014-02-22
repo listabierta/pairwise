@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627190740) do
+ActiveRecord::Schema.define(:version => 20140222160702) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -37,6 +37,22 @@ ActiveRecord::Schema.define(:version => 20130627190740) do
   add_index "blocked_cookies", ["created_at"], :name => "index_blocked_cookies_on_created_at"
   add_index "blocked_cookies", ["ip_addr"], :name => "index_blocked_cookies_on_ip_addr"
   add_index "blocked_cookies", ["question_id"], :name => "index_blocked_cookies_on_question_id"
+
+  create_table "candidates", :force => true do |t|
+    t.string   "original_file_name",  :default => ""
+    t.integer  "rotation"
+    t.string   "nombre",              :default => ""
+    t.string   "apellidos",           :default => ""
+    t.string   "estudios",            :default => ""
+    t.string   "profesion",           :default => ""
+    t.string   "idiomas",             :default => ""
+    t.string   "partido_politico",    :default => ""
+    t.string   "url_mifirma",         :default => ""
+    t.text     "contribucion_social"
+    t.text     "motivaciones"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"

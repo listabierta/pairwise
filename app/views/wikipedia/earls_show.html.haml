@@ -16,7 +16,7 @@
       $('#new_image_id').val('');
 
       // voting
-      $('.vote').live('click', function(e) {
+      $('.vote').on('click', function(e) {
     		if ($(this).hasClass('loading')) {
     			alert("One sec, we're loading the next pair...");
     		} else {
