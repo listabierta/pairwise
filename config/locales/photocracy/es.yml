@@ -1,132 +1,303 @@
-es:
+en:
   common:
    # Common text elements across the application
-   and: y
-   votes_on: votos en
-   X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} votos en %{2}%{ideas_count}%{_2} ideas"
-   items: ideas
-   ideas: ideas
-   title: Todas nuestras ideas - un buzón de sugerencias para la nueva época digital 
-   characters: caracteres
-   idea_marketplace: Un Mercado de Ideas
-   votes: Votos
-   user_sessions: Sesiones de usuario
-   score: Resultados
+   and: and
+   votes_on: votes on
+   X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} votos en %{2}%{ideas_count}%{_2} candidatos"
+   your_votes: Your votes
+   average: average
+   about_this_survey: About this survey
+   instructions: Pincha en el mejor candidato para votar!
+   how_does_this_work: How does this work?
+   items: candidatos
+   ideas: candidatos
+   active: active
+   inactive: inactive
+   title: Photocracy - A Suggestion Box for the Digital Age
+   characters: characters
+   idea_marketplace: Photo Marketplace
+   votes: Votes
+   skips: Skips
+   user_sessions: User sessions
+   users: users
+   score: score
+  form:
+    create: Create
+    submit: Submit
+    save: Save
   nav:
-    # Navigation elements used at top right throughout site
-    # Some elements found just above choices on voting page
-    home: Inicio
-    about: Acerca
-    create: Crear
-    view_results: Ver Resultados
-    about_this_page: Acerca de esta página
-    manage_question: Manejar esta pagina
-    see_all_ideas: Ver más...
-    make_your_own: Crear su propia pregunta
-    view_idea: Ver idea
+    # Navigation elements used at top right and just above question choices
+    privacy_policy: Privacy and Consent Policy
+    home: Home
+    back: Back
+    about: About
+    create: Create
+    view_results: Ver resultados
+    about_this_page: About this page
+    manage_question: Manage this page
+    see_all_ideas: See more...
+    feedback: Feedback
+    make_your_own: Create Your Own Question
+    view_idea: View Photo
+    signup: sign up
+  home:
+    whats_this: What is this?
+    whats_this_txt:   Photocracy is a platform that enables groups to collect and prioritize photos in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age.
+    how_does: How does it work?
+    how_does_txt: You can use Photocracy to create a website where visitors can vote on photos and upload new ones. The intuitive and fun voting process yields powerful results.
+    get_started: Get started!
+    get_started_txt: Click on the link below to get started with Photocracy. It is free, easy, and built on open source technology. Create your own interactive suggestion box and start discovering.
+    create_a_question: Create a question
+    student_government_explanation: This example is based on a site that the Undergraduate Student Government at Princeton University used to discover the best photos for improving campus. In just a few weeks, more than 2,000 students contributed more than 40,000 votes and 100 new photos. You can create a question like this to discover the best photos in your group or organization.
+    see_an_example: See an example site
+    learn_more: Learn more
   items:
-    # Text on the item detail view page: 
-    # For example: http://www.allourideas.org/studentgovernment/choices/68
-    idea: Idea
-    score: Resultados
-    added_on: Añadido
-    number_of_votes: Número de votos
-    about_scoring: Sobre el método de obtener resultados
-    score_explain: El puntaje de una idea resulta de la probabilidad estimada de que dicha idea puede ganarle a una idea escogida al azar.  Por ejemplo, un puntaje de 100 predice que la idea va a ganar cada vez y un puntaje de 0 predice que la idea va a ser vencida cada vez.
-    you_just_submitted: Acabas de añadir una idea para votar
-  footer:
-    # Text in the footer of each page
-    support: Este proyecto es financiado con donaciones de Google y de CITP de la Universidad de Princeton.
-    open_source: Todas Nuestras Ideas es un paquete de software de código abierto.  Siéntase libre de revisar, mezclar o cambiar el diseño.
-  vote:
-    # Text that appears on the main voting page of each idea marketplace
-    # For example http://www.allourideas.org/studentgovernment
-    add_your_idea: Incluya su idea aquí...
-    add_your_idea_button: Registra tu propia idea
-    cast_votes: Votar aquí
-    you_chose: Escojiste
-    you_skipped_both: Omitiste
-    flag_as_inappropriate: Marcar como inadecuado
-    skip: Omitir
-    over: sobre
-    submit: Presentar
-    submit_idea_default_error: Perdón, ideas vacias no son permitidas. 
-    submit_idea_too_long_error: Perdón, las ideas necesitan tener menos de 140 caracteres. 
-    submit_idea_thankyou: Gracias.  Su idea ha sido añadida.  Por favor añada más ideas.  
-    vote_timeout_error: "Perdón, el proceso de votar está tomando demasiado tiempo - hay mucho tráfico en la red!"
-    vote_other_error: "Perdón, su voto no fué contado...occurrió un error."
-    view_all_the_results: Ver todos los resultados
-    cant_decide_title: No puedo decidir porque...
-    cant_decide: No puedo decidir
-    cd_like_both: Me gustan las dos ideas
-    cd_dislike_both: No me gusta ni idea
-    cd_dont_know_left: "No sé lo suficiente sobre:"
-    cd_dont_know_right: "No sé lo suficiente sobre:"
-    cd_dont_know_both: No sé lo suficiente sobre ambas ideas 
-    cd_both_same: Creo que ambas ideas son las mismas
-    cd_other: Simplemente no puedo decidir
-    cd_user_other: "Otros:"
-    cant_decide_message: No se podría decidir.
-    idea_sent_for_review: Su idea ha sido presentada para su revisión. Se van a aparecer pronto.
-  results:
-    # Text that appears on the results page of each idea marketplace
-    # For example: http://www.allourideas.org/studentgovernment/results
-    data_visualizations: Visualizaciónes de datos
-    world_map_title: Mapa mundial de todos los votos
-    world_map_ideas_title: Mapa mundia de todas las ideas cargadas en el sistema
-    votes_over_time_title: El número de votos a través del tiempo
-    user_ideas_over_time_title: El número de ideas sometidas a través del tiempo
-    user_sessions_over_time_title: El número de sesiones de usuario œnico por día
-    word_cloud_ideas_title: Nube-palabra de ideas
-    word_cloud_weighted_title: Nube-palabra de ideas evaluada por peso ponderado
-    word_cloud_uploaded_title: Nube-palabra de ideas cargadas
-    word_cloud_uploaded_weighted_title: Nube-palabra de ideas cargadas evaluada por peso ponderado
-    scatter_ideas_title: Compare ideas cargadas en el sistema con ideas originales
-    scatter_ideas_subtitle: Mueva su cursor sobre cada punto para aprender más
-    uploaded_ideas: Ideas Cargadas
-    original_ideas: Ideas Originales
-    about_word_cloud: Acerca de nubes de palabras
-    word_cloud_exp:  La palabra nubes aparece en esta página son una representación visual de las palabras que con mayor frecuencia aparecen en este mercado idea. Cuando ponderada por la puntuación, la nube de palabras generado utilizará la puntuación actual de una idea para determinar la popularidad de la palabra. Tenga en cuenta que algunas palabras comunes o poco frecuentes pueden ser filtrados de la nube de palabras generadas.
-    scores_of: Resultados de
-    view_link: "[Revise]"
-    close_link: "[Cerrar]"
-    per_day: " por día"
-    number_of: "Número de"
-    no_data_error: "No se puede construir un gráfico, no hay datos"
-    overall_total: "Total"
-    vote_map_geo_error: "No se pudo ubicar la localización de"
-    previous: << Anterior
-    next: Próximo >>
-  about_page: 
-    intro: Estás participando en un mercado "idea" que permite a los grupos para recoger y dar prioridad a las ideas en un proceso democrático, abierto y eficiente. Mediante la combinación de un proceso de votación simple con carga abierto de ideas, las mejores ideas de su grupo saldrán a la parte superior. 
-    how_many_votes_q: ¿Cuántos votos emitidos puedo? Cuando se termina?
-    how_many_votes_exp: Puedes votar tan poco o tanto como usted desee, y podrá dejar de votar en cualquier momento. 
-    how_many_ideas_q: ¿Cuántas ideas se puede añadir? ¿Qué sucede con mi idea una vez que lo agregue? 
-    how_many_ideas_exp: Usted puede agregar tantas ideas como las tuyas. Una vez que una idea se añade, puede ser revisada por la persona que creó el mercado idea para asegurarse de que no es inapropiado. Una vez que la idea ha sido revisado, que comenzarán a aparecer a las personas a votar en ella. 
-    view_results_q: ¿Puedo ver lo que piensen los demás? 
-    view_results_exp: Sí, simplemente haga clic en "Ver resultados" en la pantalla de votación. Este proceso es totalmente transparente. 
-    make_my_own_q: Este es limpio. ¿Puedo hacer una de esas yo mismo? 
-    make_my_own_exp: "Claro que sí. Es fácil de configurar su mercado propia idea, y es totalmente gratuita gracias a nuestros subvenciones de Google y el Centro de Tecnologías de la Información Política de la Universidad de Princeton. Usted puede crear su propia idea mercado aquí: http://www.allourideas.org/questions/new."
+    new:
+      too_long: Photo text too long. Max length is
+    list:
+      content: displayed text
+      status: status
+      change_status: change status
+      activated: Activated
+      deactivated: Deactivated
+      toggle: Toggle
+    items: Photos
+    idea: Photo
+    score: Score
+    added_on: Added on
+    number_of_votes: Number of Votes
+    about_scoring: About the Scoring
+    score_explain: The score of an photo is the estimated chance that it will win against a randomly chosen photo. For example, a score of 100 means the photo is predicted to win every time and a score of 0 means the photo is predicted to lose every time.
+    toggle_error: Sorry, we could not change the status of this choice because you do not own the question.
+    you_just_submitted: You just added an photo for people to vote on
+    you_have_successfully_activated: You have successfully activated the photo
+    you_have_successfully_deactivated: You have successfully deactivated the photo
+    view_original_size: View Original Size
+    email:
+      hello: "Hello,"
+      someone_has: "Someone has uploaded a photo " 
+      someone_has_flagged: Someone has flagged a photo in your photo marketplace at {{question_url}} as inappropriate.
+      provided_explanation_is: "The user that flagged this photo provided the following text as explanation:"
+      we_have_auto_deactivated: "We have automatically deactivated this photo from your photo marketplace. If you believe this photo is not inappropriate, you can re-enable it by visiting the following url:"
+      to_your_question: " to your question " 
+      if_you_want_to_activate: "If you want others to be able to vote on this photo, please activate it by visiting the following url:"
+      if_you_dont_want: If you do not want others to vote on this photo, no action is required.
+      if_you_want: If you want others to see this photo, no action is required.
+      see_current_results: "To see current results, or to vote further, you may want to visit the photo marketplace that you created: "
+      we_auto_activated_idea: "Based on your settings, we have auto-activated the photo so that it may be seen and voted upon immediately.  If for whatever reason you need to de-activate this photo, go to the following url:"
+      thanks: "Thanks,"
+      follow_us_on_twitter: "Follow us on twitter: "
   user:
-    # User information that appears in a few places, most importantly the footer
-    email: Correo electronico
-    login: Ingresar
-    control_panel: Panel de control
-    logout: Salir
+    close: Close
+    email: Email
+    login: Log In
+    control_panel: Control Panel
+    password: Password
+    password_confirmation: Password Confirmation
+    logout: Logout
+    forgot_password: Forgot your password?
+    reset_password_header: Reset your password
+    reset_password_explain: Forgot your password? Enter your login email below. We will send you an email with a link to reset your password. 
+    reset_password_button: Reset password
+    save_password_button: Save this password
+    change_your_password: Change your password
+    choose_password_below: Your password has been reset. Choose a new password below.
+    deny_access_error: You must be logged in to perform this action
+    not_authorized_error: You do not have permission to modify this question
+  questions:
+    new:
+      error:
+        registration: Sorry, we couldn't register you.
+        header: errors prohibited this website from being created.
+        already_taken: I'm sorry, but that email address has already been taken. Do you have an account on http://www.allourideas.org? You can 
+        already_taken_link: log-in with your allourideas.org account
+      header: Create your site
+      sidebar: Discover the best photos
+      step1: "Step 1: Question for your visitors"
+      step1_exp:   "For example, \"Which photo is more Princeton?\""
+      step2: "Step 2: Choose your URL"
+      step2_exp: princeton
+      step3: "Step 3: Upload lots of photos to seed the site"
+      step3_ist: Upload lots of photos here. You should put one per line.
+      step3_ist2: You can copy and paste from a list that you've already created.
+      step3_ist3: The maximum length of an photo is
+      step3_exp: "Add your own photos here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores"
+      step4: "Step 3: Create your account"
+      new_account_exp: Please give us your e-mail and pick a password so that you can get the results and administer your website.
+      display_text: Which photo is cuter? Which photo is more Philly? etc...
+      success_flash: Congratulations. You are about to discover some great photos.
+      success_flash2: Send out your URL
+      success_flash3: and watch what happens.
+      success_flash4: You can further customize this site by following this link
+      exp: You are about to create your own website where your visitors can vote on existing photos and upload new ones.
+      see_an: see an example
+      exp2: or get started using the steps below.
+      if_you_have_an_account: If you already have an account, please login
+      here: here
+      your_email_address: Your Email Address  
+      optional: Optional
+      help_us_out: Help Us Out
+      tell_us_why: What are you using Photocracy for?
+      tell_us_why2: How did you find us? How many visitors are you expecting? etc...
+      next_step_upload_photos: "Next Step: Upload Photos &raquo;"
+    enter_a_new_short_url: Enter a new short URL
+    edit: edit
+    short_url_success: Short URL updated succesfully.
+    current_short_url: current short URL
+    export_item_votes: Export votes
+    votes: votes
+    voting_page: Voting Page
+    question: Question
+    create_a_question: Create a question
+    existing_questions: Existing questions
+    list_questions: List My Other Questions
+    active_items: active photos
+    source: Source
+    not_active_error: Sorry, that question is not active.
+    owner_password_exp: The owner of this idea marketplace has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
+  vote:
+    add_your_idea: Add your own photo here...
+    add_your_idea_button: Add your own photo
+    add_another_idea_button: Add another photo
+    choose_file: Choose file
+    uploading_photo: Uploading photo...
+    thanks: Thanks!
+    photo_submitted: Your photo has been submitted for review. It will appear soon.
+    photo_accepted: Thank you. Your photo will appear soon.
+    photo_format_error: Please select another image. (Only jpg png and gifs allowed)
+    cast_votes: Cast Votes
+    you_chose: You chose
+    you_skipped_both: You skipped
+    skip: skip
+    flag_as_inappropriate: Flag as inappropriate
+    cant_decide_title: No puedo decidirme por que...
+    cant_decide: No puedo decidir
+    cd_like_both: Me gustan ambos candidatos
+    cd_dislike_both: No me gusta ningun candidato
+    cd_dont_know_left: "No conozco lo suficiente acerca de:"
+    cd_dont_know_right: "No conozco lo suficiente acerca de:"
+    cd_dont_know_both: No conozco lo suficiente de ninguno de ambos candidatos
+    cd_both_same: No conozco lo suficiente de ninguno de ambos candidatos
+    cd_other: No me puedo decidir
+    cd_user_other: "Otro:"
+    cant_decide_message: No te pudiste decidir.
+    please_explain_flag: "Please explain why this choice is inappropriate:"
+    flag_complete_message: You flagged a choice as inappropriate.
+    over: over
+    submit: Submit
+    view_all_the_results: View all the results
+    others_thought: Click to see what others thought.
+    submit_idea_default_error: Sorry, blank photos are not allowed. 
+    submit_idea_too_long_error: Sorry, photos need to be less than 140 characters.
+    submit_idea_thankyou: Thank you. Your photo has been added. Please add some more photos.
+    vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
+    vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
+    idea_sent_for_review: Your photo has been submitted for review. It will appear soon.
+  results:
+    data_visualizations: Data Visualizations
+    world_map_title: World map of all votes
+    world_map_ideas_title: World map of all uploaded photos
+    world_map_creators: World map of all photo marketplace creators
+    votes_over_time_title: Number of votes over time
+    user_ideas_over_time_title: Number of submitted photos over time
+    user_sessions_over_time_title: Number of unique user sessions per day
+    word_cloud_ideas_title: Word cloud of photos
+    word_cloud_weighted_title: Word cloud of photos weighted by score
+    word_cloud_uploaded_title: Word cloud of uploaded photos
+    word_cloud_uploaded_weighted_title: Word cloud of uploaded photos weighted by score
+    about_word_cloud: About word clouds
+    word_cloud_exp: The word clouds displayed on this page are a visual depiction of the words that most frequently appear in this photo marketplace. When weighted by score, the generated word cloud will use the current score of an photo to determine the popularity of the word. Note that some common or infrequent words may be filtered out of the generated word cloud.
+    scatter_ideas_title: Compare uploaded photos with original photos
+    scatter_ideas_subtitle: Roll over each point to learn more
+    uploaded_ideas: Uploaded Photos
+    original_ideas: Original Photos
+    scores_of: Scores of
+    view_link: "[View]"
+    close_link: "[Close]"
+    per_day: " per day"
+    number_of: "Number of "
+    no_data_error: "Cannot make chart, no data"
+    overall_total: "Overall total - "
+    vote_map_geo_error: "We were unable to find the location of "
+    previous: << Previous 
+    next: Next >>
+  about:
+    about: About this project
+    contact: Contact Us
+    current_contributors: Current Contributors
+    past_contributors: Past Contributors
+  about_page: 
+    intro: You are participating in an “photo marketplace” that enables groups to collect and prioritize photos in a democratic, open, and efficient process. By combining a simple voting process with open uploading of photos, the best photos in your group will bubble to the top. 
+    how_many_votes_q: How many votes can I cast? When does it end?
+    how_many_votes_exp: You can vote as little or as much as you want, and you can stop voting at any time.
+    how_many_ideas_q: How many photos can I add? What happens to my photo once I add it?
+    how_many_ideas_exp: You can add as many photos as you have. Once an photo is added, it may be reviewed by the person who created the photo marketplace in order to ensure that it is not inappropriate. Once the photo has been reviewed, it will start appearing for people to vote on it.
+    view_results_q: Can I see what everyone else thinks? 
+    view_results_exp: Yes, simply click on “View Results” from the voting screen. This process is completely transparent.
+    make_my_own_q: This is neat. Can I make one of these myself?
+    make_my_own_exp: "Sure. It is easy to set up your own photo marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own photo marketplace here: http://www.photocracy.org/questions/new."
+  admin: 
+    google_analytics_code: Google Analytics code
+    user_ideas: User Photos
+    active_user_ideas: Active User Photos 
+    num_votes: Votes
+    num_votes_today: "Votes (Today)"
+    created: Created
+    user: User
+    seed: Seed
+    this_question_created: This question created 
+    ago: ago
+    optional_question_settings: Optional Question Settings
+    auto_activate_exp: Allow photos by users to be automatically activated, without prior approval
+    enabled: Enabled
+    disabled: Disabled 
+    additional_settings: Additional Settings
+    password_protect_exp: Require users to enter the following user/password combination before voting
+    username: Username
+    replace_logo_exp: Replace logo above with another file
+    upload_logo_exp: Upload a logo to be displayed on your photo market place page
+    welcome_msg_exp: Add a welcome message for new voters
+    welcome_msg_long_exp: You may wish to include some extra information for users who visit your photo marketplace for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time. Note that this text is limited to 255 characters.
+    welcome_msg_long_exp2: For example, it may be useful to explain who is leading the photo marketplace or what will be done with the feedback gathered from this question. 
+    allow_flag_as_inappropriate: Allow users to flag individual photos as inappropriate. 
+    allow_flag_as_inappropriate_exp: This setting will allow users to flag photos as inappropriate or offtopic. After a user submits a flag request, the photo will be automatically deactivated and an email will be sent to the owner of the photo marketplace. The email will contain whatever explanation the user provided along with the option to quickly re-activate an photo.
+    default_lang_exp: Change the default language of the voting page interface
+    download_idea_marketplace_data: Download Photo Marketplace Data
+    list_of_ideas_csv: List of Photos (CSV File)
+    list_of_votes_csv: List of Votes (CSV File)
+    list_of_non_votes_csv: List of Non Vote Actions (CSV File)
+    download: Download
+    request: Request
+    and_registered_to: and it is registered to
+  footer:
+    support: This project is supported by grants from Google and CITP at Princeton University.
+    open_source: Photocracy is open source software. Feel free to review, remix, redesign, or contribute.
+    logged_in: Logged in
+    my_questions: My Questions
+  tour:
+    collect: Collect and sort suggestions effectively
+    p1: Just as Wikipedia is a platform that allows groups to collaboratively write an encyclopedia, Photocracy is a platform that allows groups to collect and prioritize photos in a transparent, democratic, and bottom-up process.
+    p2: To see how Photocracy works, we’ll walk through a specific example. Imagine that you are the president of the Undergraduate Student Government at Princeton and you need to find the issues of greatest concern to the student body. Everyone is telling you what they want, but nobody fills out surveys so you don’t know how widespread the support for any of these photos really is. Plus, how do you even know if your student priority survey includes all the important photos?
+    p3: This is a natural problem for Photocracy system of voting and soliciting suggestions. Once the platform for collaboration was created, more than 2,000 students contributed more than 40,000 votes and uploaded more than 100 new suggestions.
+    p4: "You can create such a platform for collaboration for your group in a few easy steps. In the end we are going to help you create something that looks like this:"
+    step1: "Step 1: Create a website"
+    step1_txt: 'Pick a question that voters see. For example, "Which do you want more?"'
+    step2: "Step 2: Pick a URL"
+    step2_txt: 'Pick a "quick url" that will take visitors to your site. For example, if the undergraduate student government wanted people to go to www.photocracy.org/usg they would have picked the quick url "usg".'
+    step3: "Step 3: Upload Photos"
+    step3_txt: Upload some photos. For example, the student government started about 200 with photos such as lower textbook prices, extend library hours, and outdoor hammocks. The more photos the better because the voting process will help you find the best ones.
+    step4: "Step 4: Spread your URL"
+    step4_txt: "Spread your url and watch what happens. You can get an photo of what the final product looks like by trying it below:"
+    see_an_example: See an example
+  login:
+    header: Log in to your account
   ab_tests:
-    # Text that is currently being used for Ab testing purposes, so not all strings will be visible at the same time.
      test_showmespace:
-        # This text appears directly under the idea submit box on the main vote page: 
-        # For example: http://www.allourideas.org/studentgovernment
-        # Note that 1/3 of sessions will see no text at all (control), so you may need to        
-        #  close and reopen your browser a few times to view this text
-        make_your_choice: Haga su selección y vea que viene
-        please_click: Favor haga clic sobre su selección
+        make_your_choice: Make your choice and see what comes next
+        please_click: Please click on your choice
      test_ideasubmit:
-        # This text appears inside the idea submit text box 
-        # For example: http://www.allourideas.org/studentgovernment
-        make_your_voice_heard: Hacer oír su voz
-        help_your_community: Ayude a su comunidad
+        make_your_voice_heard: "Make your voice heard"
+        help_your_community: "Help your community"
      test_stackoverflow:
-        first_time: Primera vez aquí? Haga clic en la opción que más le guste para empezar a votar!
-        no_first_time: Haga clic en la opción que más le guste para empezar a votar!
+        first_time: First time here? Click on the choice you like more to start voting!
+        no_first_time: Click on the choice you like more to start voting!

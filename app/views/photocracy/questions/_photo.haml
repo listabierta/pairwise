@@ -1,13 +1,47 @@
-%a.photo_frame{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
-              :thumb => photo.image.url(:thumb), :choice_url => url_for(:action => :show, :controller => :choices, :id => choice, :question_id => params[:id]), :class => "#{direction} vote", :direction => direction, :future_photo => future_photo.image.url(:medium), :id => direction == "left" ? "leftside" : "rightside"}
-  %table.current
-    %tr
-      %td
-        =image_tag(photo.image.url(:medium))
+.candidate_box
+  %a{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
+                :thumb => photo.image.url(:thumb), :choice_url => url_for(:action => :show, :controller => :choices, :id => choice, :question_id => params[:id]), :class => "#{direction} vote", :direction => direction, :future_photo => future_photo.image.url(:medium), :id => direction == "left" ? "leftside" : "rightside" }
+    =image_tag(photo.image.url(:medium))
+    %dl.dl-horizontal
+      %dt
+        Nombre
+      %dd
+        Pablo
+      %dt
+        Apellidos
+      %dd
+        Seibelt
+      %dt
+        Estudios
+      %dd
+        Ing. Software
+      %dt
+        Profesion
+      %dd
+        Desarrollo Web &amp; DataMining
+      %dt
+        Idiomas
+      %dd
+        Español, ingles
+      %dt
+        Partido politico
+      %dd
+        Centro
+      %dt
+        Contribucion Social
+      %dd
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla turpis sapien, iaculis hendrerit tellus et, dapibus varius velit. Pellentesque eu sodales nibh. Aliquam accumsan erat libero, sed accumsan tellus ultrices nec. Mauris bibendum varius augue, at mattis mauris iaculis eu. Donec vitae ante lorem. Donec eget metus sit amet ante dignissim varius a sit amet purus. Etiam ac lectus arcu. Cras ultrices cursus tincidunt. Donec ac ligula eget libero venenatis blandit. Etiam sed pharetra nunc. Nullam viverra velit in molestie tristique. Quisque quis sagittis dolor.
+      %dt
+        Motivaciones
+      %dd
+        Nulla tincidunt hendrerit massa quis hendrerit. Nullam massa urna, imperdiet molestie accumsan nec, fringilla at augue. Sed porttitor arcu a vulputate volutpat. Suspendisse potenti. Nam consectetur eros ac tortor consequat aliquam. Donec et imperdiet ante. Proin non molestie mauris, id luctus velit. Phasellus in sodales erat. Duis at malesuada nisi.
+      
 
-  -unless session[:has_voted] == true
-    .click_to_vote
-      Click to Vote
-
--if @earl.flag_enabled?
-  =link_to_function t('vote.flag_as_inappropriate'), "$('#flag_as_inappropriate').dialog('open'); $('#inappropriate_side').val('#{direction}_flag')", :class => "gray #{direction} flag", :id => "#{direction}_flag"
+  .form_actions
+    .btn.btn-primary.big-btn
+      Lo prefiero
+    %br
+    %br
+    =link_to 'Ver perfil y/o avalar', "/", {:class => 'btn btn-info'}
+    %p
+      

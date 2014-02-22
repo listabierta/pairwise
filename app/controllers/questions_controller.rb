@@ -59,11 +59,6 @@ class QuestionsController < ApplicationController
 
     logger.info "current page is #{current_page} but params is #{params[:page]}"
 
-    if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
-      I18n.locale = @earl.default_lang
-      redirect_to :action => :results, :controller => :questions, :id => @earl.name and return
-    end
-
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
     if params[:all]

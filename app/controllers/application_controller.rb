@@ -14,14 +14,8 @@ class ApplicationController < ActionController::Base
   @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget")) 
 
   def view_filter
-    if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || (RAILS_ENV == 'test' && $PHOTOCRACY)
-      @photocracy = true
-      prepend_view_path(@@photocracy_view_path)
-    elsif request.url.include?('widget') || request.env['SERVER_NAME'].include?('iphone') || @widget
-      @widget= true
-      @widget_stylesheet = "widget/screen"
-      prepend_view_path(@@widget_view_path)
-    end
+    @photocracy = true
+    prepend_view_path(@@photocracy_view_path)
   end
 
   def set_pairwise_credentials
@@ -141,6 +135,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
+
     if @photocracy
       I18n.load_path = Dir[Rails.root.join('config', 'locales', 'photocracy', '*.{rb,yml}')]
     else

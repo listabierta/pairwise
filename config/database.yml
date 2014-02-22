@@ -3,10 +3,12 @@
 
 development: &default
   adapter: mysql2
-  user: root
-  database: allourideas_development
+  database: europas_development
   pool: 5
   timeout: 5000
+  host: localhost
+  username: root
+  password: root
 
 #development: &default
 #  adapter: sqlite3

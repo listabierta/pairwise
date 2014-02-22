@@ -1,0 +1,20 @@
+Instalar mysql
+Instalar redis 2.4.x
+
+cd pairwise-api
+rvm install 1.9.3
+rvm use 1.9.3
+rvm rubygems latest-1.8
+bundle install --path vendor/ --binstubs --local
+
+./bin/rake db:create
+./bin/rake db:schema:load
+
+bundle exec ruby ./script/server -p 3000
+./bin/rake jobs:work
+
+./bin/rake util:useradd[pabloseibelt@gmail.com,admin]
+
+User.new(:email => 'pabloseibelt@gmail.com',
+                     :password => 'sicarul',
+                     :password_confirmation => 'sicarul')

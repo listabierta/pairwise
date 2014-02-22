@@ -12,13 +12,6 @@ class EarlsController < ApplicationController
         flash[:notice] = t('questions.not_active_error')
         redirect_to '/' and return
       end
-      
-
-      if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
-	      I18n.locale = @earl.default_lang
-
-	      redirect_to :action => :show, :controller => :earls, :id => @earl.name and return
-      end
 
       begin
       

@@ -7,11 +7,6 @@ class ChoicesController < ApplicationController
     @earl = Earl.find params[:question_id]
     @question = Question.find(@earl.question_id)
     
-    if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
-	      I18n.locale = @earl.default_lang
-	      redirect_to :action => :show, :controller => :choices, 
-		      :question_id => params[:question_id], :id => params[:id]  and return
-    end
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     @num_votes = @choice.wins + @choice.losses
 

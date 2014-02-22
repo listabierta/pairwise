@@ -1,20 +1,20 @@
 en:
   common:
    # Common text elements across the application
-   and: and
-   votes_on: votes on
-   X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} votes on %{2}%{ideas_count}%{_2} photos"
-   your_votes: Your votes
-   average: average
+   and: y
+   votes_on: votos en
+   X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} votos en %{2}%{ideas_count}%{_2} candidatos"
+   your_votes: Tus votos
+   average: promedio
    about_this_survey: About this survey
-   instructions: Click on the best photo to vote!
+   instructions: Pincha en el mejor candidato para votar!
    how_does_this_work: How does this work?
-   items: photos
-   ideas: photos
+   items: candidatos
+   ideas: candidatos
    active: active
    inactive: inactive
-   title: Photocracy - A Suggestion Box for the Digital Age
-   characters: characters
+   title: Europas 2014
+   characters: caracteres
    idea_marketplace: Photo Marketplace
    votes: Votes
    skips: Skips
