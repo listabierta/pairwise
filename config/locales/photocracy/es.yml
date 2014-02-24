@@ -238,14 +238,14 @@ en:
     make_my_own_exp: "Sure. It is easy to set up your own photo marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own photo marketplace here: http://www.photocracy.org/questions/new."
   admin: 
     google_analytics_code: Google Analytics code
-    user_ideas: User Photos
-    active_user_ideas: Active User Photos 
-    num_votes: Votes
-    num_votes_today: "Votes (Today)"
-    created: Created
-    user: User
-    seed: Seed
-    this_question_created: This question created 
+    user_ideas: Candidatos
+    active_user_ideas: Candidatos activos
+    num_votes: Votos
+    num_votes_today: "Votos (hoy)"
+    created: Creado
+    user: Usuario
+    seed: Semilla
+    this_question_created: Esta pregunta fue creada
     ago: ago
     optional_question_settings: Optional Question Settings
     auto_activate_exp: Allow photos by users to be automatically activated, without prior approval

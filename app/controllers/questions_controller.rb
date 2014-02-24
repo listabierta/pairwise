@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'crack'
   require 'geokit'
+  require 'zip/zipfilesystem'
   before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name, :new, :create]
   before_filter :admin_only, :only => [:index, :admin_stats]
   #caches_page :results
@@ -945,11 +946,11 @@ class QuestionsController < ApplicationController
     new_idea_data = params[:new_idea]
 
     if @photocracy
-      new_photo = Photo.create(:image => params[:new_idea], :original_file_name => params[:new_idea].original_filename)
-      if new_photo.valid?
-        new_idea_data = new_photo.id
+      new_candidate = Photo.create(:image => params[:new_idea], :original_file_name => params[:new_idea].original_filename)
+      if new_candidate.valid?
+        new_idea_data = new_candidate.id
       else
-        render :text => {'errors' => new_photo.errors.full_messages.join("\n"), 'response_status' => 500}.to_json and return
+        render :text => {'errors' => new_candidate.errors.full_messages.join("\n"), 'response_status' => 500}.to_json and return
       end
     else
       # remove new lines from new ideas
@@ -980,7 +981,7 @@ class QuestionsController < ApplicationController
         end
 
         if @photocracy
-          render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
+          render :text => {'thumbnail_url' => new_candidate.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
         else
           render :json => {
             :choice_status => @choice.active? ? 'active' : 'inactive',
@@ -1224,22 +1225,8 @@ class QuestionsController < ApplicationController
   # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
   protect_from_forgery :except => [:upload_photos]
   def upload_photos
-    @earl = Earl.find_by_name!(params[:id])
-
-    new_photo = Photo.create(:image => params[:Filedata], :original_file_name => params[:Filedata].original_filename)
-    if new_photo.valid?
-      choice_params = {
-        :visitor_identifier => params[:session_identifier],
-        :data => new_photo.id,
-        :question_id => @earl.question_id,
-        :active => true
-      }
-
-
-      choice = Choice.create(choice_params)
-    end
-
-    if new_photo.valid? && choice.valid?
+    
+    if new_candidate.valid? && choice.valid?
       render :text => "yeah!"
     else
       render :text => 'Choice creation failed', :status => 500
@@ -1304,5 +1291,22 @@ class QuestionsController < ApplicationController
         hash[a["visitor_id"]] = a["count"]
       end
       return hash
+    end
+
+    def upload_candidate(params)
+      @earl = Earl.find_by_name!(params[:id])
+
+      new_candidate = Photo.create(:image => params[:Filedata], :original_file_name => params[:Filedata].original_filename)
+      if new_candidate.valid?
+        choice_params = {
+          :visitor_identifier => params[:session_identifier],
+          :data => new_candidate.id,
+          :question_id => @earl.question_id,
+          :active => true
+        }
+
+
+        choice = Choice.create(choice_params)
+      end
     end
 end

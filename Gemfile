@@ -36,6 +36,7 @@ gem "compass-rails", "~> 1.0.3"
 gem "bootstrap-sass", "~> 2.1.1.0"
 gem "mysql2", "0.2.18"
 gem "test-unit", "1.2.3"
+gem "rubyzip"
 
 group :development do
   gem "engineyard"

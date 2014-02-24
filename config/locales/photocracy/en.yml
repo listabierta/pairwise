@@ -1,11 +1,11 @@
 en:
   common:
    # Common text elements across the application
-   and: y
-   votes_on: votos en
+   and: and
+   votes_on: votes on
    X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} votos en %{2}%{ideas_count}%{_2} candidatos"
-   your_votes: Tus votos
-   average: promedio
+   your_votes: Your votes
+   average: average
    about_this_survey: About this survey
    instructions: Pincha en el mejor candidato para votar!
    how_does_this_work: How does this work?
@@ -13,8 +13,8 @@ en:
    ideas: candidatos
    active: active
    inactive: inactive
-   title: Europas 2014
-   characters: caracteres
+   title: Photocracy - A Suggestion Box for the Digital Age
+   characters: characters
    idea_marketplace: Photo Marketplace
    votes: Votes
    skips: Skips
@@ -32,7 +32,7 @@ en:
     back: Back
     about: About
     create: Create
-    view_results: View Results
+    view_results: Ver resultados
     about_this_page: About this page
     manage_question: Manage this page
     see_all_ideas: See more...
@@ -170,17 +170,17 @@ en:
     you_skipped_both: You skipped
     skip: skip
     flag_as_inappropriate: Flag as inappropriate
-    cant_decide_title: I can't decide because...
-    cant_decide: I can't decide
-    cd_like_both: I like both photos
-    cd_dislike_both: I don't like either photo
-    cd_dont_know_left: "I don't know enough about:"
-    cd_dont_know_right: "I don't know enough about:"
-    cd_dont_know_both: I don't know enough about either photo
-    cd_both_same: I think both photos are the same
-    cd_other: I just can't decide
-    cd_user_other: "Other:"
-    cant_decide_message: You couldn't decide.
+    cant_decide_title: No puedo decidirme por que...
+    cant_decide: No puedo decidir
+    cd_like_both: Me gustan ambos candidatos
+    cd_dislike_both: No me gusta ningun candidato
+    cd_dont_know_left: "No conozco lo suficiente acerca de:"
+    cd_dont_know_right: "No conozco lo suficiente acerca de:"
+    cd_dont_know_both: No conozco lo suficiente de ninguno de ambos candidatos
+    cd_both_same: No conozco lo suficiente de ninguno de ambos candidatos
+    cd_other: No me puedo decidir
+    cd_user_other: "Otro:"
+    cant_decide_message: No te pudiste decidir.
     please_explain_flag: "Please explain why this choice is inappropriate:"
     flag_complete_message: You flagged a choice as inappropriate.
     over: over
@@ -238,16 +238,16 @@ en:
     make_my_own_exp: "Sure. It is easy to set up your own photo marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own photo marketplace here: http://www.photocracy.org/questions/new."
   admin: 
     google_analytics_code: Google Analytics code
-    user_ideas: User Photos
-    active_user_ideas: Active User Photos 
-    num_votes: Votes
-    num_votes_today: "Votes (Today)"
-    created: Created
-    user: User
-    seed: Seed
-    this_question_created: This question created 
+    user_ideas: Candidatos
+    active_user_ideas: Candidatos activos
+    num_votes: Votos
+    num_votes_today: "Votos (hoy)"
+    created: Creado
+    user: Usuario
+    seed: Semilla
+    this_question_created: Esta pregunta fue creada
     ago: ago
-    optional_question_settings: Optional Question Settings
+    optional_question_settings: Configuracion opcional
     auto_activate_exp: Allow photos by users to be automatically activated, without prior approval
     enabled: Enabled
     disabled: Disabled 

@@ -28,8 +28,8 @@
     		'queueID'        : 'fileQueue',
     		'auto'           : true,
     		'multi'          : true,
-        'fileDesc'       : 'Only jpg, png, and gif files allowed (smaller than 5 MB)',
-        'fileExt'        : '*.jpg;*.jpeg;*.png;*.gif',
+        'fileDesc'       : 'Only jpg, png, gif, zip and csv files allowed (smaller than 50 MB)',
+        'fileExt'        : '*.zip;*.csv;*.jpg;*.jpeg;*.png;*.gif',
     		'width'          : '222',
     		'height'         : '48',
     		'wmode'          : 'transparent',
@@ -39,14 +39,9 @@
           'authenticity_token'  : AUTH_TOKEN
         },
         onComplete       : function() {
-          var photos_needed = decrement($('#photos_needed').text());
-          if (photos_needed > 0) {
-            $('#photos_needed').text(photos_needed);
-          } else {
-            $('#status_message').html("You've uploaded the minimum number of photos. <span class='normal'>(But the more you add the better!)</span>");
-            $('#status_message').css('color', 'green');
-            $('#done_button').show();
-          }
+        
+          $('#status_message').html("Subida exitosa");
+          $('#status_message').css('color', 'green');
         }
     	});
     });
