@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   require 'crack'
   require 'geokit'
   require 'zip/zipfilesystem'
+  require 'tempfile'
   before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name, :new, :create]
   before_filter :admin_only, :only => [:index, :admin_stats]
   #caches_page :results
@@ -1225,11 +1226,41 @@ class QuestionsController < ApplicationController
   # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
   protect_from_forgery :except => [:upload_photos]
   def upload_photos
-    
-    if new_candidate.valid? && choice.valid?
-      render :text => "yeah!"
-    else
+    failed = false
+
+
+    Zip::ZipFile.open(params[:Filedata]) do |zipped|
+      zipped.entries.each do |f|
+
+        ext = File.extname(f.name)
+
+        t=Tempfile.new("candfile")
+        f_path = t.path
+        t.close!
+
+        zipped.extract(f, f_path)
+        candfile = File.open(f_path, 'rb')
+
+        if (['.jpg', '.jpeg', '.png', '.gif'].include? ext )
+          unless upload_candidate_photo(params, candfile, f)
+            failed = true
+          end
+        elsif (ext == '.csv')
+          unless upload_candidate(params, candfile)
+            failed = true
+          end
+        end
+
+        candfile.close
+        File.delete(f_path)
+      end
+    end
+
+
+    if failed
       render :text => 'Choice creation failed', :status => 500
+    else
+      render :text => "yeah!"
     end
   end
 
@@ -1293,10 +1324,10 @@ class QuestionsController < ApplicationController
       return hash
     end
 
-    def upload_candidate(params)
+    def upload_candidate_photo(params, filedata, filename)
       @earl = Earl.find_by_name!(params[:id])
 
-      new_candidate = Photo.create(:image => params[:Filedata], :original_file_name => params[:Filedata].original_filename)
+      new_candidate = Photo.create(:image => filedata, :original_file_name => filename)
       if new_candidate.valid?
         choice_params = {
           :visitor_identifier => params[:session_identifier],
@@ -1304,9 +1335,57 @@ class QuestionsController < ApplicationController
           :question_id => @earl.question_id,
           :active => true
         }
-
+        
 
         choice = Choice.create(choice_params)
+
+        if choice.valid?
+          return true
+        end
       end
+      return false
+    end
+
+    def upload_candidate(params, filedata)
+      @earl = Earl.find_by_name!(params[:id])
+
+      require 'csv'
+
+      f = File.open('Ejemplo de resultados de la encuesta.csv')
+      CSV.foreach(f, :headers => true) do |row|
+        r = row.to_hash
+        puts r
+        puts r['id']
+        puts r['Nombre']
+        puts r['Apellidos']
+        puts r['Estudios']
+        puts r['Profesión']
+        puts r['Idiomas [Bilingue]']
+        puts r['Idiomas [Nivel alto (puede mantener una conversación telefónica sin pausas, lee y escribe con fluidez)]']
+        puts r['Idiomas [Intermedio (puede entenderse en cuestiones no complejas)]']
+        puts r['Idiomas [Elemental (nivel Ana Botella, Aznar, Rajoy...)]']
+        puts r['Contribución social. Describe cómo has colaborado a construir una sociedad más justa/mejor para los demás (tienes un límite de 500 carácteres).']
+        puts r['Motivación ¿Que te mueve a presenterate como candidata o candidato? (tienes un límite de 500 caracteres)']
+
+      end
+
+      return true
+      #new_candidate = Photo.create(:image => filedata, :original_file_name => filename)
+      #if new_candidate.valid?
+      #  choice_params = {
+      #    :visitor_identifier => params[:session_identifier],
+      #    :data => new_candidate.id,
+      #    :question_id => @earl.question_id,
+      #    :active => true
+      #  }
+      #  
+
+      #  choice = Choice.create(choice_params)
+
+      #  if choice.valid?
+      #    return true
+      #  end
+      #end
+      #return false
     end
 end
