@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140222204042) do
+ActiveRecord::Schema.define(:version => 20140227011920) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(:version => 20140222204042) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "foreign_id"
+    t.string   "idiomas_limitados"
   end
 
   create_table "clicks", :force => true do |t|

@@ -1,9 +1,13 @@
+# coding: UTF-8
+
 class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'crack'
   require 'geokit'
   require 'zip/zipfilesystem'
   require 'tempfile'
+  require 'csv'
+
   before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name, :new, :create]
   before_filter :admin_only, :only => [:index, :admin_stats]
   #caches_page :results
@@ -1241,14 +1245,8 @@ class QuestionsController < ApplicationController
         zipped.extract(f, f_path)
         candfile = File.open(f_path, 'rb')
 
-        if (['.jpg', '.jpeg', '.png', '.gif'].include? ext )
-          unless upload_candidate_photo(params, candfile, f)
-            failed = true
-          end
-        elsif (ext == '.csv')
-          unless upload_candidate(params, candfile)
-            failed = true
-          end
+        unless handle_file(params, candfile, f)
+          failed = true
         end
 
         candfile.close
@@ -1324,6 +1322,27 @@ class QuestionsController < ApplicationController
       return hash
     end
 
+    def handle_file(params, candfile, zipfile)
+
+      ext = File.extname(zipfile.name).downcase
+
+      if (['.jpg', '.jpeg', '.png', '.gif'].include? ext )
+        if upload_candidate_photo(params, candfile, zipfile.name)
+          return true
+        else
+          return false
+        end
+      elsif (ext == '.csv')
+        if upload_candidate(params, candfile)
+          return true
+        else
+          return false
+        end
+      end
+
+      return true
+    end
+
     def upload_candidate_photo(params, filedata, filename)
       @earl = Earl.find_by_name!(params[:id])
 
@@ -1349,24 +1368,29 @@ class QuestionsController < ApplicationController
     def upload_candidate(params, filedata)
       @earl = Earl.find_by_name!(params[:id])
 
-      require 'csv'
-
-      f = File.open('Ejemplo de resultados de la encuesta.csv')
-      CSV.foreach(f, :headers => true) do |row|
+      CSV.foreach(filedata, :headers => true) do |row|
         r = row.to_hash
-        puts r
-        puts r['id']
-        puts r['Nombre']
-        puts r['Apellidos']
-        puts r['Estudios']
-        puts r['Profesión']
-        puts r['Idiomas [Bilingue]']
-        puts r['Idiomas [Nivel alto (puede mantener una conversación telefónica sin pausas, lee y escribe con fluidez)]']
-        puts r['Idiomas [Intermedio (puede entenderse en cuestiones no complejas)]']
-        puts r['Idiomas [Elemental (nivel Ana Botella, Aznar, Rajoy...)]']
-        puts r['Contribución social. Describe cómo has colaborado a construir una sociedad más justa/mejor para los demás (tienes un límite de 500 carácteres).']
-        puts r['Motivación ¿Que te mueve a presenterate como candidata o candidato? (tienes un límite de 500 caracteres)']
 
+
+        f_id = r['id']
+        nombre = r['Nombre']
+        apellidos = r['Apellidos']
+        estudios = r['Estudios']
+        profesion = r['Profesión']
+        ingles = r['Idiomas [Inglés]']
+        frances = r["Idiomas [Francés]"]
+        aleman = r["Idiomas [Alemán]"]
+        italiano = r["Idiomas [Italiano]"]
+        otros_comu = r["Idiomas [Otro idioma comunitario]"]
+        otros_nocomu r["Idiomas [Otro idioma no comunitario]"]
+        contribucion = r['Contribución social. Describe cómo has colaborado a construir una sociedad más justa/mejor para los demás (tienes un límite de 500 carácteres).']
+        motivacion = r['Motivación ¿Que te mueve a presenterate como candidata o candidato? (tienes un límite de 500 caracteres)']
+
+        cand_entity = Candidate.find_by_foreign_id(f_id)
+
+        unless cand_entity
+          cand_entity = Candidate.create(:foreign_id => f_id)
+        end
       end
 
       return true
