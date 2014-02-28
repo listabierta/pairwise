@@ -1031,10 +1031,11 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
 
-    unless ( (current_user.owns? @earl) || current_user.admin?)
+    unless ( current_user.admin?)
       flash[:notice] = "You are not authorized to view that page"
       redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
     end
+
     @question = Question.new(params[:question].slice(:name, :ideas, :url))
     @user = User.new(:email => params[:question]['email'],
                      :password => params[:question]['password'],
