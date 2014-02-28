@@ -15,7 +15,7 @@ en:
    inactive: inactive
    title: Photocracy - A Suggestion Box for the Digital Age
    characters: characters
-   idea_marketplace: Photo Marketplace
+   idea_marketplace: Candidate Marketplace
    votes: Votes
    skips: Skips
    user_sessions: User sessions
@@ -38,7 +38,7 @@ en:
     see_all_ideas: See more...
     feedback: Feedback
     make_your_own: Create Your Own Question
-    view_idea: View Photo
+    view_idea: View Candidate
     signup: sign up
   home:
     whats_this: What is this?
@@ -53,7 +53,7 @@ en:
     learn_more: Learn more
   items:
     new:
-      too_long: Photo text too long. Max length is
+      too_long: Candidate text too long. Max length is
     list:
       content: displayed text
       status: status
@@ -62,7 +62,7 @@ en:
       deactivated: Deactivated
       toggle: Toggle
     items: Photos
-    idea: Photo
+    idea: Candidate
     score: Score
     added_on: Added on
     number_of_votes: Number of Votes
@@ -262,7 +262,7 @@ en:
     allow_flag_as_inappropriate: Allow users to flag individual photos as inappropriate. 
     allow_flag_as_inappropriate_exp: This setting will allow users to flag photos as inappropriate or offtopic. After a user submits a flag request, the photo will be automatically deactivated and an email will be sent to the owner of the photo marketplace. The email will contain whatever explanation the user provided along with the option to quickly re-activate an photo.
     default_lang_exp: Change the default language of the voting page interface
-    download_idea_marketplace_data: Download Photo Marketplace Data
+    download_idea_marketplace_data: Download Candidate Marketplace Data
     list_of_ideas_csv: List of Photos (CSV File)
     list_of_votes_csv: List of Votes (CSV File)
     list_of_non_votes_csv: List of Non Vote Actions (CSV File)

@@ -71,7 +71,7 @@ end
 Given /^a photocracy idea marketplace quickly exists with url '([^\']*)'$/ do |url|
 	photos = []
 	3.times do |i|
-		p = Photo.create! :image => ActionController::TestUploadedFile.new("#{Rails.root}/db/seed-images/princeton/#{i+1}.jpg", "image/jpg")
+		p = Candidate.create! :image => ActionController::TestUploadedFile.new("#{Rails.root}/db/seed-images/princeton/#{i+1}.jpg", "image/jpg")
 
 		photos << p.id
 	end

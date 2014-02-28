@@ -11,7 +11,7 @@ class ChoicesController < ApplicationController
     @num_votes = @choice.wins + @choice.losses
 
     if @photocracy
-      @photo = Photo.find(@choice.data.strip)
+      @photo = Candidate.find(@choice.data.strip)
       @votes = @choice.get(:votes)
 
       if params[:login_reminder]
@@ -66,7 +66,7 @@ class ChoicesController < ApplicationController
   def rotate
     if @photocracy
        @choice = Choice.find(params[:id], :params => {:question_id => @earl.question_id})
-       @image = Photo.find(@choice.data.strip)
+       @image = Candidate.find(@choice.data.strip)
        rotation = params[:deg].to_f
        rotation ||= 90 # Optional, otherwise, check for nil!
     

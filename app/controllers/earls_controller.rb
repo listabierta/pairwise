@@ -46,10 +46,10 @@ class EarlsController < ApplicationController
           @crossfade_time = '250'
           @show_average_votes = false
 
-          @right_choice_photo = Photo.find(@right_choice_text)
-          @left_choice_photo = Photo.find(@left_choice_text)
-          @future_right_choice_photo = Photo.find(@question.attributes['future_right_choice_text_1'])
-          @future_left_choice_photo = Photo.find(@question.attributes['future_left_choice_text_1'])
+          @right_choice_photo = Candidate.find(@right_choice_text)
+          @left_choice_photo = Candidate.find(@left_choice_text)
+          @future_right_choice_photo = Candidate.find(@question.attributes['future_right_choice_text_1'])
+          @future_left_choice_photo = Candidate.find(@question.attributes['future_left_choice_text_1'])
        end
 
        if @widget    

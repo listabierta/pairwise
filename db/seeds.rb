@@ -18,7 +18,7 @@ Earl.create(:question_id => @question.id,
 require 'action_controller'
 require 'action_controller/test_process.rb'
 photo_ids.each do |i|
-  Photo.create! :image => ActionController::TestUploadedFile.new("#{Rails.root}/db/seed-images/princeton/#{i}.jpg", "image/jpg")
+  Candidate.create! :image => ActionController::TestUploadedFile.new("#{Rails.root}/db/seed-images/princeton/#{i}.jpg", "image/jpg")
   # Added these in the question.create above
   # Choice.post(:create_from_abroad, :question_id => @question.id, :params => {'auto' => rand(472348), :data => @photo.id, :local_identifier => @user.id})
 end

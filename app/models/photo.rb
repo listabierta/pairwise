@@ -1,4 +1,4 @@
-class Photo < ActiveRecord::Base
+class Candidate < ActiveRecord::Base
   paperclip_options = {:styles => 
                          { :large => "600x600>",
                            :medium => "425x340>",
