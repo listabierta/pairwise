@@ -1346,23 +1346,17 @@ class QuestionsController < ApplicationController
     def upload_candidate_photo(params, filedata, filename)
       @earl = Earl.find_by_name!(params[:id])
 
-      new_candidate = Photo.create(:image => filedata, :original_file_name => filename)
-      if new_candidate.valid?
-        choice_params = {
-          :visitor_identifier => params[:session_identifier],
-          :data => new_candidate.id,
-          :question_id => @earl.question_id,
-          :active => true
-        }
-        
+      f_id = filename.split('-')[0]
 
-        choice = Choice.create(choice_params)
+      cand_entity = Candidate.find_by_foreign_id(f_id)
 
-        if choice.valid?
-          return true
-        end
+      if cand_entity
+        cand_entity.image = filedata
+        cand_entity.original_file_name = filename
+        cand_entity.save
       end
-      return false
+
+      return true
     end
 
     def upload_candidate(params, filedata)
@@ -1377,39 +1371,61 @@ class QuestionsController < ApplicationController
         apellidos = r['Apellidos']
         estudios = r['Estudios']
         profesion = r['Profesión']
-        ingles = r['Idiomas [Inglés]']
-        frances = r["Idiomas [Francés]"]
-        aleman = r["Idiomas [Alemán]"]
-        italiano = r["Idiomas [Italiano]"]
-        otros_comu = r["Idiomas [Otro idioma comunitario]"]
-        otros_nocomu r["Idiomas [Otro idioma no comunitario]"]
-        contribucion = r['Contribución social. Describe cómo has colaborado a construir una sociedad más justa/mejor para los demás (tienes un límite de 500 carácteres).']
-        motivacion = r['Motivación ¿Que te mueve a presenterate como candidata o candidato? (tienes un límite de 500 caracteres)']
+        contribucion_social = r['Contribución social. Describe cómo has colaborado a construir una sociedad más justa/mejor para los demás (tienes un límite de 500 carácteres).']
+        motivaciones = r['Motivación ¿Que te mueve a presenterate como candidata o candidato? (tienes un límite de 500 caracteres)']
+
+        idiomas_array = [
+          ['Inglés', r['Idiomas [Inglés]']],
+          ['Francés',   r["Idiomas [Francés]"]],
+          ['Alemán',   r["Idiomas [Alemán]"]],
+          ['Italiano',   r["Idiomas [Italiano]"]],
+          ['Otro idioma comunitario',   r["Idiomas [Otro idioma comunitario]"]],
+          ['Otro idioma no comunitario',  r["Idiomas [Otro idioma no comunitario]"]]
+        ]
+
+        categorias_dominio = [
+          'Bilingue',
+          'Puedo mantener una entrevista televisada en directo con preguntas y respuestas'
+        ]
+
+        categorias_habilidad = [
+          'Puedo establecer una conversación y escribir un informe',
+          'Puedo leer en el idioma y entender con alguna dificultad cuando me hablan',
+          'Tengo algún conocimiento'
+        ]
+
+        idiomas_dominio = idiomas_array.select{ |x| categorias_dominio.include? x[1] }.map{|x| x[0]}.join(', ')
+        idiomas_habilidad = idiomas_array.select{ |x| categorias_habilidad.include? x[1]}.map{|x| x[0]}.join(', ')
+
+        
+
 
         cand_entity = Candidate.find_by_foreign_id(f_id)
 
         unless cand_entity
           cand_entity = Candidate.create(:foreign_id => f_id)
+          choice_params = {
+            :visitor_identifier => params[:session_identifier],
+            :data => new_candidate.id,
+            :question_id => @earl.question_id,
+            :active => true
+          }
+          choice = Choice.create(choice_params)
         end
+
+        cand_entity.nombre = nombre
+        cand_entity.nombre = nombre
+        cand_entity.apellidos = apellidos
+        cand_entity.estudios = estudios
+        cand_entity.profesion = profesion
+        cand_entity.idiomas = idiomas_dominio
+        cand_entity.idiomas_limitados = idiomas_habilidad
+        cand_entity.contribucion_social = contribucion_social
+        cand_entity.motivaciones = motivaciones
+
+        cand_entity.save
       end
 
       return true
-      #new_candidate = Photo.create(:image => filedata, :original_file_name => filename)
-      #if new_candidate.valid?
-      #  choice_params = {
-      #    :visitor_identifier => params[:session_identifier],
-      #    :data => new_candidate.id,
-      #    :question_id => @earl.question_id,
-      #    :active => true
-      #  }
-      #  
-
-      #  choice = Choice.create(choice_params)
-
-      #  if choice.valid?
-      #    return true
-      #  end
-      #end
-      #return false
     end
 end
