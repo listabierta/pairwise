@@ -1346,7 +1346,7 @@ class QuestionsController < ApplicationController
     def upload_candidate_photo(params, filedata, filename)
       @earl = Earl.find_by_name!(params[:id])
 
-      f_id = filename.split('-')[0]
+      f_id = filename.split('_')[0]
 
       cand_entity = Candidate.find_by_foreign_id(f_id)
 
