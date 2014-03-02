@@ -287,6 +287,19 @@ class QuestionsController < ApplicationController
       redirect_to( "/#{params[:id]}") and return
     end
 
+    if request.post? && request.request_parameters['updateurls']
+      request.request_parameters.each do |pname, pvar|
+        i = Integer(pname) rescue false
+        if i
+          cand = Candidate.find(pname)
+          if cand
+            cand.url_mifirma = pvar
+            cand.save
+          end
+        end
+      end
+    end
+
     @question = @earl.question
     @partial_results_url = "#{@earl.name}/results"
 
@@ -404,7 +417,7 @@ class QuestionsController < ApplicationController
 
       point = {}
       if @photocracy
-        point[:name] = "<img src='#{Photo.find(c.data).image.url(:thumb)}' width='50' height='50' />"
+        point[:name] = "<img src='#{Candidate.find(c.data).image.url(:thumb)}' width='50' height='50' />"
       else
         point[:name] = CGI::escapeHTML(c.data.strip.gsub("'", "")) + "@@@" + c.id.to_s
       end
@@ -946,57 +959,6 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def add_idea
-    bingo!('submitted_idea')
-    new_idea_data = params[:new_idea]
-
-    if @photocracy
-      new_candidate = Photo.create(:image => params[:new_idea], :original_file_name => params[:new_idea].original_filename)
-      if new_candidate.valid?
-        new_idea_data = new_candidate.id
-      else
-        render :text => {'errors' => new_candidate.errors.full_messages.join("\n"), 'response_status' => 500}.to_json and return
-      end
-    else
-      # remove new lines from new ideas
-      if new_idea_data.class == String
-        new_idea_data.gsub!(/[\n\r]/, ' ') unless wikipedia?
-      end
-    end
-
-    choice_params = {:visitor_identifier => request.session_options[:id], 
-      :data => new_idea_data, 
-      :question_id => params[:id]}
-
-    choice_params.merge!(:local_identifier => current_user.id) if signed_in?
-
-
-    if @choice = Choice.create(choice_params)
-      @question = Question.find(params[:id], :params => {
-        :with_visitor_stats => true,
-        :visitor_identifier => request.session_options[:id]
-      })
-      @earl = Earl.find_by_question_id(params[:id])
-
-        @earl = Earl.find_by_question_id(@question.id)
-        if @choice.active?
-          IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
-        else
-          IdeaMailer.delay.deliver_notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
-        end
-
-        if @photocracy
-          render :text => {'thumbnail_url' => new_candidate.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
-        else
-          render :json => {
-            :choice_status => @choice.active? ? 'active' : 'inactive',
-            :message => "#{t('items.you_just_submitted')}: #{CGI::escapeHTML(new_idea_data)}"
-          }.to_json
-        end
-    else
-      render :json => '{"error" : "Addition of new idea failed"}'
-    end
-  end
 
   def toggle
     expire_page :action => :results
@@ -1068,6 +1030,12 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
+
+    unless ( current_user.admin?)
+      flash[:notice] = "You are not authorized to view that page"
+      redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
+    end
+
     @question = Question.new(params[:question].slice(:name, :ideas, :url))
     @user = User.new(:email => params[:question]['email'],
                      :password => params[:question]['password'],
@@ -1232,25 +1200,32 @@ class QuestionsController < ApplicationController
   def upload_photos
     failed = false
 
+    outext = File.extname(params[:Filename])
 
-    Zip::ZipFile.open(params[:Filedata]) do |zipped|
-      zipped.entries.each do |f|
+    if outext == 'zip'
+      Zip::ZipFile.open(params[:Filedata]) do |zipped|
+        zipped.entries.each do |f|
 
-        ext = File.extname(f.name)
+          ext = File.extname(f.name)
 
-        t=Tempfile.new("candfile")
-        f_path = t.path
-        t.close!
+          t=Tempfile.new("candfile")
+          f_path = t.path
+          t.close!
 
-        zipped.extract(f, f_path)
-        candfile = File.open(f_path, 'rb')
+          zipped.extract(f, f_path)
+          candfile = File.open(f_path, 'rb')
 
-        unless handle_file(params, candfile, f)
-          failed = true
+          unless handle_file(params, candfile, f.name)
+            failed = true
+          end
+
+          candfile.close
+          File.delete(f_path)
         end
-
-        candfile.close
-        File.delete(f_path)
+      end
+    else
+      unless handle_file(params, params[:Filedata], params[:Filename])
+        failed = true
       end
     end
 
@@ -1267,8 +1242,8 @@ class QuestionsController < ApplicationController
 
     if @photocracy
       @votes['votes'].each do |vote|
-        vote[:left_choice_thumb]  = Photo.find(vote['left_choice_data']).image.url(:thumb)
-        vote[:right_choice_thumb] = Photo.find(vote['right_choice_data']).image.url(:thumb)
+        vote[:left_choice_thumb]  = Candidate.find(vote['left_choice_data']).image.url(:thumb)
+        vote[:right_choice_thumb] = Candidate.find(vote['right_choice_data']).image.url(:thumb)
       end
     end
     render :json => @votes.to_json
@@ -1322,12 +1297,12 @@ class QuestionsController < ApplicationController
       return hash
     end
 
-    def handle_file(params, candfile, zipfile)
+    def handle_file(params, candfile, filename)
 
-      ext = File.extname(zipfile.name).downcase
+      ext = File.extname(filename).downcase
 
       if (['.jpg', '.jpeg', '.png', '.gif'].include? ext )
-        if upload_candidate_photo(params, candfile, zipfile.name)
+        if upload_candidate_photo(params, candfile, filename)
           return true
         else
           return false
@@ -1406,7 +1381,7 @@ class QuestionsController < ApplicationController
           cand_entity = Candidate.create(:foreign_id => f_id)
           choice_params = {
             :visitor_identifier => params[:session_identifier],
-            :data => new_candidate.id,
+            :data => cand_entity.id,
             :question_id => @earl.question_id,
             :active => true
           }

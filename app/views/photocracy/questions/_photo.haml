@@ -1,40 +1,44 @@
 %div{:class => "candidate_box #{direction}"}
   .candidate_info
-    =image_tag(photo.image.url(:medium))
+    .candidate_photo
+      =image_tag(photo.image.url(:medium))
     %dl.dl-horizontal
       %dt
         Nombre
-      %dd
-        Pablo
+      %dd{:class => 'nombre'}
+        = photo.nombre.nil? ? '-' : photo.nombre.strip == '' ? '-' : photo.nombre.strip
       %dt
         Apellidos
-      %dd
-        Seibelt
+      %dd{:class => 'apellidos'}
+        = photo.apellidos.nil? ? '-' : photo.apellidos.strip == '' ? '-' : photo.apellidos.strip
       %dt
         Estudios
-      %dd
-        Ing. Software
+      %dd{:class => 'estudios'}
+        = photo.estudios.nil? ? '-' : photo.estudios.strip == '' ? '-' : photo.estudios.strip
       %dt
         Profesion
-      %dd
-        Desarrollo Web &amp; DataMining
+      %dd{:class => 'profesion'}
+        = photo.profesion.nil? ? '-' : photo.profesion.strip == '' ? '-' : photo.profesion.strip
       %dt
-        Idiomas
-      %dd
-        Español, ingles
+        Idiomas que domina
+      %dd{:class => 'idiomas_dominio'}
+        = photo.idiomas.nil? ? '-' : photo.idiomas.strip == '' ? '-' : photo.idiomas.strip
+      %dt
+        Habilidades en otros idiomas
+      %dd{:class => 'idiomas_habilidad'}
+        = photo.idiomas_limitados.nil? ? '-' : photo.idiomas_limitados.strip == '' ? '-' : photo.idiomas_limitados.strip
       %dt
         Partido politico
-      %dd
-        Centro
+      %dd{:class => 'partido'}
+        = photo.partido_politico.nil? ? '-' : photo.partido_politico.strip == '' ? '-' : photo.partido_politico.strip
       %dt
         Contribucion Social
-      %dd
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla turpis sapien, iaculis hendrerit tellus et, dapibus varius velit. Pellentesque eu sodales nibh. Aliquam accumsan erat libero, sed accumsan tellus ultrices nec. Mauris bibendum varius augue, at mattis mauris iaculis eu. Donec vitae ante lorem. Donec eget metus sit amet ante dignissim varius a sit amet purus. Etiam ac lectus arcu. Cras ultrices cursus tincidunt. Donec ac ligula eget libero venenatis blandit. Etiam sed pharetra nunc. Nullam viverra velit in molestie tristique. Quisque quis sagittis dolor.
+      %dd{:class => 'contribucion'}
+        = photo.contribucion_social.nil? ? '-' : photo.contribucion_social.strip == '' ? '-' : photo.contribucion_social.strip
       %dt
         Motivaciones
-      %dd
-        Nulla tincidunt hendrerit massa quis hendrerit. Nullam massa urna, imperdiet molestie accumsan nec, fringilla at augue. Sed porttitor arcu a vulputate volutpat. Suspendisse potenti. Nam consectetur eros ac tortor consequat aliquam. Donec et imperdiet ante. Proin non molestie mauris, id luctus velit. Phasellus in sodales erat. Duis at malesuada nisi.
-      
+      %dd{:class => 'motivacion'}
+        = photo.motivaciones.nil? ? '-' : photo.motivaciones.strip == '' ? '-' : photo.motivaciones.strip
 
   .form_actions
     %a{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
@@ -43,6 +47,13 @@
       Me gusta más
     %br
     %br
-    =link_to 'Ver perfil y/o avalar', "/", {:class => 'btn btn-info'}
+    -if !photo.url_mifirma.nil? && photo.url_mifirma.strip != ''
+      =link_to 'Ver perfil y/o avalar', photo.url_mifirma, {:class => 'btn btn-info', :target => '_blank'}
+      %p{:class => 'noprofile'}
+    -else
+      =link_to 'Ver perfil y/o avalar', '/', {:class => 'btn btn-info disabled', :target => '_blank'}
+      %p{:class => 'noprofile'}
+        El candidato no tiene un perfil extendido para avalar
+
     %p
       

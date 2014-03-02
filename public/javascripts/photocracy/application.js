@@ -360,13 +360,44 @@ function updateVisitorVotes(number_of_votes) {
 	(number_of_votes == 1) ? $('#s').hide() : $('#s').show();
 }
 
+function setField(side, variable, value){
+	var cvalue = $.trim(value);
+	if (cvalue == ""){
+		cvalue = "-";
+	}
+	var dd = $('div.candidate_box.' + side + ' > .candidate_info > dl > dd.' + variable);
+	dd.text(cvalue);
+}
 
 function loadNextPrompt(data) {
 	jQuery.each(['left', 'right'], function(index, side) {
-		var candidate_box = $('div.candidate_box.' + side + ' > .candidate_info');
+		var candidate_box = $('div.candidate_box.' + side + ' > .candidate_info > .candidate_photo');
 
+		var candidate = data['candidate_' + side]['candidate'];
+		
 		// change photos
 		candidate_box.html("<img style='display:none;' src='" + data['new' + side + '_photo'] + "'/>");
+
+		setField(side, 'nombre', candidate['nombre'])
+		setField(side, 'apellidos', candidate['apellidos'])
+		setField(side, 'estudios', candidate['estudios'])
+		setField(side, 'profesion', candidate['profesion'])
+		setField(side, 'idiomas_dominio', candidate['idiomas'])
+		setField(side, 'idiomas_habilidad', candidate['idiomas_limitados'])
+		setField(side, 'partido', candidate['partido_politico'])
+		setField(side, 'contribucion', candidate['contribucion_social'])
+		setField(side, 'motivacion', candidate['motivaciones'])
+
+		var btn = $('div.candidate_box.' + side + ' > .form_actions > .btn-info');
+		var msg = $('div.candidate_box.' + side + ' > .form_actions > .noprofile');
+		if(candidate['url_mifirma'].length > 0){
+			btn.attr('href', (candidate['url_mifirma']));
+			msg.text('');
+			btn.removeClass('disabled');
+		} else{
+			msg.text('El candidato no tiene un perfil extendido para avalar');
+			btn.addClass('disabled');
+		}
 
 		// fade in photo - don't vary fade in time
 		candidate_box.find('img').fadeIn(FADE_IN_TIME, function() {
@@ -439,11 +470,11 @@ function decrement(number){
 }
 
 function clearImages() {
-	$('.candidate_box.right > .candidate_info').find('img').fadeOut(FADE_TIME, function() {
+	$('.candidate_box.right > .candidate_info > .candidate_photo').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
 	
-	$('.candidate_box.left > .candidate_info').find('img').fadeOut(FADE_TIME, function() {
+	$('.candidate_box.left > .candidate_info > .candidate_photo').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
 }

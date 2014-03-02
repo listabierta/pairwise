@@ -42,13 +42,13 @@ class MungeAndNotifyJob
         if row.header_row?
           if photocracy
             if type == 'votes'
-              row << ['Winner Photo Name', 'Winner Photo Name']
-              row << ['Loser Photo Name', 'Loser Photo Name']
+              row << ['Winner Candidate Name', 'Winner Candidate Name']
+              row << ['Loser Candidate Name', 'Loser Candidate Name']
             elsif type == 'non_votes'
-              row << ['Left Photo Name', 'Left Photo Name']
-              row << ['Right Photo Name', 'Right Photo Name']
+              row << ['Left Candidate Name', 'Left Candidate Name']
+              row << ['Right Candidate Name', 'Right Candidate Name']
             elsif type == 'ideas'
-              row << ['Photo Name', 'Photo Name']
+              row << ['Candidate Name', 'Candidate Name']
             end
           end
 
@@ -76,18 +76,18 @@ class MungeAndNotifyJob
         else
           if photocracy
             if    type == 'votes'
-              p1 = Photo.find_by_id(row['Winner Text'])
-              p2 = Photo.find_by_id(row['Loser Text'])
-              row << [ 'Winner Photo Name', p1 ? p1.photo_name : 'NA' ]
-              row << [ 'Loser Photo Name',  p2 ? p2.photo_name : 'NA' ]
+              p1 = Candidate.find_by_id(row['Winner Text'])
+              p2 = Candidate.find_by_id(row['Loser Text'])
+              row << [ 'Winner Candidate Name', p1 ? p1.photo_name : 'NA' ]
+              row << [ 'Loser Candidate Name',  p2 ? p2.photo_name : 'NA' ]
             elsif type == 'non_votes'
-              p1 = Photo.find_by_id(row['Left Choice Text'])
-              p2 = Photo.find_by_id(row['Right Choice Text'])
-              row << [ 'Left Photo Name',  p1 ? p1.photo_name : 'NA' ]
-              row << [ 'Right Photo Name', p2 ? p2.photo_name : 'NA' ]
+              p1 = Candidate.find_by_id(row['Left Choice Text'])
+              p2 = Candidate.find_by_id(row['Right Choice Text'])
+              row << [ 'Left Candidate Name',  p1 ? p1.photo_name : 'NA' ]
+              row << [ 'Right Candidate Name', p2 ? p2.photo_name : 'NA' ]
             elsif type == 'ideas'
-              p1 = Photo.find_by_id(row['Idea Text'])
-              row << [ 'Photo Name', p1 ? p1.photo_name : 'NA' ]
+              p1 = Candidate.find_by_id(row['Idea Text'])
+              row << [ 'Candidate Name', p1 ? p1.photo_name : 'NA' ]
             end
           end
 

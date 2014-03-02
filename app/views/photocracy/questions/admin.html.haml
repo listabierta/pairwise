@@ -5,23 +5,31 @@
   .grid_8
     %a{:href => "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}/addphotos"}
       Agregar mas candidatos
-    %table.admin
-      %thead 
-        %tr.row0
-          %th
-          %th.score= t('items.score')
-          %th.score= t('questions.source')
-          %th.score= t('items.list.activated')
-      %tbody 
-        -@choices.each do |choice|
-          %tr{:class => cycle("row1", "row2")}
-            %td.title= link_to  image_tag(Photo.find(choice.data).image.url(:thumb)), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
-            %td.votes= choice.attributes['score'].round.to_s
-            %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
-            %td.votes{:id => "choice_#{choice.id}_status"}
-              %label{:class => ('Deactivated' unless choice.active?)}
-                = check_box_tag :choice_active, choice.id, choice.active?, :class => 'activation', :href => toggle_choice_status_url(@earl.id, choice.id, :format => :js) if @choices.size > 3
-                %span= choice.active? ? t('items.list.activated') : t('items.list.deactivated')
+
+    %form{:name => 'update_urls', 'method' => 'POST'}
+      %table.admin{:style => 'width:800px;'}
+        %thead 
+          %tr.row0
+            %th
+            %th.score Nombre
+            %th.score Apellidos
+            %th.score Puntaje
+            %th.score URL Mi firma
+        %tbody 
+          -@choices.each do |choice|
+            -@cand = Candidate.find(choice.data)
+            %tr{:class => cycle("row1", "row2")}
+              %td.title= link_to  image_tag(@cand.image.url(:thumb)), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
+              %td.votes= @cand.nombre
+              %td.votes= @cand.apellidos
+              %td.votes= choice.attributes['score'].round.to_s
+              %td.votes
+                %input{:type => 'text', :name => @cand.id, :style => 'width:200px;', :value => @cand.url_mifirma}
+      %br
+      %input{:type => 'hidden', :name => 'updateurls', :value => '1'}
+      %input{:type => 'hidden', :name => 'authenticity_token', :value => form_authenticity_token}
+      %input{:type => 'submit', :value => 'Actualizar URLS'}
+            
 
     %p
       = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago') 
