@@ -15,27 +15,28 @@
     .grid_8
       .target
         -@choices.each do |choice|
-          -i = @all_choices.index(choice)
-          -photo = Candidate.find(choice.data)
-          %p
-            =photo.nombre
-          %p
-            =photo.apellidos
-          =link_to(' ', {:action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name}, :class => 'float_left photo_frame', :style => "background: url('#{photo.image.url(:medium)}') center center no-repeat; width:300px; margin-bottom:50px;")
+          .eachResult
+            -i = @all_choices.index(choice)
+            -photo = Candidate.find(choice.data)
+            %p
+              =photo.nombre
+            %p
+              =photo.apellidos
+            =link_to(' ', {:action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name}, :class => 'float_left photo_frame', :style => "background: url('#{photo.image.url(:medium)}') center center no-repeat; width:300px; margin-bottom:50px;")
 
-          .float_left{:style => 'width:20%'}
-            RANKING
-            %h4 
-              =(i + 1)
+            .float_left{:style => 'width:20%'}
+              RANKING
+              %h4 
+                =(i + 1)
 
-            PUNTAJE
-            %h4 
-              =choice.attributes['score'].round.to_s
-          
-            -if choice == @choices.first
-              .gray
-                %i
-                  El puntaje de un candidato es la probabilidad de que sea elegido comparandolo con otro candidato al azar
-          .clear
+              PUNTAJE
+              %h4 
+                =choice.attributes['score'].round.to_s
+            
+              -if choice == @choices.first
+                .gray
+                  %i
+                    El puntaje de un candidato es la probabilidad de que sea elegido comparandolo con otro candidato al azar
+            .clear
         =will_paginate @choices, :previous_label => t('results.previous'), :next_label => t('results.next')
     .clear
