@@ -1350,6 +1350,10 @@ class QuestionsController < ApplicationController
         contribucion_social = r['Contribución social. Describe cómo has colaborado a construir una sociedad más justa/mejor para los demás (tienes un límite de 500 carácteres).']
         motivaciones = r['Motivación ¿Que te mueve a presenterate como candidata o candidato? (tienes un límite de 500 caracteres)']
 
+        if nombre.strip != ""
+          return false
+        end
+
         idiomas_array = [
           ['Inglés', r['Idiomas [Inglés]']],
           ['Francés',   r["Idiomas [Francés]"]],
@@ -1372,9 +1376,6 @@ class QuestionsController < ApplicationController
 
         idiomas_dominio = idiomas_array.select{ |x| categorias_dominio.include? x[1] }.map{|x| x[0]}.join(', ')
         idiomas_habilidad = idiomas_array.select{ |x| categorias_habilidad.include? x[1]}.map{|x| x[0]}.join(', ')
-
-        
-
 
         cand_entity = Candidate.find_by_foreign_id(f_id)
 
