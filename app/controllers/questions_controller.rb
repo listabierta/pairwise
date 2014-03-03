@@ -1391,7 +1391,6 @@ class QuestionsController < ApplicationController
         end
 
         cand_entity.nombre = nombre
-        cand_entity.nombre = nombre
         cand_entity.apellidos = apellidos
         cand_entity.estudios = estudios
         cand_entity.profesion = profesion

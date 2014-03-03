@@ -17,6 +17,10 @@
         -@choices.each do |choice|
           -i = @all_choices.index(choice)
           -photo = Candidate.find(choice.data)
+          %p
+            =photo.nombre
+          %p
+            =photo.apellidos
           =link_to(' ', {:action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name}, :class => 'float_left photo_frame', :style => "background: url('#{photo.image.url(:medium)}') center center no-repeat; width:300px; margin-bottom:50px;")
 
           .float_left{:style => 'width:20%'}
