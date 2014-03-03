@@ -1322,6 +1322,7 @@ class QuestionsController < ApplicationController
       @earl = Earl.find_by_name!(params[:id])
 
       f_id = filename.split('_')[0]
+      print f_id
 
       cand_entity = Candidate.find_by_foreign_id(f_id)
 
