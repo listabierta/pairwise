@@ -1,4 +1,8 @@
 
+body {
+  font-family: 'Helvetica', 'Droid Sans', Arial, sans-serif important!;
+}
+
 #vs {
   font-size:2.0em;
 margin-top: 100px;
@@ -86,4 +90,8 @@ a.photo_frame:hover {
 .noprofile{
   font-size:0.85em;
   font-style:italic;
+}
+
+.eachResult{
+  border:1px solid #999999;
 }

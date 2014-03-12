@@ -77,12 +77,6 @@ $(document).ready(function() {
 	  });
 	};
 
-	// can't decide submit (skip)
-	$('#cant_decide_form').submit(function(e){
-		submitCantDecide($(this));
-		e.preventDefault();
-	});
-
 	// flag as inappropriate submit
 	$('#flag_as_inappropriate_form').submit(function(e){
 		submitFlag($(this));
@@ -454,7 +448,7 @@ function updateUrlsAndHiddenFields(data) {
 
 	// change urls for inappropriate and skip forms
 	$('#flag_as_inappropriate_form').attr('action', data['flag_url']);
-	$('#cant_decide_form').attr('action', data['skip_url']);
+	$('#cant_decide_btn').attr('data-action', data['skip_url']);
 }
 
 function voteError(request, textStatus, errorThrown) {

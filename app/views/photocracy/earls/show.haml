@@ -7,6 +7,7 @@
     =render(:partial => 'questions/prompt')
   .form_actions
     =link_to_function t('vote.cant_decide'), "submitCantDecide(this);", :id => "cant_decide_btn", :class => 'btn btn-warning', 'data-action' => "#{skip_question_prompt_url(@question.id, @prompt.id, :format => :js)}"
+  .form_actions
     =link_to t('nav.view_results'), url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'btn btn-primary'
     -if !current_user.nil? && (current_user.owns?(@earl) || current_user.admin?)
       =link_to t('nav.manage_question'), url_for(:controller => :questions, :action => :admin, :id => @earl.name), :class => 'btn btn-primary'

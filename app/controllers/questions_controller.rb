@@ -1321,7 +1321,8 @@ class QuestionsController < ApplicationController
     def upload_candidate_photo(params, filedata, filename)
       @earl = Earl.find_by_name!(params[:id])
 
-      f_id = filename.split('-')[0]
+      f_id = filename.split('_')[0]
+      print f_id
 
       cand_entity = Candidate.find_by_foreign_id(f_id)
 
@@ -1349,6 +1350,10 @@ class QuestionsController < ApplicationController
         contribucion_social = r['Contribución social. Describe cómo has colaborado a construir una sociedad más justa/mejor para los demás (tienes un límite de 500 carácteres).']
         motivaciones = r['Motivación ¿Que te mueve a presenterate como candidata o candidato? (tienes un límite de 500 caracteres)']
 
+        if nombre.strip != ""
+          return false
+        end
+
         idiomas_array = [
           ['Inglés', r['Idiomas [Inglés]']],
           ['Francés',   r["Idiomas [Francés]"]],
@@ -1372,9 +1377,6 @@ class QuestionsController < ApplicationController
         idiomas_dominio = idiomas_array.select{ |x| categorias_dominio.include? x[1] }.map{|x| x[0]}.join(', ')
         idiomas_habilidad = idiomas_array.select{ |x| categorias_habilidad.include? x[1]}.map{|x| x[0]}.join(', ')
 
-        
-
-
         cand_entity = Candidate.find_by_foreign_id(f_id)
 
         unless cand_entity
@@ -1388,7 +1390,6 @@ class QuestionsController < ApplicationController
           choice = Choice.create(choice_params)
         end
 
-        cand_entity.nombre = nombre
         cand_entity.nombre = nombre
         cand_entity.apellidos = apellidos
         cand_entity.estudios = estudios
