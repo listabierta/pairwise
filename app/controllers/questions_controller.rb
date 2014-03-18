@@ -1201,8 +1201,9 @@ class QuestionsController < ApplicationController
     failed = false
 
     outext = File.extname(params[:Filename])
+    
 
-    if outext == 'zip'
+    if outext == '.zip' || outext == 'zip'
       Zip::ZipFile.open(params[:Filedata]) do |zipped|
         zipped.entries.each do |f|
 
@@ -1308,6 +1309,7 @@ class QuestionsController < ApplicationController
           return false
         end
       elsif (ext == '.csv')
+
         if upload_candidate(params, candfile)
           return true
         else
@@ -1322,7 +1324,6 @@ class QuestionsController < ApplicationController
       @earl = Earl.find_by_name!(params[:id])
 
       f_id = filename.split('_')[0]
-      print f_id
 
       cand_entity = Candidate.find_by_foreign_id(f_id)
 
@@ -1342,64 +1343,72 @@ class QuestionsController < ApplicationController
         r = row.to_hash
 
 
-        f_id = r['id']
+        f_id = r['ID de respuesta']
         nombre = r['Nombre']
         apellidos = r['Apellidos']
         estudios = r['Estudios']
         profesion = r['Profesión']
-        contribucion_social = r['Contribución social. Describe cómo has colaborado a construir una sociedad más justa/mejor para los demás (tienes un límite de 500 carácteres).']
-        motivaciones = r['Motivación ¿Que te mueve a presenterate como candidata o candidato? (tienes un límite de 500 caracteres)']
 
-        if nombre.strip != ""
-          return false
+        unless nombre == nil || nombre.strip == ""
+
+          begin
+            contribucion_social = r.find {|k, v| k.include? 'Contribución social.'}[1]
+            motivaciones = r.find {|k, v| k.include? 'Motivación ¿Que te mueve'}[1]
+            additionalinfo = r.find {|k, v| k.include? 'Información adicional'}[1]
+            capacitacion = r.find {|k, v| k.include? 'Capacitación'}[1]
+          rescue
+          end
+
+          idiomas_array = [
+            ['Inglés', r['Idiomas [Inglés]']],
+            ['Francés',   r["Idiomas [Francés]"]],
+            ['Alemán',   r["Idiomas [Alemán]"]],
+            ['Italiano',   r["Idiomas [Italiano]"]],
+            ['Otro idioma comunitario',   r["Idiomas [Otro idioma comunitario]"]],
+            ['Otro idioma no comunitario',  r["Idiomas [Otro idioma no comunitario]"]]
+          ]
+
+          categorias_dominio = [
+            'Bilingue',
+            'Puedo mantener una entrevista televisada en directo con preguntas y respuestas'
+          ]
+
+          categorias_habilidad = [
+            'Puedo establecer una conversación y escribir un informe',
+            'Puedo leer en el idioma y entender con alguna dificultad cuando me hablan',
+            'Tengo algún conocimiento'
+          ]
+
+          idiomas_dominio = idiomas_array.select{ |x| categorias_dominio.include? x[1] }.map{|x| x[0]}.join(', ')
+          idiomas_habilidad = idiomas_array.select{ |x| categorias_habilidad.include? x[1]}.map{|x| x[0]}.join(', ')
+
+          cand_entity = Candidate.find_by_foreign_id(f_id)
+
+          unless cand_entity
+            cand_entity = Candidate.create(:foreign_id => f_id)
+            choice_params = {
+              :visitor_identifier => params[:session_identifier],
+              :data => cand_entity.id,
+              :question_id => @earl.question_id,
+              :active => true
+            }
+            choice = Choice.create(choice_params)
+          end
+
+          cand_entity.nombre = nombre
+          cand_entity.apellidos = apellidos
+          cand_entity.estudios = estudios
+          cand_entity.profesion = profesion
+          cand_entity.idiomas = idiomas_dominio
+          cand_entity.idiomas_limitados = idiomas_habilidad
+          cand_entity.contribucion_social = contribucion_social
+          cand_entity.motivaciones = motivaciones
+          
+          puts cand_entity.nombre
+          puts cand_entity.estudios
+
+          cand_entity.save
         end
-
-        idiomas_array = [
-          ['Inglés', r['Idiomas [Inglés]']],
-          ['Francés',   r["Idiomas [Francés]"]],
-          ['Alemán',   r["Idiomas [Alemán]"]],
-          ['Italiano',   r["Idiomas [Italiano]"]],
-          ['Otro idioma comunitario',   r["Idiomas [Otro idioma comunitario]"]],
-          ['Otro idioma no comunitario',  r["Idiomas [Otro idioma no comunitario]"]]
-        ]
-
-        categorias_dominio = [
-          'Bilingue',
-          'Puedo mantener una entrevista televisada en directo con preguntas y respuestas'
-        ]
-
-        categorias_habilidad = [
-          'Puedo establecer una conversación y escribir un informe',
-          'Puedo leer en el idioma y entender con alguna dificultad cuando me hablan',
-          'Tengo algún conocimiento'
-        ]
-
-        idiomas_dominio = idiomas_array.select{ |x| categorias_dominio.include? x[1] }.map{|x| x[0]}.join(', ')
-        idiomas_habilidad = idiomas_array.select{ |x| categorias_habilidad.include? x[1]}.map{|x| x[0]}.join(', ')
-
-        cand_entity = Candidate.find_by_foreign_id(f_id)
-
-        unless cand_entity
-          cand_entity = Candidate.create(:foreign_id => f_id)
-          choice_params = {
-            :visitor_identifier => params[:session_identifier],
-            :data => cand_entity.id,
-            :question_id => @earl.question_id,
-            :active => true
-          }
-          choice = Choice.create(choice_params)
-        end
-
-        cand_entity.nombre = nombre
-        cand_entity.apellidos = apellidos
-        cand_entity.estudios = estudios
-        cand_entity.profesion = profesion
-        cand_entity.idiomas = idiomas_dominio
-        cand_entity.idiomas_limitados = idiomas_habilidad
-        cand_entity.contribucion_social = contribucion_social
-        cand_entity.motivaciones = motivaciones
-
-        cand_entity.save
       end
 
       return true

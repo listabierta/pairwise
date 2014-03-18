@@ -1,0 +1,13 @@
+Agregar capacitaciones en ficha mini
+
+Agregar campo solo para mifirma.com
+
+Agregar boton de avalar en resultados
+
+Resultados - mini ficha:
+
+Foto 
+Nombre-Apellido
+Profesion
+Idiomas
+

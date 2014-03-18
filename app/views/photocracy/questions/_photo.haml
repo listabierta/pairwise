@@ -24,13 +24,9 @@
       %dd{:class => 'idiomas_dominio'}
         = photo.idiomas.nil? ? '-' : photo.idiomas.strip == '' ? '-' : photo.idiomas.strip
       %dt
-        Habilidades en otros idiomas
+        Habilidades en
       %dd{:class => 'idiomas_habilidad'}
         = photo.idiomas_limitados.nil? ? '-' : photo.idiomas_limitados.strip == '' ? '-' : photo.idiomas_limitados.strip
-      %dt
-        Partido politico
-      %dd{:class => 'partido'}
-        = photo.partido_politico.nil? ? '-' : photo.partido_politico.strip == '' ? '-' : photo.partido_politico.strip
       %dt
         Contribucion Social
       %dd{:class => 'contribucion'}
