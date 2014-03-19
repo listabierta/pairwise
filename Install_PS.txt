@@ -13,10 +13,19 @@ bundle install --path vendor/ --binstubs --local
 bundle exec ruby ./script/server -p 3000
 ./bin/rake jobs:work
 
+./bin/rake util:useradd[europeas@secret.com,dadsafte]
+
 ./bin/rake util:useradd[pabloseibelt@gmail.com,admin]
 
 u = User.new(:email => 'pabloseibelt@gmail.com',
                      :password => 'admin',
                      :password_confirmation => 'admin')
+u.admin = true
+u.save
+
+
+u = User.new(:email => 'miguelpradosrodriguez@gmail.com',
+                     :password => 'miguelPass2014',
+                     :password_confirmation => 'miguelPass2014')
 u.admin = true
 u.save
