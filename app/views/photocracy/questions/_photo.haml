@@ -16,7 +16,7 @@
       %dd{:class => 'estudios'}
         = photo.estudios.nil? ? '-' : photo.estudios.strip == '' ? '-' : photo.estudios.strip
       %dt
-        Profesion
+        Profesión
       %dd{:class => 'profesion'}
         = photo.profesion.nil? ? '-' : photo.profesion.strip == '' ? '-' : photo.profesion.strip
       %dt
@@ -28,13 +28,26 @@
       %dd{:class => 'idiomas_habilidad'}
         = photo.idiomas_limitados.nil? ? '-' : photo.idiomas_limitados.strip == '' ? '-' : photo.idiomas_limitados.strip
       %dt
-        Contribucion Social
+        Contribución Social
       %dd{:class => 'contribucion'}
         = photo.contribucion_social.nil? ? '-' : photo.contribucion_social.strip == '' ? '-' : photo.contribucion_social.strip
       %dt
         Motivaciones
       %dd{:class => 'motivacion'}
         = photo.motivaciones.nil? ? '-' : photo.motivaciones.strip == '' ? '-' : photo.motivaciones.strip
+      %dt
+        Capacitación
+      %dd{:class => 'capacitacion'}
+        = photo.capacitacion.nil? ? '-' : photo.capacitacion.strip == '' ? '-' : photo.capacitacion.strip
+    .panel-group{:id => "#{direction}Accordion"}
+      .panel.panel-default
+        .panel-heading
+          %h4.panel-title
+            %a{"data-toggle" => "collapse", "data-parent" => "##{direction}Accordion", :href => "#collapseOne#{direction}"}
+              Información adicional (Click para ver)
+        .panel-collapse.collapse{:id => "collapseOne#{direction}"}
+          .panel-body.additionalinfo
+            = photo.additionalinfo.nil? ? '-' : photo.additionalinfo.strip == '' ? '-' : photo.additionalinfo.strip
 
   .form_actions
     %a{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
@@ -43,13 +56,5 @@
       Me gusta más
     %br
     %br
-    -if !photo.url_mifirma.nil? && photo.url_mifirma.strip != ''
-      =link_to 'Ver perfil y/o avalar', photo.url_mifirma, {:class => 'btn btn-info', :target => '_blank'}
-      %p{:class => 'noprofile'}
-    -else
-      =link_to 'Ver perfil y/o avalar', '/', {:class => 'btn btn-info disabled', :target => '_blank'}
-      %p{:class => 'noprofile'}
-        El candidato no tiene un perfil extendido para avalar
-
-    %p
-      
+    =link_to 'Avalar la candidatura', 'javascript:messagevote('+photo.foreign_id.to_s+', "'+direction+'");', {:class => 'btn btn-info', :target => '_blank'}
+    %p{:id => "#{direction}availMsg"}

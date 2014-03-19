@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318034354) do
+ActiveRecord::Schema.define(:version => 20140319083546) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(:version => 20140318034354) do
 
   add_index "alternatives", ["experiment_id"], :name => "index_alternatives_on_experiment_id"
   add_index "alternatives", ["lookup"], :name => "index_alternatives_on_lookup"
+
+  create_table "avals", :force => true do |t|
+    t.integer  "foreign_id"
+    t.string   "msisdn",       :default => ""
+    t.integer  "repeticiones"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "blocked_cookies", :force => true do |t|
     t.string   "referrer",    :default => ""
@@ -39,17 +47,17 @@ ActiveRecord::Schema.define(:version => 20140318034354) do
   add_index "blocked_cookies", ["question_id"], :name => "index_blocked_cookies_on_question_id"
 
   create_table "candidates", :force => true do |t|
-    t.string   "original_file_name",  :default => ""
+    t.string   "original_file_name",                  :default => ""
     t.integer  "rotation"
-    t.string   "nombre",              :default => ""
-    t.string   "apellidos",           :default => ""
-    t.string   "estudios",            :default => ""
-    t.string   "profesion",           :default => ""
-    t.string   "idiomas",             :default => ""
-    t.string   "partido_politico",    :default => ""
-    t.string   "url_mifirma",         :default => ""
-    t.text     "contribucion_social"
-    t.text     "motivaciones"
+    t.string   "nombre",                              :default => ""
+    t.string   "apellidos",                           :default => ""
+    t.string   "estudios",                            :default => ""
+    t.string   "profesion",                           :default => ""
+    t.string   "idiomas",                             :default => ""
+    t.string   "partido_politico",                    :default => ""
+    t.string   "url_mifirma",                         :default => ""
+    t.string   "contribucion_social", :limit => 400
+    t.string   "motivaciones",        :limit => 400
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name"
@@ -58,8 +66,8 @@ ActiveRecord::Schema.define(:version => 20140318034354) do
     t.datetime "image_updated_at"
     t.integer  "foreign_id"
     t.string   "idiomas_limitados"
-    t.string   "additionalinfo",      :default => ""
-    t.string   "capacitacion",        :default => ""
+    t.string   "additionalinfo",      :limit => 1000, :default => ""
+    t.string   "capacitacion",        :limit => 400,  :default => ""
   end
 
   create_table "clicks", :force => true do |t|

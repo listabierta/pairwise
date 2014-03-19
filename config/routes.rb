@@ -53,6 +53,7 @@ ActionController::Routing::Routes.draw do |map|
   map.abingoTest "/abingo/:action/:id", :controller=> :abingo_dashboard
   map.googletracking "/no_google_tracking", :controller=> :home, :action => :no_google_tracking
    
+  map.connect '/aval', :controller => 'aval', :action => 'new'
   
   map.connect '/export/:name', :controller => 'exports', :action => 'download'
 

@@ -1403,9 +1403,8 @@ class QuestionsController < ApplicationController
           cand_entity.idiomas_limitados = idiomas_habilidad
           cand_entity.contribucion_social = contribucion_social
           cand_entity.motivaciones = motivaciones
-          
-          puts cand_entity.nombre
-          puts cand_entity.estudios
+          cand_entity.capacitacion = capacitacion
+          cand_entity.additionalinfo = additionalinfo
 
           cand_entity.save
         end

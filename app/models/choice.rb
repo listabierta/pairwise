@@ -33,6 +33,10 @@ class Choice < ActiveResource::Base
 	  attributes['score']
   end
 
+  def wins
+    attributes['wins']
+  end
+
   def user_created
 	  attributes['user_created']
   end

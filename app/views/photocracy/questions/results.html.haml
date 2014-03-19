@@ -10,21 +10,25 @@
       %p.gray
         Revisa los resultados aqui o 
         =link_to 'sigue votando.',  url_for(:action => :show, :controller => :earls, :id => params[:id])
-    
+      %p
+        Para avalar a alguno de estos candidatos, envia su codigo de aval por SMS a <em>947080004</em>
     
     .grid_8
       .target
         -@choices.each do |choice|
           .eachResult
             -i = @all_choices.index(choice)
-            -photo = Candidate.find(choice.data)
+            -cand = Candidate.find(choice.data)
+            -aval_count = Aval.count(:conditions => ["foreign_id = ?", cand.foreign_id])
             %p
-              =photo.nombre
+              =cand.nombre
             %p
-              =photo.apellidos
-            =link_to(' ', {:action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name}, :class => 'float_left photo_frame', :style => "background: url('#{photo.image.url(:medium)}') center center no-repeat; width:300px; margin-bottom:50px;")
+              =cand.apellidos
+            %p
+              =cand.profesion
+            =link_to(' ', {:action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name}, :class => 'float_left photo_frame', :style => "background: url('#{cand.image.url(:thumbnail)}') center center no-repeat; width:150px; margin-bottom:10px;")
 
-            .float_left{:style => 'width:20%'}
+            .float_left{:style => 'width:100%'}
               RANKING
               %h4 
                 =(i + 1)
@@ -32,11 +36,18 @@
               PUNTAJE
               %h4 
                 =choice.attributes['score'].round.to_s
-            
-              -if choice == @choices.first
-                .gray
-                  %i
-                    El puntaje de un candidato es la probabilidad de que sea elegido comparandolo con otro candidato al azar
+
+              VOTOS
+              %h4 
+                =choice.attributes['wins'].round.to_s
+
+              AVALES
+              %h4 
+                =aval_count
+              
+              Codigo Aval: <b>#{cand.foreign_id}</b>
+              
+
             .clear
         =will_paginate @choices, :previous_label => t('results.previous'), :next_label => t('results.next')
     .clear

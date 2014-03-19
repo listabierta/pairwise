@@ -378,20 +378,22 @@ function loadNextPrompt(data) {
 		setField(side, 'profesion', candidate['profesion'])
 		setField(side, 'idiomas_dominio', candidate['idiomas'])
 		setField(side, 'idiomas_habilidad', candidate['idiomas_limitados'])
-		setField(side, 'partido', candidate['partido_politico'])
 		setField(side, 'contribucion', candidate['contribucion_social'])
 		setField(side, 'motivacion', candidate['motivaciones'])
+		setField(side, 'capacitacion', candidate['capacitacion'])
+
+		var addinfo = $.trim(candidate['additionalinfo']);
+		if (addinfo == ""){
+			addinfo = "-";
+		}
+		var ai = $('div.candidate_box.' + side + ' > .candidate_info > .panel-group .additionalinfo');
+		ai.text(addinfo);
 
 		var btn = $('div.candidate_box.' + side + ' > .form_actions > .btn-info');
-		var msg = $('div.candidate_box.' + side + ' > .form_actions > .noprofile');
-		if(candidate['url_mifirma'].length > 0){
-			btn.attr('href', (candidate['url_mifirma']));
-			msg.text('');
-			btn.removeClass('disabled');
-		} else{
-			msg.text('El candidato no tiene un perfil extendido para avalar');
-			btn.addClass('disabled');
-		}
+
+		btn.attr('href', 'javascript:messagevote('+candidate['foreign_id']+', "'+side+'");');
+		
+		$("#" + side + "availMsg").text('');
 
 		// fade in photo - don't vary fade in time
 		candidate_box.find('img').fadeIn(FADE_IN_TIME, function() {
@@ -399,6 +401,10 @@ function loadNextPrompt(data) {
 			$('a.vote.' + side).removeClass('loading');
 		});
 	});
+}
+
+function messagevote(id, side){
+	$("#" + side + "availMsg").html('Para votar por el candidato, <br>envia solo el numero ' + id + '<br> por SMS a 947080004');
 }
 
 // a variation of the clearImages method being a/b tested
