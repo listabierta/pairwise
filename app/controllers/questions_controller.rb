@@ -78,19 +78,22 @@ class QuestionsController < ApplicationController
     if @photocracy
       per_page = 10
       choices = Choice.find(:all, :params => {
-        :question_id => @question_id,
-        :limit => per_page,
-        :offset => (current_page - 1) * per_page
+        :question_id => @question_id
+        #,
+        #:limit => per_page,
+        #:offset => (current_page - 1) * per_page
       })
       @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
     end
 
-    @choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
-      pager.replace(choices)
+    @choices = choices
 
-      pager.total_entries = @question.choices_count - @question.inactive_choices_count
+    #@choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
+    #  pager.replace(choices)
 
-    end
+    #  pager.total_entries = @question.choices_count - @question.inactive_choices_count
+
+    #end
 
     @available_charts = {}
     @available_charts['votes'] = { :title => t('results.votes_over_time_title')}
