@@ -1,3 +1,4 @@
-
+Agregar redes sociales a interfaz
+Agregar boton para mandar sms directo desde moviles
 
 Adaptar diseño
