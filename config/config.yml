@@ -18,15 +18,15 @@ development:
 
 production:
     <<: *global
-    HOST: <%= ENV['ALLOURIDEAS_HOST'] %>
-    API_HOST: <%= ENV['API_HOST'] %>
-    PAIRWISE_USERNAME: <%= ENV['PAIRWISE_USERNAME'] %>
-    PAIRWISE_PASSWORD: <%= ENV['PAIRWISE_PASSWORD'] %>
-    IP_ADDR_HASH_SALT: <%= ENV['IP_ADDR_HASH_SALT'] %> #prevent dictionary attacks on stored ip address hashes
+    HOST: primarias.participa.info:80
+    API_HOST: http://localhost:3000
+    PAIRWISE_USERNAME: europeas@secret.com
+    PAIRWISE_PASSWORD: dadsafte
+    IP_ADDR_HASH_SALT: dsfdmakfrmeskrjer #prevent dictionary attacks on stored ip address hashes
 
-    PHOTOCRACY_USERNAME: <%= ENV['PHOTOCRACY_USERNAME'] %>
-    PHOTOCRACY_PASSWORD: <%= ENV['PHOTOCRACY_PASSWORD'] %>
-    PHOTOCRACY_HOST: photocracy.org
+    PHOTOCRACY_USERNAME: europeas@secret.com
+    PHOTOCRACY_PASSWORD: dadsafte
+    PHOTOCRACY_HOST: primarias.participa.info:80
 
     INFO_ALLOURIDEAS_EMAIL: <%= ENV['INFO_ALLOURIDEAS_EMAIL'] %>
     INFO_PHOTOCRACY_EMAIL: <%= ENV['INFO_PHOTOCRACY_EMAIL'] %>
