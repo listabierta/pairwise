@@ -1324,7 +1324,10 @@ class QuestionsController < ApplicationController
     end
 
     def upload_candidate_photo(params, filedata, filename)
-      @earl = Earl.find_by_name!(params[:id])
+      @earl = Earl.find params[:id]
+      @question = @earl.question
+
+      @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
 
       f_id = filename.split('_')[0]
 
@@ -1334,13 +1337,23 @@ class QuestionsController < ApplicationController
         cand_entity.image = filedata
         cand_entity.original_file_name = filename
         cand_entity.save
+
+        @choices.each do|c|
+          if c.data.to_i == cand_entity.id
+            @choice = Choice.find(c.id, :params => {:question_id => @question.id, :include_inactive => true})
+            @choice.active = true
+            @choice.save
+            return true
+          end
+        end
+        
       end
 
       return true
     end
 
     def upload_candidate(params, filedata)
-      @earl = Earl.find_by_name!(params[:id])
+      @earl = Earl.find(params[:id])
 
       CSV.foreach(filedata, :headers => true) do |row|
         r = row.to_hash
@@ -1359,6 +1372,12 @@ class QuestionsController < ApplicationController
             motivaciones = r.find {|k, v| k.include? 'Motivación ¿Que te mueve'}[1]
             additionalinfo = r.find {|k, v| k.include? 'Información adicional'}[1]
             capacitacion = r.find {|k, v| k.include? 'Capacitación'}[1]
+            link_linkedin = r.find {|k, v| k.include? '[Linkedin'}[1]
+            link_twitter = r.find {|k, v| k.include? '[Twitter'}[1]
+            link_facebook = r.find {|k, v| k.include? '[Facebook'}[1]
+            link_youtube = r.find {|k, v| k.include? '[Canal de Youtube'}[1]
+            link_blog = r.find {|k, v| k.include? '[Blog'}[1]
+            link_klout = r.find {|k, v| k.include? '[Klout'}[1]
           rescue
           end
 
@@ -1393,10 +1412,14 @@ class QuestionsController < ApplicationController
               :visitor_identifier => params[:session_identifier],
               :data => cand_entity.id,
               :question_id => @earl.question_id,
-              :active => true
+              :active => false
             }
             choice = Choice.create(choice_params)
           end
+
+
+
+
 
           cand_entity.nombre = nombre
           cand_entity.apellidos = apellidos
@@ -1408,6 +1431,12 @@ class QuestionsController < ApplicationController
           cand_entity.motivaciones = motivaciones
           cand_entity.capacitacion = capacitacion
           cand_entity.additionalinfo = additionalinfo
+          cand_entity.link_linkedin = link_linkedin
+          cand_entity.link_twitter = link_twitter
+          cand_entity.link_facebook = link_facebook
+          cand_entity.link_youtube = link_youtube
+          cand_entity.link_blog = link_blog
+          cand_entity.link_klout = link_klout
 
           cand_entity.save
         end

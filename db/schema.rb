@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140319083546) do
+ActiveRecord::Schema.define(:version => 20140322043109) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -68,6 +68,12 @@ ActiveRecord::Schema.define(:version => 20140319083546) do
     t.string   "idiomas_limitados"
     t.string   "additionalinfo",      :limit => 1000, :default => ""
     t.string   "capacitacion",        :limit => 400,  :default => ""
+    t.string   "link_linkedin",                       :default => ""
+    t.string   "link_twitter",                        :default => ""
+    t.string   "link_facebook",                       :default => ""
+    t.string   "link_youtube",                        :default => ""
+    t.string   "link_blog",                           :default => ""
+    t.string   "link_klout",                          :default => ""
   end
 
   create_table "clicks", :force => true do |t|

@@ -404,7 +404,7 @@ function loadNextPrompt(data) {
 }
 
 function messagevote(id, side){
-	$("#" + side + "availMsg").html('Para votar por el candidato, <br>envia solo el numero ' + id + '<br> por SMS a 947080004');
+	$("#" + side + "availMsg").html('<a href="sms://947080004?body=' + id + '">Para votar por el candidato, <br>envia solo el numero ' + id + '<br> por SMS a 947080004 </a>');
 }
 
 // a variation of the clearImages method being a/b tested
