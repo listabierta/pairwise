@@ -2,9 +2,9 @@ class Candidate < ActiveRecord::Base
     paperclip_options = {:styles => 
                          { :large => "600x600>",
                            :medium => "425x340>",
-                           :thumb => "x50" 
+                           :thumb => "x50"
                          },
-      :processors => [:rotator]
+                        :processors => [:rotator]
                       }
   has_attached_file :image, paperclip_options
   #validates_attachment_content_type :image, :content_type => ['image/jpeg', "image/png", "image/gif"], :message => "Not a supported image type (jpg, png, gif only)"

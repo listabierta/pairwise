@@ -1213,7 +1213,7 @@ class QuestionsController < ApplicationController
           ext = File.extname(f.name)
 
           t=Tempfile.new("candfile")
-          f_path = t.path
+          f_path = t.path + ".jpg"
           t.close!
 
           zipped.extract(f, f_path)

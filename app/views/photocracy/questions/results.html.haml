@@ -26,7 +26,7 @@
               =cand.apellidos
             %p
               =cand.profesion
-            =link_to(' ', {:action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name}, :class => 'float_left photo_frame', :style => "background: url('#{cand.image.url(:thumbnail)}') center center no-repeat; width:150px; margin-bottom:10px;")
+            =link_to(' ', {:action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name}, :class => 'float_left photo_frame', :style => "background: url('#{cand.image.url(:medium)}') center center no-repeat; width:150px; margin-bottom:10px;")
 
             .float_left{:style => 'width:100%'}
               RANKING
