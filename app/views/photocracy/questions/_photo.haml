@@ -56,5 +56,5 @@
       Me gusta más
     %br
     %br
-    =link_to 'Avalar la candidatura', 'javascript:messagevote('+photo.foreign_id.to_s+', "'+direction+'");', {:class => 'btn btn-info', :target => '_blank'}
+    =link_to 'Avalar la candidatura', 'javascript:messagevote('+photo.foreign_id.to_s+', "'+direction+'");', {:class => 'btn btn-info'}
     %p{:id => "#{direction}availMsg"}

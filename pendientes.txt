@@ -1,4 +1,5 @@
 Agregar redes sociales a interfaz
 Agregar boton para mandar sms directo desde moviles
+Juntar nombre y apellido
 
 Adaptar diseño
