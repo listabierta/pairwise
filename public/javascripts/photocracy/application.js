@@ -395,7 +395,6 @@ function loadNextPrompt(data) {
 		setSocialNetwork(boxName, 'facebook', candidate['link_facebook'])
 		setSocialNetwork(boxName, 'youtube', candidate['link_youtube'])
 		setSocialNetwork(boxName, 'blog', candidate['link_blog'])
-		setSocialNetwork(boxName, 'klout', candidate['link_klout'])
 
 
 		var addinfo = $.trim(candidate['additionalinfo']);
