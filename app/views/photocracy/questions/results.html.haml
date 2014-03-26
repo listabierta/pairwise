@@ -20,24 +20,30 @@
                 .item-center2
                   %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}/
                   %ul.list-inline.soc-list
-                    %li
-                      %a.soc-btn{href: "#", target: "_blank"}
-                        %span.gh-ico.linkedin
-                    %li
-                      %a.soc-btn{href: "#", target: "_blank"}
-                        %span.gh-ico.facebook
-                    %li
-                      %a.soc-btn{href: "#", target: "_blank"}
-                        %span.gh-ico.twitter
-                    %li
-                      %a.soc-btn{href: "#", target: "_blank"}
-                        %span.gh-ico.youtube
-                    %li.hidden-xs
-                      %a.soc-btn{href: "#", target: "_blank"}
-                        %span.gh-ico.blogger
-                    %li.hidden-xs
-                      %a.soc-btn{href: "#", target: "_blank"}
-                        %span.gh-ico.kickstarter
+                    - if cand.link_linkedin != ""
+                      %li
+                        %a.soc-btn{href: "#{cand.link_linkedin}", target: "_blank"}
+                          %span.gh-ico.linkedin
+                    - if cand.link_facebook != ""
+                      %li
+                        %a.soc-btn{href: "#{cand.link_facebook}", target: "_blank"}
+                          %span.gh-ico.facebook
+                    - if cand.link_twitter != ""
+                      %li
+                        %a.soc-btn{href: "#{cand.link_twitter}", target: "_blank"}
+                          %span.gh-ico.twitter
+                    - if cand.link_youtube != ""
+                      %li
+                        %a.soc-btn{href: "#{cand.link_youtube}", target: "_blank"}
+                          %span.gh-ico.youtube
+                    - if cand.link_blog != ""
+                      %li
+                        %a.soc-btn{href: "#{cand.link_blog}", target: "_blank"}
+                          %span.gh-ico.blogger
+                    - if cand.link_klout != ""
+                      %li
+                        %a.soc-btn{href: "#{cand.link_klout}", target: "_blank"}
+                          %span.gh-ico.kickstarter
                   %ul.campos
                     %li.aka.name
                       %span.item-label Nombre:

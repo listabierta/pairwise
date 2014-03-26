@@ -353,6 +353,19 @@ function setField(side, variable, value){
 	dd.text(cvalue);
 }
 
+function setSocialNetwork(side, sn, value){
+	var cvalue = $.trim(value);
+	var li = $('div.img-candidato > div > div.' + side + ' > div > div > ul.soc-list > li.li_' + sn);
+
+	if (cvalue == ""){
+		li.hide();
+	}else{
+		li.show();
+		var link = li.children('a');
+		link.attr('href', cvalue);
+	}
+}
+
 function loadNextPrompt(data) {
 	jQuery.each(['left', 'right'], function(index, side) {
 		var boxName;
@@ -362,7 +375,7 @@ function loadNextPrompt(data) {
 			boxName = 'item-2';
 		}
 
-		var candidate_box = $('div.img-candidato > div > div.' + boxName + ' > div > div');
+		var candidate_box = $('div.img-candidato > div > div.' + boxName + ' > div > div > div.img-container');
 
 		var candidate = data['candidate_' + side]['candidate'];
 		
@@ -376,6 +389,14 @@ function loadNextPrompt(data) {
 		setField(boxName, 'contribucion', candidate['contribucion_social'])
 		setField(boxName, 'motivacion', candidate['motivaciones'])
 		setField(boxName, 'capacitacion', candidate['capacitacion'])
+
+		setSocialNetwork(boxName, 'linkedin', candidate['link_linkedin'])
+		setSocialNetwork(boxName, 'twitter', candidate['link_twitter'])
+		setSocialNetwork(boxName, 'facebook', candidate['link_facebook'])
+		setSocialNetwork(boxName, 'youtube', candidate['link_youtube'])
+		setSocialNetwork(boxName, 'blog', candidate['link_blog'])
+		setSocialNetwork(boxName, 'klout', candidate['link_klout'])
+
 
 		var addinfo = $.trim(candidate['additionalinfo']);
 		if (addinfo == ""){

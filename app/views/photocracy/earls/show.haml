@@ -26,47 +26,49 @@
           .col-xs-6.col-sm-4.col-sm-offset-3.item.item-1
             .item-wrapper
               .item-center
-                %img{src: "", width: "188"}/
+                .img-container
+                  %img{src: "", width: "188"}/
                 %ul.list-inline.soc-list
-                  %li
+                  %li.li_linkedin
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.linkedin
-                  %li
+                  %li.li_facebook
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.facebook
-                  %li
+                  %li.li_twitter
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.twitter
-                  %li
+                  %li.li_youtube
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.youtube
-                  %li.hidden-xs
+                  %li.hidden-xs.li_blog
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.blogger
-                  %li.hidden-xs
+                  %li.hidden-xs.li_klout
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.kickstarter
           .col-xs-6.col-sm-4.item.item-2
             .item-wrapper
               .item-center
-                %img{src: "", width: "188"}/
+                .img-container
+                  %img{src: "", width: "188"}/
                 %ul.list-inline.soc-list
-                  %li
+                  %li.li_linkedin
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.linkedin
-                  %li
+                  %li.li_facebook
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.facebook
-                  %li
+                  %li.li_twitter
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.twitter
-                  %li
+                  %li.li_youtube
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.youtube
-                  %li.hidden-xs
+                  %li.hidden-xs.li_blog
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.blogger
-                  %li.hidden-xs
+                  %li.hidden-xs.li_klout
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.kickstarter
       .row.field_nombre
@@ -226,14 +228,13 @@
             %p.legal
               IMPORTANTE: Esta votación te sirve para conocer a los candidatos, sin embargo
               %span
-                para votar oficialmente al candidato debes hacerlo con certificado digital
-              , el resultado final lo determinarán los votos con certificado digital. Si quieres votar oficialmente a alguno de los candidatos, haz clic en “Votar con certificado digital”. Puedes votar a todos los que consideres.
+                para votar oficialmente al candidato debes hacerlo con el aval por SMS.
         .row
           .col-xs-12
             -if !current_user.nil? && (current_user.owns?(@earl) || current_user.admin?)
               =link_to t('nav.manage_question'), url_for(:controller => :questions, :action => :admin, :id => @earl.name), :class => 'btn btn-primary'
-              =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
-              =hidden_field_tag 'prompt_id', @prompt.id
+            =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
+            =hidden_field_tag 'prompt_id', @prompt.id
 :javascript
   $(document).ready(function(){
 
