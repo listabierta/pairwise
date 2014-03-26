@@ -1,52 +1,112 @@
 =render :partial => "shared/highcharts_header"
 
-.container_12
-  #primary_content
-    #hd.center
-      %h1.no_margin
-        %span.normal
-          Resultados de
-        =h @question.name
-      %p.gray
-        Revisa los resultados aqui o 
-        =link_to 'sigue votando.',  url_for(:action => :show, :controller => :earls, :id => params[:id])
-      %p
-        Para avalar a alguno de estos candidatos, envia su codigo de aval por SMS a <em>947080004</em>
-    
-    .grid_8
-      .target
-        -@choices.each do |choice|
-          .eachResult
-            -i = @all_choices.index(choice)
-            -cand = Candidate.find(choice.data)
-            -aval_count = Aval.count(:conditions => ["foreign_id = ?", cand.foreign_id])
-            %p
-              =cand.nombre
-            %p
-              =cand.apellidos
-            %p
-              =cand.profesion
-            =link_to(' ', {:action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name}, :class => 'float_left photo_frame', :style => "background: url('#{cand.image.url(:medium)}') center center no-repeat; width:150px; margin-bottom:10px;")
+.main-wrapper{role: "main"}
+  .section-1
+    .container
+      .section-header
+        %h2 Europeas 2014
+        %h3
+          Revisa los resultados aquí o
+          %a{href: "/candidatos"} sigue votando
+      .section-content
+        .container
+          .row
+            -@choices.each do |choice|
+              -i = @all_choices.index(choice)
+              -cand = Candidate.find(choice.data)
+              -aval_count = Aval.count(:conditions => ["foreign_id = ?", cand.foreign_id])
 
-            .float_left{:style => 'width:100%'}
-              RANKING
-              %h4 
-                =(i + 1)
+              .col-xs-6.col-sm-4.col-md-3
+                .thumbnail.thumbnail-panel{href: "#"}
+                  .item-center2
+                    %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}/
+                    %ul.list-inline.soc-list
+                      %li
+                        %a.soc-btn{href: "#", target: "_blank"}
+                          %span.gh-ico.linkedin
+                      %li
+                        %a.soc-btn{href: "#", target: "_blank"}
+                          %span.gh-ico.facebook
+                      %li
+                        %a.soc-btn{href: "#", target: "_blank"}
+                          %span.gh-ico.twitter
+                      %li
+                        %a.soc-btn{href: "#", target: "_blank"}
+                          %span.gh-ico.youtube
+                      %li.hidden-xs
+                        %a.soc-btn{href: "#", target: "_blank"}
+                          %span.gh-ico.blogger
+                      %li.hidden-xs
+                        %a.soc-btn{href: "#", target: "_blank"}
+                          %span.gh-ico.kickstarter
+                    %ul.campos
+                      %li.aka.name
+                        %span.item-label Nombre:
+                        %p.item-panel
+                          =cand.nombre
+                      %li.aka
+                        %span.item-label Estudios:
+                        %p.item-panel
+                          =cand.estudios
+                      %li.aka
+                        %span.item-label Profesión:
+                        %p.item-panel
+                          =cand.profesion
+                      %li.aka
+                        %span.item-label Idiomas:
+                        %p.item-panel
+                          =cand.idiomas
+                    .panel-collapse.collapse{:id => 'collapse' + i.to_s}
+                      %ul.campos
+                        %li.aka
+                          %span.item-label ContribuciónSocial:
+                          %p.item-panel
+                            =cand.contribucion_social
+                        %li.aka
+                          %span.item-label Motivación:
+                          %p.item-panel
+                            =cand.motivaciones
+                        %li.aka
+                          %span.item-label Capacitación:
+                          %p.item-panel
+                            =cand.capacitacion
+                        %li.aka
+                          %span.item-label Información adicional:
+                          %p.item-panel
+                            =cand.additionalinfo
+                        %li.aka
+                          %span.item-label Ranking:
+                          %p.item-panel
+                            =(i+1)
+                        %li.aka
+                          %span.item-label Puntaje:
+                          %p.item-panel
+                            =choice.attributes['score'].round.to_s
+                        %li.aka
+                          %span.item-label Votos:
+                          %p.item-panel
+                            =choice.attributes['wins'].round.to_s
+                        %li.aka
+                          %span.item-label Avales:
+                          %p.item-panel
+                            =aval_count
+                        %li.aka
+                          %span.item-label ¿Como avalar a este candidato?
+                          %p.item-panel
+                            Para votarlo con tu movil, envia un SMS con el numero <b>#{cand.foreign_id}</b> al numero 947080004
+                    /%p.def
+                    /  %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
+                    /    %i.fa.fa-user.fa-lg
+                    /    Vótalo con tu móvil
+                    .panel-tab
+                      .panel-title
+                        %a.ver-mas-icon.collapsed{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapse" + i.to_s}
+                          .halfcircle-bottom.desplegable
+                            %span.glyphicon.glyphicon-plus
+                            %span.glyphicon.glyphicon-minus.hidden
 
-              PUNTAJE
-              %h4 
-                =choice.attributes['score'].round.to_s
 
-              VOTOS
-              %h4 
-                =choice.attributes['wins'].round.to_s
+    / fin container
+  / //////////////////////////////////// section-2 ///////////////////////////////////////////////////////
 
-              AVALES
-              %h4 
-                =aval_count
-              
-              Codigo Aval: <b>#{cand.foreign_id}</b>
-              
 
-            .clear
-    .clear

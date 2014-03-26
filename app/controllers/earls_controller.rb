@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class EarlsController < ApplicationController
   #caches_page :show
   include ActionView::Helpers::TextHelper
@@ -35,6 +38,21 @@ class EarlsController < ApplicationController
 
        # we can probably make this into one api call
        @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
+
+       result = {
+        :newleft           => CGI::escapeHTML(truncate(@prompt.left_choice_text, :length => 140, :omission => '…')),
+        :newright          => CGI::escapeHTML(truncate(@prompt.right_choice_text, :length => 140, :omission => '…')),
+        :left_choice_id    => @prompt.left_choice_id,
+        :left_choice_url   => question_choice_path(@earl.name, @prompt.left_choice_id),
+        :right_choice_id   => @prompt.right_choice_id,
+        :right_choice_url  => question_choice_path(@earl.name, @prompt.right_choice_id),
+        :appearance_lookup => @question.attributes['appearance_id'],
+        :prompt_id         => @prompt.id,
+      }
+
+      result = add_photocracy_info(result, @prompt, @question.id) if @photocracy
+
+      @result_json = result.to_json
 
        @right_choice_text = @prompt.right_choice_text
        @left_choice_text = @prompt.left_choice_text
@@ -198,6 +216,28 @@ class EarlsController < ApplicationController
   
   
   protected
+
+  def add_photocracy_info(result, next_prompt, question_id)
+    newright_photo     = Candidate.find(next_prompt.right_choice_text)
+    newleft_photo      = Candidate.find(next_prompt.left_choice_text)
+    
+    result.merge!({
+      :candidate_left => newleft_photo,
+      :candidate_right => newright_photo,
+      :newright_photo       => newright_photo.image.url(:medium),
+      :newright_photo_thumb => newright_photo.image.url(:thumb),
+      :newleft_photo        => newleft_photo.image.url(:medium),
+      :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
+      :newleft_url          => vote_question_prompt_url(question_id, next_prompt.id, :direction => :left),
+      :newright_url         => vote_question_prompt_url(question_id, next_prompt.id, :direction => :right),
+      :newleft_choice_url   => question_choice_url(@earl.name, next_prompt.left_choice_id), 
+      :newright_choice_url  => question_choice_url(@earl.name, next_prompt.right_choice_id),
+      :flag_url             => flag_question_prompt_url(question_id, next_prompt.id, :format => :js),
+      :skip_url             => skip_question_prompt_url(question_id, next_prompt.id, :format => :js),
+      :voted_at             => Time.now.getutc.iso8601,
+      :voted_prompt_winner  => params[:direction]
+    })
+  end
 
   def validate_hex_color(color)
     return false unless color.class == String

@@ -1,18 +1,17 @@
 !!!
-%html
+%html{lang: "en"}
   %head
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
-    = yield :meta
-    <title>Democracia participativa</title>
-    %meta{:name => "description", :content => t('home.whats_this_txt')}
-    %meta{:property => "og:description", :content => t('home.whats_this_txt')}
-    %meta{:property => 'og:image', :content => "#{request.protocol}#{request.host_with_port}" + image_path('favicon.png')}
-    %meta{:name => "viewport",  :content => "width=device-width, initial-scale=1.0"}
-    <meta property="og:site_name" content="Europas 2014"/>
-    %link{:rel => "shortcut icon", :href => "favicon.ico"}
-    =stylesheet_link_tag '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css', 'facebox', 'newstyles', 'http://fonts.googleapis.com/css?family=Droid+Sans'
-    =javascript_include_tag 'photocracy/jquery.min', 'photocracy/jquery-ui.min', 'photocracy/application', 'photocracy/jquery.timeago', 'photocracy/ajaxupload.3.9', 'facebox', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'
-
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    %meta{content: "", name: "description"}/
+    %meta{content: "", name: "author"}/
+    %link{href: "../../assets/ico/favicon.ico", rel: "shortcut icon"}/
+    %title Democracia participativa
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic,800,800italic", rel: "stylesheet", type: "text/css"}/
+    %link{href: "http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: "stylesheet"}/
+    %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
+    =stylesheet_link_tag 'bootstrap', 'theme'
     :javascript 
       var AUTH_TOKEN = #{form_authenticity_token.to_json};
       var PAGE_LOADED_AT = new Date();
@@ -20,41 +19,61 @@
       var VOTE_CROSSFADE_TRANSITION = false;
       var FADE_TIME = #{@crossfade_time.nil? ? 1100 : @crossfade_time};
       var FADE_IN_TIME = 250
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /[if lt IE 9]
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    = javascript_include_tag "photocracy/application"
 
-    :javascript
-      $(document).ready(function(){
-        $("abbr.timeago").timeago();
-        $('a[rel*=facebox]').facebox();
-      });
-  %body
-    .div{:class => "container"}
-      =render :partial => '/shared/flashes'
-    .div{:class => "container"}
-      =yield
-    .div{:class => "container"}
-      #ft
-        /=link_to "Acerca de", '/about'
-        / \-
-        -if signed_in?
-          = link_to t('user.logout'), '/sign_out'
-          \-
-          = link_to t('user.control_panel'), admin_path
-        -else
-          = link_to t('user.login'), sign_in_path
+  %body.versus-layout{role: "document"}
+    / Fixed navbar
+    .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{href: "/candidatos"}
+            =image_tag "brand-logo.png", width: "92"
+        .navbar-collapse.collapse.navbar-right
+          %ul.nav.navbar-nav
+            %li{:class => params[:controller] == 'earls' ? 'active' : ''}
+              %a{href: "/candidatos"} Votar candidatos
+            %li{:class => params[:controller] == 'earls' ? '' : 'active'}
+              %a{href: "/candidatos/results"} Resultados
+            %li
+              %a{href: "http://www.participa.info"} PARTICIPA
+    =yield
+    .section-2.banner
+      .container
+        .row
+          .adt-brand
+            =image_tag "atd-logo.png", height: "80", class: 'pull-left'
+            =image_tag "atd-legend.png", height: "80", class: 'pull-right'
+    / /.nav-collapse
+    %footer.footer-web{role: "contentinfo"}
+      .container
+        %p.col-xs-9
+          PARTICIPA by PARTICIPA is licensed under a Creative Commons Reconocimiento 3.0 España License.
+          Creado a partir de la obra en
+          %a{href: "http://www.participa.info", target: "_blank"} www.participa.info
+          \.
+        .clearfix.visible-xs
+        .footer-social.col-xs-6.col-sm-3
+          %ul.footer-social-buttons.list-inline
+            %li
+              %a.gh-btn{href: "http://www.facebook.com/democraciaparticipativa", target: "_blank"}
+                %span.gh-ico
+                  %i.fa.fa-facebook-square
+            %li
+              %a.gh-btn{href: "http://www.twitter.com/dparticipa", target: "_blank"}
+                %i.fa.fa-twitter-square
+    / /container
+    /
+      Bootstrap core JavaScript
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "bootstrap.min"
 
-    /-if ['production'].include? Rails.env
-    -if 1==0
-      .analytics
-        %script{:type => "text/javascript"}
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-17589269-1']);
-          _gaq.push(['_trackPageview']);
-          - if @earl && !@earl.ga_code.blank?
-            _gaq.push(['b._setAccount', '#{h(@earl.ga_code)}']);
-            _gaq.push(['b._trackPageview']);
-        :javascript
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();

@@ -1,56 +1,250 @@
-#primary_content
-  %h1
-    =t ('common.title')
-  %p
-    =t('common.instructions')
-  #prompt
-    =render(:partial => 'questions/prompt')
-  .form_actions
-    =link_to_function t('vote.cant_decide'), "submitCantDecide(this);", :id => "cant_decide_btn", :class => 'btn btn-warning', 'data-action' => "#{skip_question_prompt_url(@question.id, @prompt.id, :format => :js)}"
-  .form_actions
-    =link_to t('nav.view_results'), url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'btn btn-primary'
-    -if !current_user.nil? && (current_user.owns?(@earl) || current_user.admin?)
-      =link_to t('nav.manage_question'), url_for(:controller => :questions, :action => :admin, :id => @earl.name), :class => 'btn btn-primary'
-.container
-  #secondary_content
-    .col-md-6
-      Llevas <span id="visitor_votes"></span> voto<span id="s">s</span> hasta el momento
-      -if @show_average_votes
-        %span.normal= "(el promedio es <span id='average_votes'>#{@question.attributes['average_votes']}</span>)"
-    .col-md-6.align-right
-      = t('common.X_votes_on_Y_ideas',
-          :votes_count => @question.attributes['votes_count'].to_i,
-          :ideas_count => @question.attributes['item_count'] - @question.attributes["inactive_choices_count"],
-          :"1" => '<span id="votes_count">',
-          :"_1" => "</span>",
-          :"2" => '<span id="item_count">',
-          :"_2" => '</span>')
-
-      .padding
-        
-        .admin-link.small_margin_top
-          
-
-  .clear
-
+:javascript
+  var result = #{@result_json};
+.main-wrapper{role: "main"}
+  .section-1.versus-wrap
+    .container
+      .section-header
+        %h2 Europeas 2014
+        %h3
+          Selecciona
+          %strong el Mejor Candidato,
+          para votar!
+        %p.hidden-xs
+          Pincha en el boton "Me parece mejor candidato/a” para elegir tu candidato o candidata favorito entre los dos que se te presentan, al hacerlo, se te presentará otro par de candidatos de forma aleatoria y podrás volver a elegir cual te parece mejor. Cuando hayas encontrado quien merece realmente tu confianza, haz click en “vótalo con tu móvil” y te aparecerá un número que deberás enviar por SMS al 947080004, este mensaje contará como un voto y tiene el mismo coste que si se lo enviases a un amigo (no es un SMS premium, te costará alrededor de 6 céntimos). Puedes votar con tu móvil a tantas personas como quieras, pero si votas más de una vez al mismo candidato o candidata solo se contabilizará una vez tu voto.
+      .section-content
+        .container
+          =render :partial => '/shared/flashes'
+        .row.top
+          .col-xs-6.col-sm-4.col-sm-offset-3.col-box
+            .box-wrap
+              .box-cont
+          .col-xs-6.col-sm-4.dos
+            .box-cont
+            .item-vs
+              %span VS
+        .row.img-candidato
+          .row-wrap
+            .col-xs-6.col-sm-4.col-sm-offset-3.item.item-1
+              .item-wrapper
+                .item-center
+                  %img{src: "", width: "188"}/
+                  %ul.list-inline.soc-list
+                    %li
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.linkedin
+                    %li
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.facebook
+                    %li
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.twitter
+                    %li
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.youtube
+                    %li.hidden-xs
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.blogger
+                    %li.hidden-xs
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.kickstarter
+            .col-xs-6.col-sm-4.item.item-2
+              .item-wrapper
+                .item-center
+                  %img{src: "", width: "188"}/
+                  %ul.list-inline.soc-list
+                    %li
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.linkedin
+                    %li
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.facebook
+                    %li
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.twitter
+                    %li
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.youtube
+                    %li.hidden-xs
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.blogger
+                    %li.hidden-xs
+                      %a.soc-btn{href: "#", target: "_blank"}
+                        %span.gh-ico.kickstarter
+        .row.field_nombre
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs Nombres y Apellidos:
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.name-vs.field_nombre
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.name-vs.field_nombre
+            / columna vacia
+            .hidden-xs.col-sm-1.cajita
+        .row
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs Estudios:
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.def.field_estudios
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.def.field_estudios
+            / columna vacia
+            .hidden-xs.col-sm-1.cajita
+        .row
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs Profesión:
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.def.field_profesion
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.def.field_profesion
+            / columna vacia
+            .hidden-xs.col-sm-1.cajita
+        .row
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs Idiomas:
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.def.field_idiomas
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.def.field_idiomas
+            / columna vacia
+            .hidden-xs.col-sm-1.cajita
+        .row
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs Contribución Social:
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.def.field_contribucion
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.def.field_contribucion
+            / columna vacia
+            .hidden-xs.col-sm-1.cajita
+        .row
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs Motivaciones:
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.def.field_motivacion
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.def.field_motivacion
+            .hidden-xs.col-sm-1.cajita
+        .row
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs Capacitación:
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.def.field_capacitacion
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.def.field_capacitacion
+            .hidden-xs.col-sm-1.cajita
+        .row.button1
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.def
+                  %a.btn.btn-primary.btn-lg.btn-block.vote{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => 'left'),
+                      :thumb => @left_choice_photo.image.url(:thumb), :choice_url => url_for(:action => :show, :controller => :choices, :id => @left_choice_id, :question_id => params[:id]), :direction => 'left', :future_photo => @future_left_choice_photo.image.url(:medium), :id => "leftside" }
+                    %i.fa.fa-thumbs-o-up.fa-lg
+                    %span.hidden-xs Me parece mejor candidato/a
+                    %span.visible-xs Me parece mejor
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.def
+                %a.btn.btn-primary.btn-lg.btn-block.vote{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => 'right'),
+                  :thumb => @right_choice_photo.image.url(:thumb), :choice_url => url_for(:action => :show, :controller => :choices, :id => @right_choice_id, :question_id => params[:id]), :direction => 'right', :future_photo => @future_right_choice_photo.image.url(:medium), :id => "rightside" }
+                  %i.fa.fa-thumbs-o-up.fa-lg
+                  %span.hidden-xs Me parece mejor candidato/a
+                  %span.visible-xs Me parece mejor
+            .hidden-xs.col-sm-1.cajita
+        .row.button2
+          .row-wrap
+            .hidden-xs.col-sm-3.cajita
+              %span.label-vs
+            .col-xs-6.col-sm-4.item.item-1.cajita
+              .item-wrapper
+                %p.def
+                  %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
+                    %i.fa.fa-user.fa-lg
+                    Vótalo con tu móvil
+                  %p{:style => 'text-align:center;',:id => "leftavailMsg"}
+            .col-xs-6.col-sm-4.item.item-2.cajita
+              %p.def
+                %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
+                  %i.fa.fa-user.fa-lg
+                  Vótalo con tu móvil
+                %p{:style => 'text-align:center;', :id => "rightavailMsg"}
+            .hidden-xs.col-sm-1.cajita
+        .row.bottom
+          .col-xs-6.col-sm-4.col-sm-offset-3.col-box
+            .box-wrap
+              .box-cont
+          .col-xs-6.col-sm-4.dos
+            .box-cont
+    / fin container
+    .divider
+      .triangle-down
+        /
+          <i class="fa fa-caret-down "></i>
+  / //////////////////////////////////// section-2 ///////////////////////////////////////////////////////
+  .section-2
+    .container
+      .row
+        .col-xs-12.col-sm-8.col-sm-offset-3
+          .row
+            .col-xs-12.col-sm-6.col-sm-offset-3
+              %p
+                =link_to_function "No lo puedo decidir", "submitCantDecide(this);", :id => "cant_decide_btn", :class => 'btn btn-default btn-lg btn-block btn-alpha', 'data-action' => "#{skip_question_prompt_url(@question.id, @prompt.id, :format => :js)}", :role => 'button'
+            .col-xs-12.col-sm-6.col-sm-offset-3
+              %p
+                =link_to 'Ver los Resultados', url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'btn btn-default btn-lg btn-block btn-beta', role: "button"
+          .divider2
+            %i.fa.fa-caret-down
+          .row.votos
+            .col-xs-6.item.item1
+              %p.volanta Llevas:
+              %p.number
+                %span#visitor_votes
+              %p.v-label Votos
+              %p.final Hasta el momento
+            .col-xs-6.item.item2
+              .bola
+                %p.number 
+                  = @question.attributes['votes_count'].to_i
+                %p.v-label Votos
+              %p.final en #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} candidatos
+          .divider3
+          .row
+            .col-xs-12
+              %p.legal
+                IMPORTANTE: Esta votación te sirve para conocer a los candidatos, sin embargo
+                %span
+                  para votar oficialmente al candidato debes hacerlo con certificado digital
+                , el resultado final lo determinarán los votos con certificado digital. Si quieres votar oficialmente a alguno de los candidatos, haz clic en “Votar con certificado digital”. Puedes votar a todos los que consideres.
+          .row
+            .col-xs-12
+              -if !current_user.nil? && (current_user.owns?(@earl) || current_user.admin?)
+                =link_to t('nav.manage_question'), url_for(:controller => :questions, :action => :admin, :id => @earl.name), :class => 'btn btn-primary'
+                =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
+                =hidden_field_tag 'prompt_id', @prompt.id
   :javascript
     $(document).ready(function(){
-      $('#cant_decide_options').dialog({autoOpen:false, modal:true, width:330});
-
-      $('#flag_as_inappropriate').dialog({autoOpen:false, modal:true, width:450});
-      
 
       // load the visitor's voting history
       jQuery.get('/questions/#{@question.id}/visitor_voting_history.json', function(data){
 
         updateVisitorVotes(data['votes'].length);
 
-        jQuery.each(data['votes'], function() {
-          var left_url = "/#{@earl.name}/choices/" + this['left_choice_id'] + "?locale=" + RAILS_LOCALE;
-          var right_url = "/#{@earl.name}/choices/" + this['right_choice_id'] + "?locale=" + RAILS_LOCALE;
+      });
 
-          addThumbnailsToHistory(this['left_choice_thumb'], left_url, this['right_choice_thumb'], right_url, data['voted_at'], this['winner']);
-        });
-    	});
-      jQuery.preLoadImages('#{@future_left_choice_photo.image.url(:medium)}','#{@future_right_choice_photo.image.url(:medium)}');
+      loadNextPrompt(result);
+      updateUrlsAndHiddenFields(result);
     });

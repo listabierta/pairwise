@@ -5,22 +5,17 @@ $.ajaxSetup({
 $(document).ready(function() {
 	// voting
   $('a.vote').on('click', function(e) {
-		if ($(this).hasClass('loading')) {
-			alert("One sec, we're loading the next pair...");
-		} else {
-			// visible if the users hasn't voted
+		$('a.vote').attr('disabled','disabled');
 
-			$(this).addClass('checked');
+		// prevent double clicking
+		$('a.vote').addClass('loading');
 
-			// prevent double clicking
-			$('a.vote').addClass('loading');
+		// store image location
+		var x_click_offset = calculateClickOffset('x', e, $(this));
+		var y_click_offset = calculateClickOffset('y', e, $(this));
+		
+		castVote($(this), x_click_offset, y_click_offset);
 
-			// store image location
-			var x_click_offset = calculateClickOffset('x', e, $(this));
-			var y_click_offset = calculateClickOffset('y', e, $(this));
-			
-			castVote($(this), x_click_offset, y_click_offset);
-		}
 		e.preventDefault();
   });
 
@@ -123,7 +118,6 @@ function submitCantDecide(button) {
 	if (reasonValid(reason)) {
 		clearImages();
 		$('a.vote').addClass('loading');
-		$('#cant_decide_options').dialog('close');
 		$('input[name=cant_decide_reason]').attr('checked', false); // clear radio buttons
 		$('input[name=reason_text]').val(''); // clear text box
 
@@ -164,7 +158,6 @@ function submitFlag(form) {
  	} else {
 		clearImages();
 		$('a.vote').addClass('loading');
-		$('#flag_as_inappropriate').dialog('close');
 
 		jQuery.ajax({
 			type: 'POST',
@@ -247,7 +240,6 @@ function castVote(choice, x, y) {
 			updateUrlsAndHiddenFields(data);
 			if (VOTE_CROSSFADE_TRANSITION) { 
 				$('table.fade').remove(); 
-				$('a.vote').removeClass('loading'); 
 			};
 			incrementVoteCount();
 			incrementVisitorVoteCount(); 
@@ -332,8 +324,6 @@ function updateVotingHistory(data, update_visitor_votes) {
 
 	addThumbnailsToHistory($('.left').attr('thumb'), $('.left').attr('choice_url'), $('.right').attr('thumb'), $('.right').attr('choice_url'), data['voted_at'], winner);
 
-	$('#your_votes').children(":first").effect("highlight", {}, 3000);
-	$(".timeago").timeago();
 }
 
 function addThumbnailsToHistory(left_thumb, left_url, right_thumb, right_url, voted_at, winner){
@@ -359,48 +349,52 @@ function setField(side, variable, value){
 	if (cvalue == ""){
 		cvalue = "-";
 	}
-	var dd = $('div.candidate_box.' + side + ' > .candidate_info > dl > dd.' + variable);
+	var dd = $('div > div > div.' + side + ' p.field_' + variable);
 	dd.text(cvalue);
 }
 
 function loadNextPrompt(data) {
 	jQuery.each(['left', 'right'], function(index, side) {
-		var candidate_box = $('div.candidate_box.' + side + ' > .candidate_info > .candidate_photo');
+		var boxName;
+		if(side == 'left'){
+			boxName = 'item-1';
+		}else{
+			boxName = 'item-2';
+		}
+
+		var candidate_box = $('div.img-candidato > div > div.' + boxName + ' > div > div');
 
 		var candidate = data['candidate_' + side]['candidate'];
 		
 		// change photos
-		candidate_box.html("<img style='display:none;' src='" + data['new' + side + '_photo'] + "'/>");
+		candidate_box.html("<img height=\"188\" src='" + data['new' + side + '_photo'] + "'/>");
 
-		setField(side, 'nombre', candidate['nombre'])
-		setField(side, 'apellidos', candidate['apellidos'])
-		setField(side, 'estudios', candidate['estudios'])
-		setField(side, 'profesion', candidate['profesion'])
-		setField(side, 'idiomas_dominio', candidate['idiomas'])
-		setField(side, 'idiomas_habilidad', candidate['idiomas_limitados'])
-		setField(side, 'contribucion', candidate['contribucion_social'])
-		setField(side, 'motivacion', candidate['motivaciones'])
-		setField(side, 'capacitacion', candidate['capacitacion'])
+		setField(boxName, 'nombre', candidate['nombre'] + ' ' + candidate['apellidos'])
+		setField(boxName, 'estudios', candidate['estudios'])
+		setField(boxName, 'profesion', candidate['profesion'])
+		setField(boxName, 'idiomas', candidate['idiomas'])
+		setField(boxName, 'contribucion', candidate['contribucion_social'])
+		setField(boxName, 'motivacion', candidate['motivaciones'])
+		setField(boxName, 'capacitacion', candidate['capacitacion'])
 
 		var addinfo = $.trim(candidate['additionalinfo']);
 		if (addinfo == ""){
 			addinfo = "-";
 		}
-		var ai = $('div.candidate_box.' + side + ' > .candidate_info > .panel-group .additionalinfo');
-		ai.text(addinfo);
+		//var ai = $('div.candidate_box.' + side + ' > .candidate_info > .panel-group .additionalinfo');
+		//ai.text(addinfo);
 
-		var btn = $('div.candidate_box.' + side + ' > .form_actions > .btn-info');
-
-		btn.attr('href', 'javascript:messagevote('+candidate['foreign_id']+', "'+side+'");');
+		var btnAvail = $('div.button2 > div > div.'+boxName+' a');
+		btnAvail.attr('href', 'javascript:messagevote('+candidate['foreign_id']+', "'+side+'");');
 		
+		var btnVote = $('div.button1 > div div.'+boxName+' a');
+		btnVote.removeAttr('disabled');
+
 		$("#" + side + "availMsg").text('');
 
-		// fade in photo - don't vary fade in time
-		candidate_box.find('img').fadeIn(FADE_IN_TIME, function() {
-			// allow voting after fully faded in
-			$('a.vote.' + side).removeClass('loading');
-		});
 	});
+
+	window.scrollTo(0,0);
 }
 
 function messagevote(id, side){
@@ -439,13 +433,13 @@ function preloadFuturePhotos(data) {
 function updateUrlsAndHiddenFields(data) {
 	jQuery.each(['left', 'right'], function(index, side) {
 		// change photo thumb
-		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
+		$('a#' + side + 'side').attr('thumb', data['new' + side + '_photo_thumb']);
 		// change future photo
-		$('a.vote.' + side).attr('future_photo', data['future_' + side + '_photo']);
+		$('a#' + side + 'side').attr('future_photo', data['future_' + side + '_photo']);
 		// change href url
-		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
+		$('a#' + side + 'side').attr('href', data['new' + side + '_url']);
 		// change choice url
-		$('a.vote.' + side).attr('choice_url', data['new' + side + '_choice_url']);
+		$('a#' + side + 'side').attr('choice_url', data['new' + side + '_choice_url']);
 	});
 
 	// change appearance_lookup and prompt_id hidden fields
