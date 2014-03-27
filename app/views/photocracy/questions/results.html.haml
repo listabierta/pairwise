@@ -9,99 +9,106 @@
         %a{href: "/candidatos"} sigue votando
     .section-content
       .container
-        .row
-          -@choices.each do |choice|
-            -i = @all_choices.index(choice)
-            -cand = Candidate.find(choice.data)
-            -aval_count = Aval.count(:conditions => ["foreign_id = ?", cand.foreign_id])
+        -@choices.each do |choice|
+          -i = @all_choices.index(choice)
+          -cand = Candidate.find(choice.data)
+          -aval_count = Aval.count(:conditions => ["foreign_id = ?", cand.foreign_id])
 
-            .col-xs-6.col-sm-4.col-md-3
-              .thumbnail.thumbnail-panel{href: "#"}
-                .item-center2
-                  %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}/
-                  %ul.list-inline.soc-list
-                    - if cand.link_linkedin != ""
-                      %li
-                        %a.soc-btn{href: "#{cand.link_linkedin}", target: "_blank"}
-                          %span.gh-ico.linkedin
-                    - if cand.link_facebook != ""
-                      %li
-                        %a.soc-btn{href: "#{cand.link_facebook}", target: "_blank"}
-                          %span.gh-ico.facebook
-                    - if cand.link_twitter != ""
-                      %li
-                        %a.soc-btn{href: "#{cand.link_twitter}", target: "_blank"}
-                          %span.gh-ico.twitter
-                    - if cand.link_youtube != ""
-                      %li
-                        %a.soc-btn{href: "#{cand.link_youtube}", target: "_blank"}
-                          %span.gh-ico.youtube
-                    - if cand.link_blog != ""
-                      %li
-                        %a.soc-btn{href: "#{cand.link_blog}", target: "_blank"}
-                          %span.gh-ico.blogger
+          -if i % 4 == 0
+            <div class="row">
+          .col-xs-6.col-sm-4.col-md-3
+            .thumbnail.thumbnail-panel{href: "#"}
+              .item-center2
+                %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}/
+                %ul.list-inline.soc-list
+                  - if cand.link_linkedin != ""
+                    %li
+                      %a.soc-btn{href: "#{cand.link_linkedin}", target: "_blank"}
+                        %span.gh-ico.linkedin
+                  - if cand.link_facebook != ""
+                    %li
+                      %a.soc-btn{href: "#{cand.link_facebook}", target: "_blank"}
+                        %span.gh-ico.facebook
+                  - if cand.link_twitter != ""
+                    %li
+                      %a.soc-btn{href: "#{cand.link_twitter}", target: "_blank"}
+                        %span.gh-ico.twitter
+                  - if cand.link_youtube != ""
+                    %li
+                      %a.soc-btn{href: "#{cand.link_youtube}", target: "_blank"}
+                        %span.gh-ico.youtube
+                  - if cand.link_blog != ""
+                    %li
+                      %a.soc-btn{href: "#{cand.link_blog}", target: "_blank"}
+                        %span.gh-ico.blogger
+                %ul.campos
+                  %li.aka.name
+                    %span.item-label Nombre:
+                    %p.item-panel
+                      =cand.nombre + ' ' + cand.apellidos
+                  %li.aka
+                    %span.item-label Estudios:
+                    %p.item-panel
+                      =cand.estudios
+                  %li.aka
+                    %span.item-label Profesión:
+                    %p.item-panel
+                      =cand.profesion
+                  %li.aka
+                    %span.item-label Idiomas:
+                    %p.item-panel
+                      =cand.idiomas
+                .panel-collapse.collapse{:id => 'collapse' + i.to_s}
                   %ul.campos
-                    %li.aka.name
-                      %span.item-label Nombre:
-                      %p.item-panel
-                        =cand.nombre
                     %li.aka
-                      %span.item-label Estudios:
+                      %span.item-label ContribuciónSocial:
                       %p.item-panel
-                        =cand.estudios
+                        =cand.contribucion_social
                     %li.aka
-                      %span.item-label Profesión:
+                      %span.item-label Motivación:
                       %p.item-panel
-                        =cand.profesion
+                        =cand.motivaciones
                     %li.aka
-                      %span.item-label Idiomas:
+                      %span.item-label Capacitación:
                       %p.item-panel
-                        =cand.idiomas
-                  .panel-collapse.collapse{:id => 'collapse' + i.to_s}
-                    %ul.campos
-                      %li.aka
-                        %span.item-label ContribuciónSocial:
-                        %p.item-panel
-                          =cand.contribucion_social
-                      %li.aka
-                        %span.item-label Motivación:
-                        %p.item-panel
-                          =cand.motivaciones
-                      %li.aka
-                        %span.item-label Capacitación:
-                        %p.item-panel
-                          =cand.capacitacion
-                      %li.aka
-                        %span.item-label Información adicional:
-                        %p.item-panel
-                          =cand.additionalinfo
-                      %li.aka
-                        %span.item-label Ranking:
-                        %p.item-panel
-                          =(i+1)
-                      %li.aka
-                        %span.item-label Puntaje:
-                        %p.item-panel
-                          =choice.attributes['score'].round.to_s
-                      %li.aka
-                        %span.item-label Votos:
-                        %p.item-panel
-                          =choice.attributes['wins'].round.to_s
-                      %li.aka
-                        %span.item-label Avales:
-                        %p.item-panel
-                          =aval_count
-                      %li.aka
-                        %span.item-label ¿Como avalar a este candidato?
-                        %p.item-panel
-                          Para votarlo con tu movil, envia un SMS con el numero <b>#{cand.foreign_id}</b> al numero 947080004
-                  /%p.def
-                  /  %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
-                  /    %i.fa.fa-user.fa-lg
-                  /    Vótalo con tu móvil
-                  .panel-tab
-                    .panel-title
-                      %a.ver-mas-icon.collapsed{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapse" + i.to_s}
-                        .halfcircle-bottom.desplegable
-                          %span.glyphicon.glyphicon-plus
-                          %span.glyphicon.glyphicon-minus.hidden
+                        =cand.capacitacion
+                    %li.aka
+                      %span.item-label Información adicional:
+                      %p.item-panel
+                        =cand.additionalinfo
+                    %li.aka
+                      %span.item-label Ranking:
+                      %p.item-panel
+                        =(i+1)
+                    %li.aka
+                      %span.item-label Puntaje:
+                      %p.item-panel
+                        =choice.attributes['score'].round.to_s
+                    %li.aka
+                      %span.item-label Votos:
+                      %p.item-panel
+                        =choice.attributes['wins'].round.to_s
+                    %li.aka
+                      %span.item-label Avales:
+                      %p.item-panel
+                        =aval_count
+                    %li.aka
+                      %span.item-label ¿Como avalar a este candidato?
+                      %p.item-panel
+                        Para votarlo con tu movil, envia un SMS con el numero <b>#{cand.foreign_id}</b> al numero 947080004
+                /%p.def
+                /  %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
+                /    %i.fa.fa-user.fa-lg
+                /    Vótalo con tu móvil
+                .panel-tab
+                  .panel-title
+                    %a.ver-mas-icon.collapsed{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapse" + i.to_s}
+                      .halfcircle-bottom.desplegable
+                        %span.glyphicon.glyphicon-plus
+                        %span.glyphicon.glyphicon-minus.hidden
+          -if (i+1) % 4 == 0
+            </div>
+
+
+
+
