@@ -4,7 +4,7 @@
 
 require 'rexml/document'
 class  DssResponse
-	attr_reader :major, :minor
+	attr_reader :major, :minor, :element
 
 	def initialize(element)
 		@element = element
@@ -44,23 +44,21 @@ class  DssResponse
 
 	def signature_object
 		result = []
-		execute_xpath('//dss:SignResponse/dss:SignatureObject').each do |signature_object|
+		REXML::XPath.each( @element, '//ns3:SignResponse/ns3:SignatureObject') do |signature_object|
 			result << REXML::Document.new(signature_object.children[0].to_s)
 		end
 		result
 	end
 
-private	
-
 	def to_s
 		"#{major}:#{minor}"
 	end
 
+	private
+	
 	def dump
 		@element.to_s
 	end
-
-	private
 
 	def execute_xpath(path)
 		namespaces = {"dss" => "urn:oasis:names:tc:dss:1.0:core:schema", "ds" => "http://www.w3.org/2000/09/xmldsig#"}

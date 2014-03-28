@@ -6,7 +6,7 @@
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     %meta{content: "", name: "description"}/
     %meta{content: "", name: "author"}/
-    %link{href: "../../assets/ico/favicon.ico", rel: "shortcut icon"}/
+    %link{href: "/favicon.ico", rel: "shortcut icon"}/
     %title Democracia participativa
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic,800,800italic", rel: "stylesheet", type: "text/css"}/
     %link{href: "http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel: "stylesheet"}/
@@ -44,7 +44,9 @@
             %li{:class => params[:controller] == 'earls' ? '' : 'active'}
               %a{href: "/candidatos/results"} Resultados
             %li
-              %a{href: "http://www.participa.info"} PARTICIPA
+              %a{href: "http://www.democraciaparticipativa.es/index.php/tu-siempre-decidiras/primarias-ciudadanas/"} ¿Cómo funciona el proceso de primarias?
+            %li
+              %a{href: "http://www.democraciaparticipativa.es"} Democracia Participativa
     .main-wrapper{role: "main"}
       =yield
     .section-2.banner

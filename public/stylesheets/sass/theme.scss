@@ -3,13 +3,13 @@ theme para DP
 */
 
 body{
-  font-family: 'Open Sans', sans-serif;
-  font-size: 13px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
 }
 h2, .h2{ 
-  font-size: 60px;
-  font-weight: 800;
-  color: #f26321;
+	font-size: 60px;
+	font-weight: 800;
+	color: #f26321;
 }
 h3, .h3 {
     font-size: 24px;
@@ -17,7 +17,7 @@ h3, .h3 {
     font-weight: 400;
 }
 .navbar-brand{
-  height: 100px;
+	height: 100px;
 }
 .navbar-inverse {
   background-color: #f26321;
@@ -83,11 +83,11 @@ h3, .h3 {
 }
 .adt-brand{ margin: 10px 0;}
 .footer-web{
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  background-color: #f26321;
-  padding: 20px 0;
-  color:#ffffff;
+	font-family: Arial, sans-serif;
+	font-size: 11px;
+	background-color: #f26321;
+	padding: 20px 0;
+	color:#ffffff;
 }
 .section-1
 {margin-bottom: 30px}
@@ -122,27 +122,33 @@ h3, .h3 {
     height: 100%;
     width: 100%;
 }
+.img-candidato .item-wrapper {
+    height:235px;
+}
 .item-fixed{
 }
 .row .item-1{
-  border-left:1px solid #F26321;
-    background: url("../images/ico-border-left.png") repeat-y scroll right 0 transparent;
-    border-right: 15px solid transparent;
+	border-left:1px solid #F26321;
+    background: url("/images/ico-border-left.png") repeat-y scroll right 0 transparent;
+    /*border-right: 15px solid transparent;*/
+   background-position: -webkit-calc(100% - 15px);
+ background-position: -moz-calc(100% - 15px);
+ background-position: calc(100% - 15px);
 }
 .row .item-1 .item-wrapper{
-  /*border-right:1px solid #F26321;*/
-  padding-right: 15px;
+	/*border-right:1px solid #F26321;*/
+	padding-right: 15px;
 }
 .row .item-2{
-  border-left:1px solid #F26321;
-  border-right:1px solid #F26321;
+	border-left:1px solid #F26321;
+	border-right:1px solid #F26321;
 }
 .row .item-2 .item-wrapper{
-  /*border-left:1px solid #F26321;*/
+	/*border-left:1px solid #F26321;*/
 }
 .row  .item-wrapper > *
 {
-  margin: 0 0 10px;
+	margin: 0 0 10px;
     margin: 0;
     padding: 5px 0 10px;
 }
@@ -157,11 +163,6 @@ h3, .h3 {
 .img-candidato .row-wrap > div {
     border-top: medium none;
 }
-
-.img-candidato .row-wrap > div .item-wrapper {
-    height:220px;
-}
-
 
 
 .box-wrap {
@@ -179,12 +180,12 @@ h3, .h3 {
 }
 .dos
 {
-    border:1px solid #F26321;
+		border:1px solid #F26321;
 }
 
 .row.top .box-wrap, .top .dos {
-      border-radius: 10px 10px 0 0;
-  border-bottom: none;
+	    border-radius: 10px 10px 0 0;
+	border-bottom: none;
  }
 .row.bottom .box-wrap, .row.bottom .dos {
      border-top: none;
@@ -194,7 +195,9 @@ h3, .h3 {
  .button2 .row-wrap > div {
     border-top: medium none;
 }
-
+.col-xs-6.col-sm-4.dos {
+    position: relative;
+}
 .row.button1 .item-wrapper > * {
     padding-top: 20px;
 }
@@ -212,8 +215,8 @@ h3, .h3 {
     color: #FFFFFF;
 }
 .btn-lg, .btn-group-lg > .btn{ 
-  border-radius: 0px;
-  font-size: 13px;
+	border-radius: 0px;
+	font-size: 13px;
 }
 .btn-success {
   color: #fff;
@@ -269,8 +272,8 @@ h3, .h3 {
 }
 /*----*/
 .divider{
-   /* box-shadow: 1px 1.732px 4px 0px rgb( 48, 48, 48 );*/
-      display: block;
+	 /* box-shadow: 1px 1.732px 4px 0px rgb( 48, 48, 48 );*/
+	    display: block;
     height: 10px;
     width: 100%;
     position: relative;
@@ -316,22 +319,22 @@ ul.footer-social-buttons li {
 }
 
 .soc-btn .gh-ico.linkedin {
-    background: url("../images/linkedin.png") no-repeat scroll 0 0 transparent;
+    background: url("/images/linkedin.png") no-repeat scroll 0 0 transparent;
 }
 .soc-btn .gh-ico.facebook {
-    background: url("../images/facebook.png") no-repeat scroll 0 0 transparent;
+    background: url("/images/facebook.png") no-repeat scroll 0 0 transparent;
 }
 .soc-btn .gh-ico.twitter {
-    background: url("../images/twitter.png") no-repeat scroll 0 0 transparent;
+    background: url("/images/twitter.png") no-repeat scroll 0 0 transparent;
 }
 .soc-btn .gh-ico.youtube {
-    background: url("../images/youtube.png") no-repeat scroll 0 0 transparent;
+    background: url("/images/youtube.png") no-repeat scroll 0 0 transparent;
 }
 .soc-btn .gh-ico.blogger {
-    background: url("../images/blogger.png") no-repeat scroll 0 0 transparent;
+    background: url("/images/blogger.png") no-repeat scroll 0 0 transparent;
 }
 .soc-btn .gh-ico.kickstarter {
-    background: url("../images/kickstarter.png") no-repeat scroll 0 0 transparent;
+    background: url("/images/kickstarter.png") no-repeat scroll 0 0 transparent;
 }
 
 .row .item-wrapper .item-center {
@@ -370,14 +373,14 @@ ul.footer-social-buttons li {
 }
 
 .triangle-down{
-    background: url("../images/item-caret-down.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-    bottom: -28px;
+    background: url("/images/item-caret-down.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: -57px;
     color: #FF0000;
     display: block;
     font-size: 20px;
     height: 30px;
-    left: 50%;
-    margin-left: 45px;
+    left: -42px;
+    /*margin-left: 45px;*/
     position: absolute;
     width: 70px;
 
@@ -461,7 +464,7 @@ font-weight: bold;}
     margin-left: 0px;
 }
 .triangle-down{
-margin-left: -40px;
+/*margin-left: -40px;*/
 
 }
 }
