@@ -102,10 +102,9 @@
                 /    Vótalo con tu móvil
                 .panel-tab
                   .panel-title
-                    %a.ver-mas-icon.collapsed{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapse" + i.to_s}
+                    %a.ver-mas-icon.collapsed{href: "#collapse" + i.to_s, 'onclick' => "toggleCollapse('" + i.to_s + "')", 'title' => 'Pincha aqui para ver mas!'}
                       .halfcircle-bottom.desplegable
-                        %span.glyphicon.glyphicon-plus
-                        %span.glyphicon.glyphicon-minus.hidden
+                        %span.glyphicon.glyphicon-plus{id: 'vermas' + i.to_s}
           -if (i+1) % 4 == 0
             </div>
 

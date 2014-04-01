@@ -412,6 +412,8 @@ function loadNextPrompt(data) {
 
 		$("#" + side + "availMsg").text('');
 
+		unCollapse();
+
 	});
 
 	window.scrollTo(0,0);
@@ -491,6 +493,30 @@ function clearImages() {
 	$('.candidate_box.left > .candidate_info > .candidate_photo').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
+}
+
+function toggleCollapse(id){
+	var plus = $('#vermas' + id);
+
+	if (plus.hasClass('glyphicon-plus')){
+		$('#collapse' + id).collapse('show');
+		plus.removeClass('glyphicon-plus');
+		plus.addClass('glyphicon-minus');
+	}else{
+		$('#collapse' + id).collapse('hide');
+		plus.removeClass('glyphicon-minus');
+		plus.addClass('glyphicon-plus');
+	}
+}
+
+function unCollapse(){
+	var plus = $('#vermas01');
+
+	if (plus.hasClass('glyphicon-minus')){
+		$('#collapse01').collapse('hide');
+		plus.removeClass('glyphicon-minus');
+		plus.addClass('glyphicon-plus');
+	}
 }
 
 (function($) {
