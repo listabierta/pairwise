@@ -115,18 +115,18 @@
             %p.def.field_idiomas
           / columna vacia
           .hidden-xs.col-sm-1.cajita
-      #collapse01.panel-collapse.collapse
-        .row
-          .row-wrap
-            .hidden-xs.col-sm-3.cajita
-              %span.label-vs Contribución Social:
-            .col-xs-6.col-sm-4.item.item-1.cajita
-              .item-wrapper.item-fixed
-                %p.def.field_contribucion
-            .col-xs-6.col-sm-4.item.item-2.cajita
+      .row
+        .row-wrap
+          .hidden-xs.col-sm-3.cajita
+            %span.label-vs Contribución Social:
+          .col-xs-6.col-sm-4.item.item-1.cajita
+            .item-wrapper.item-fixed
               %p.def.field_contribucion
-            / columna vacia
-            .hidden-xs.col-sm-1.cajita
+          .col-xs-6.col-sm-4.item.item-2.cajita
+            %p.def.field_contribucion
+          / columna vacia
+          .hidden-xs.col-sm-1.cajita
+      #collapse01.panel-collapse.collapse
         .row
           .row-wrap
             .hidden-xs.col-sm-3.cajita
@@ -157,6 +157,17 @@
             .col-xs-6.col-sm-4.item.item-2.cajita
               %p.def.field_capacitacion
             .hidden-xs.col-sm-1.cajita
+      .row.button0
+        .row-wrap
+          .hidden-xs.col-sm-3.cajita
+            %span.label-vs
+          .col-xs-12.col-sm-8.item.item-2.cajita
+            %p.def{:style => 'text-align:center; margin-top:6px;'}
+              %a.collapsed.ver-mas-icon.btn.btn-info{:href => '#!', 'onclick' => "toggleCollapse('01')", 'title' => 'Pincha aqui para ver mas!', :style => 'text-align:center;'}
+                %span#vermas01.glyphicon.glyphicon-plus
+                %span.hidden-xs Ver mas de los candidatos
+                %span.visible-xs Ver mas
+          .hidden-xs.col-sm-1.cajita
       .row.button1
         .row-wrap
           .hidden-xs.col-sm-3.cajita
@@ -201,12 +212,12 @@
             .box-cont
         .col-xs-6.col-sm-4.dos
           .box-cont
-          %a.collapsed.ver-mas-icon{:href => '#collapse01', 'onclick' => "toggleCollapse('01')", 'title' => 'Pincha aqui para ver mas!'}
-            .triangle-down
-              .panel-tab2
-                .panel-title2
-                  .halfcircle-bottom2.desplegable2
-                    %span#vermas01.glyphicon.glyphicon-plus
+          /%a.collapsed.ver-mas-icon{:href => '#!', 'onclick' => "toggleCollapse('01')", 'title' => 'Pincha aqui para ver mas!'}
+          /  .triangle-down
+          /    .panel-tab2
+          /      .panel-title2
+          /        .halfcircle-bottom2.desplegable2
+          /          %span#vermas01.glyphicon.glyphicon-plus
   / fin container
   .divider
 / //////////////////////////////////// section-2 ///////////////////////////////////////////////////////
