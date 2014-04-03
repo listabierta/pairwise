@@ -87,6 +87,17 @@ class QuestionsController < ApplicationController
     end
 
     @choices = choices
+    avails_choice = choices.map {|c| {:id => c.id, :avales => Aval.count(:conditions => ["foreign_id = ?", Candidate.find(c.data).foreign_id])} }
+    sorted_avails = avails_choice.sort_by { |k| -k[:avales] }
+    
+    i=1
+
+    @avails_rank = {}
+    sorted_avails.each do |a|
+      @avails_rank[a[:id]] = i
+      i+= 1
+    end
+
 
     #@choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
     #  pager.replace(choices)

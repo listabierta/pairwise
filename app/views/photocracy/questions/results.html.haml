@@ -76,26 +76,23 @@
                       %span.item-label Información adicional:
                       %p.item-panel
                         =cand.additionalinfo
-                    %li.aka
-                      %span.item-label Ranking:
-                      %p.item-panel
-                        =(i+1)
-                    %li.aka
-                      %span.item-label Puntaje:
-                      %p.item-panel
-                        =choice.attributes['score'].round.to_s
-                    %li.aka
-                      %span.item-label Votos:
-                      %p.item-panel
-                        =choice.attributes['wins'].round.to_s
-                    %li.aka
-                      %span.item-label Avales:
-                      %p.item-panel
-                        =aval_count
-                    %li.aka
-                      %span.item-label ¿Como avalar a este candidato?
-                      %p.item-panel
-                        Para votarlo con tu movil, envia un SMS con el numero <b>#{cand.foreign_id}</b> al numero 947080004
+                %ul.campos
+                  %li.aka.scores
+                    %span.item-label Posición por porcentaje de elección:
+                    %p.item-panel
+                      =(i+1)
+                  %li.aka.scores
+                    %span.item-label Posición por numero de avales:
+                    %p.item-panel
+                      =@avails_rank[choice.id]
+                  %li.aka.scores
+                    %span.item-label Numero de avales:
+                    %p.item-panel
+                      =aval_count
+                  %li.aka
+                    %span.item-label ¿Como avalar a este candidato?
+                    %p.item-panel
+                      Para votarlo con tu movil, envia un SMS con el numero <b>#{cand.foreign_id}</b> al numero 947080004
                 /%p.def
                 /  %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
                 /    %i.fa.fa-user.fa-lg

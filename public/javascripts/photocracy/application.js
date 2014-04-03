@@ -389,20 +389,13 @@ function loadNextPrompt(data) {
 		setField(boxName, 'contribucion', candidate['contribucion_social'])
 		setField(boxName, 'motivacion', candidate['motivaciones'])
 		setField(boxName, 'capacitacion', candidate['capacitacion'])
+		setField(boxName, 'additionalinfo', candidate['additionalinfo'])
 
 		setSocialNetwork(boxName, 'linkedin', candidate['link_linkedin'])
 		setSocialNetwork(boxName, 'twitter', candidate['link_twitter'])
 		setSocialNetwork(boxName, 'facebook', candidate['link_facebook'])
 		setSocialNetwork(boxName, 'youtube', candidate['link_youtube'])
 		setSocialNetwork(boxName, 'blog', candidate['link_blog'])
-
-
-		var addinfo = $.trim(candidate['additionalinfo']);
-		if (addinfo == ""){
-			addinfo = "-";
-		}
-		//var ai = $('div.candidate_box.' + side + ' > .candidate_info > .panel-group .additionalinfo');
-		//ai.text(addinfo);
 
 		var btnAvail = $('div.button2 > div > div.'+boxName+' a');
 		btnAvail.attr('href', 'javascript:messagevote('+candidate['foreign_id']+', "'+side+'");');
@@ -420,7 +413,7 @@ function loadNextPrompt(data) {
 }
 
 function messagevote(id, side){
-	$("#" + side + "availMsg").html('<a href="sms://947080004?body=' + id + '">Para votar por el candidato, <br>envia el numero ' + id + '<br> por SMS a 947080004 </a>');
+	$("#" + side + "availMsg").html('<a href="sms://947080004?body=' + id + '">Para avalar a este candidato envía un SMS con el número ' + id + ' al número 947080004</a>');
 }
 
 // a variation of the clearImages method being a/b tested
