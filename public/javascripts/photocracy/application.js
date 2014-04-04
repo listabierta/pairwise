@@ -413,7 +413,7 @@ function loadNextPrompt(data) {
 }
 
 function messagevote(id, side){
-	$("#" + side + "availMsg").html('<a href="sms://947080004?body=' + id + '">Para avalar a este candidato envía un SMS con el número ' + id + ' al número 947080004</a>');
+	$("#" + side + "availMsg").html('<a href="sms://947080004?body=' + id + '">Para avalar a este candidato envía un SMS con el número ' + id + ' al número 947 080 004</a>');
 }
 
 // a variation of the clearImages method being a/b tested
