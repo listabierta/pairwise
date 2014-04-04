@@ -92,7 +92,7 @@
                   %li.aka
                     %span.item-label ¿Como avalar a este candidato?
                     %p.item-panel
-                      Para votarlo con tu movil, envia un SMS con el numero <b>#{cand.foreign_id}</b> al numero 947080004
+                      Para avalarlo, envía un SMS con el número <b>#{cand.foreign_id}</b> al número 947080004 *
                 /%p.def
                 /  %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
                 /    %i.fa.fa-user.fa-lg
@@ -105,6 +105,8 @@
           -if (i+1) % 4 == 0
             </div>
 
-
-
+        .row
+          .col-xs-12
+            %p.legal
+              (*)IMPORTANTE: Esta votación te sirve para conocer a los candidatos, sin embargo  para votar oficialmente al candidato debes hacerlo con el aval por SMS. (El sistema de avales no funciona con móviles DIA y Jazztel)
 
