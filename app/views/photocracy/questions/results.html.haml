@@ -58,7 +58,11 @@
                 .panel-collapse.collapse{:id => 'collapse' + i.to_s}
                   %ul.campos
                     %li.aka
-                      %span.item-label ContribuciónSocial:
+                      %span.item-label Partido politico:
+                      %p.item-panel
+                        =cand.partido_politico
+                    %li.aka
+                      %span.item-label Contribución Social:
                       %p.item-panel
                         =cand.contribucion_social
                     %li.aka
@@ -78,18 +82,6 @@
                     %span.item-label Posición por número de veces elegido/a:
                     %p.item-panel
                       =(i+1)
-                  %li.aka.scores
-                    %span.item-label Posición por numero de avales:
-                    %p.item-panel
-                      =@avails_rank[choice.id]
-                  %li.aka.scores
-                    %span.item-label Numero de avales:
-                    %p.item-panel
-                      =aval_count
-                  %li.aka
-                    %span.item-label ¿Como avalar a este candidato?
-                    %p.item-panel
-                      Para avalarlo, envía un SMS con el número <b>#{cand.foreign_id}</b> al número 947 080 004 (Coste 6 cents aprox.) *
                 /%p.def
                 /  %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
                 /    %i.fa.fa-user.fa-lg
