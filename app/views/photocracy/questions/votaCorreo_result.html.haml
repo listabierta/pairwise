@@ -1,0 +1,350 @@
+:css
+  td{
+    font-size:11px;
+  }
+  .small{
+    font-size:9px;
+  }
+  .bold{
+    font-weight:bold;
+  }
+  .b{
+    border:1px solid black;
+  }
+  .c{
+    text-align:center;
+  }
+  .r{
+    text-align:right;
+  }
+  .v{
+    font-size:14px;
+    font-weight:bold;
+  }
+  table {
+    border-collapse: collapse;
+    width:100%;
+  }
+  table.nofill{
+    width:initial !important;
+  }
+  tr{
+    width:100%;
+    inner
+  }
+  th, td {
+    padding: 2 2 2 2;
+    vertical-align:top;
+  }
+  h3{
+    margin:0px;
+    padding:0px;
+  }
+  span.cajita{
+    display: inline-block;
+    width:10px;
+    height:12px;
+    border:1px solid black;
+  }
+  p{
+    font-size:10px;
+    margin-top:0px;
+    padding-top:0px;
+  }
+  .space{
+    width:100%;
+    height:40px;
+  }
+  .complete{
+  width:100%;
+  height:1000px;
+  }
+  .nopad{
+    margin:0;
+    padding:0;
+  }
+
+%table.complete
+  %tr
+    %td
+
+      %h3{:style => "text-align:center;"}
+        Documentación Electoral. Voto por correo
+      %h3{:style => "text-align:center;"}
+        \-Solicitud de certificación-
+
+      %table
+        %tr
+          %td.b{:style=>"width:25%;"}
+            COMPROBADA IDENTIDAD DEL FIRMANTE
+            FECHA Y SELLO DE LA OFICINA DE CORREOS RECEPTORA
+          %td.b{:style=>"width:20%;"}
+            FECHA Y SELLO
+          %td{:style=>"width:15%"}
+          %td{:style=>"width:40%;"}
+            %table
+              %tr
+                %td.small
+                  Núm. orden OCE:
+              %tr
+                %td.b
+                  %p
+                    ASUNTO:
+                  %center
+                    SOLICITUD DE CERTIFICACIÓN
+              %tr
+                %td.b
+                  FECHA:
+      %table
+        %tr
+          %td
+            DATOS DEL/DE LA ELECTOR/A (Por favor, escriba en letras mayúsculas):
+        %tr
+          %td
+            Residente en:
+            %span.cajita
+              -if @residenteEn == "España"
+                X
+            ESPAÑA
+            %span.cajita
+              -if @residenteEn != "España"
+                X
+            EXTRANJERO
+
+      %table
+        %tr
+          %td.b{:style => "width:50%;"}
+            %p
+              1.° APELLIDO
+            %p.c.v
+              = @primerApellido.upcase
+          %td.b
+            %p
+              2.° APELLIDO
+            %p.c.v
+              = @segundoApellido.upcase
+
+      %table
+        %tr
+          %td.b{:style => "width:40%;"}
+            %p
+              NOMBRE
+            %p.c.v
+              = @nombre.upcase
+          %td.b
+            %p
+              IDENTIFICADOR:
+              %span.cajita
+                -if @tipoID == "D.N.I."
+                  X
+              D.N.I.
+              %span.cajita
+                -if @tipoID == "Pasaporte"
+                  X
+              Pasaporte
+              %span.cajita
+                -if @tipoID == "Tarjeta de residencia"
+                  X
+              Tarjeta de residencia
+            %p
+              Numero:
+              %span.v{:style => 'letter-spacing: 1px;'}
+                = @numID
+
+      %table
+        %tr
+          %td.b{:style => "width:50%;"}
+            %p
+              FECHA DE NACIMIENTO
+            %p.c.v
+              = @diaNacimiento.rjust(2, '0') + '/' + @mesNacimiento.rjust(2, '0') + '/' + @anioNacimiento.rjust(4, '0')
+
+          %td.b
+            %p
+              NACIONALIDAD (Solo para no españoles)
+            %p.c.v
+              = @nacionalidad
+
+      %table
+        %tr
+          %td.b
+            %p
+              INSCRITO/A EN EL CENSO ELECTORAL EN:
+            %p.c.v
+              = @inscritoEn
+
+      %table
+        %tr
+          %td.b{:style => "width:60%;"}
+            %p
+              MUNICIPIO
+            %p.c.v
+              = @municipio
+
+          %td.b
+            %p
+              PROVINCIA
+            %p.c.v
+              = @provincia
+
+      %p
+        Desea se le envíe la documentación para el voto al siguiente domicilio de España.
+
+      %table
+        %tr
+          %td.b{:style => "width:70%;"}
+            %p
+              CALLE, PLAZA, APARTADO DE CORREOS, ETC.
+            %p.c.v
+              = @calle
+
+          %td.b
+            %p
+              NÚM.
+            %p.c.v
+              = @callenum
+          %td.b
+            %p
+              PISO
+            %p.c.v
+              = @callepiso
+          %td.b
+            %p
+              PUERTA
+            %p.c.v
+              = @callepuerta
+
+      %table
+        %tr
+          %td.b
+            %p
+              CÓDIGO POSTAL
+            %p.c.v
+              = @callecodigopostal
+          %td.b{:style => 'width:40%;'}
+            %p
+              MUNICIPIO
+            %p.c.v
+              = @callemunicipio
+          %td.b
+            %p
+              PROVINCIA
+            %p.c.v
+              = @calleprovincia
+
+      %p.bold
+        (Una vez remitida esta solicitud, NO PODRÁ VOTAR PERSONALMENTE EN LA MESA ELECTORAL DURANTE EL DÍA DE LA VOTACIÓN)
+
+      %table.nofill
+        %tr
+          %td.b
+            SOLO RELLENAR EN CASO DE ENFERMEDAD O INCAPACIDAD
+
+      %p
+        Y en su nombre, en el supuesto de enfermos o incapaces que lo acrediten mediante certificación médica oficial, expedida en impreso gratuito o en impreso ordinario no gratuito, debidamente autorizado (adjuntar ambos impresos, certificado médico y autorizacion, en el sobre con la solicitud):
+
+      %p
+        DATOS DEL REPRESENTANTE:
+
+
+      %table
+        %tr
+          %td.b{:style => "width:50%;"}
+            %p
+              1.° APELLIDO
+            %p.c.v
+              = @primerApellidoDelegado.upcase
+          %td.b
+            %p
+              2.° APELLIDO
+            %p.c.v
+              = @segundoApellidoDelegado.upcase
+
+      %table
+        %tr
+          %td.b{:style => "width:40%;"}
+            %p
+              NOMBRE
+            %p.c.v
+              = @nombreDelegado.upcase
+          %td.b
+            %p
+              IDENTIFICADOR:
+              %span.cajita
+                -if @tipoID == "D.N.I."
+                  X
+              D.N.I.
+              %span.cajita
+                -if @tipoID == "Pasaporte"
+                  X
+              Pasaporte
+              %span.cajita
+                -if @tipoID == "Tarjeta de residencia"
+                  X
+              Tarjeta de residencia
+            %p
+              Numero:
+              %span.v{:style => 'letter-spacing: 1px;'}
+                = @numIDDelegado
+
+      %table
+        %tr
+          %td.b{:style => "width:50%;"}
+            %p
+              FECHA DE NACIMIENTO
+            %p.c.v
+              = @diaNacimientoDelegado.rjust(2, '0') + '/' + @mesNacimientoDelegado.rjust(2, '0') + '/' + @anioNacimientoDelegado.rjust(4, '0')
+
+          %td.b
+            %p
+              NACIONALIDAD (Solo para no españoles)
+            %p.c.v
+              = @nacionalidadDelegado
+
+      %table
+        %tr
+          %td.b{:style => "width:70%;"}
+            %p
+              DOMICILIO (Calle, Plaza, Número, etc.)
+            %p.c.v
+              = @domicilioDelegado
+          %td.b
+            %p
+              CODIGO POSTAL
+            %p.c.v
+              = @codigopostalDelegado
+
+      %table
+        %tr
+          %td.b{:style => "width:60%;"}
+            %p
+              MUNICIPIO
+            %p.c.v
+              = @municipioDelegado
+
+          %td.b
+            %p
+              PROVINCIA
+            %p.c.v
+              = @provinciaDelegado
+
+      %p
+        Expone la imposibilidad en que se encuentra de emitir el voto en el lugar de su residencia habitual y solicita que, al amparo de lo indicado en el art. 72 de la Ley Electoral vigente, se expida certificación acreditativa de figurar inscrito/a en el CENSO a los efectos de poder emitir el voto por correo.
+
+      %p.c.v
+        Firma del/de la interesado/a o del/de la representante
+    %td{:style => 'width:5%;'}
+  %tr
+    %td
+    %td
+  %tr{:style => 'height:50px;'}
+    %td
+      %p
+        SR/A. DELEGADO/A PROVINCIAL DE LA OFICINA DEL CENSO ELECTORAL DE:
+      %p.c.v{:style => 'border-bottom:1px dotted black;'}
+        = @provincia
+      %p.c.small.nopad
+        (Anótese la provincia donde figura inscrito/a en el Censo Electoral)
+      %p.small.nopad
+        VC.1a
+    %td

@@ -1,0 +1,204 @@
+.section-1
+  .container
+    .section-header
+      %h2 Vota por correo
+    .section-content
+      .container
+        -form_tag request.url, :method => :post, :target => "_blank" do
+          .row
+            .col-md-2
+            .col-md-4.text-right
+              .form-group
+                %label{:for => "nombre"}
+                  Nombre:
+                = text_field_tag "nombre"
+
+              .form-group
+                %label{:for => "primerApellido"}
+                  Primer apellido:
+                = text_field_tag "primerApellido"
+
+              .form-group  
+                %label{:for => "segundoApellido"}
+                  Segundo Apellido:
+                = text_field_tag "segundoApellido"
+
+              .form-group  
+                %label{:for => "diaNacimiento"}
+                  Dia de nacimiento:
+                = select_tag "diaNacimiento", options_for_select(1..31)
+
+              .form-group  
+                %label{:for => "mesNacimiento"}
+                  Mes de nacimiento:
+                = select_tag "mesNacimiento", options_for_select(1..12)
+
+              .form-group  
+                %label{:for => "anioNacimiento"}
+                  Año de nacimiento:
+                = select_tag "anioNacimiento", options_for_select(1900..2014)
+
+              .form-group  
+                %label{:for => "nacionalidad"}
+                  Nacionalidad (Solo para no españoles):
+                = text_field_tag "nacionalidad"
+
+              .form-group  
+                %label{:for => "residenteEn"}
+                  Residente en:
+                = select_tag "residenteEn", "<option>España</option><option>Extranjero</option>"
+
+              .form-group  
+                %label{:for => "tipoID"}
+                  Tipo de identificacion:
+                = select_tag "tipoID", "<option>D.N.I.</option><option>Pasaporte</option><option>Tarjeta de residencia</option>"
+
+              .form-group  
+                %label{:for => "numID"}
+                  Numero de la identificacion:
+                = text_field_tag "numID"
+
+              .form-group  
+                %label{:for => "inscritoEn"}
+                  Inscrito/a en el censo electoral en:
+                = text_field_tag "inscritoEn"
+
+              .form-group  
+                %label{:for => "municipio"}
+                  Municipio:
+                = text_field_tag "municipio"
+
+              .form-group  
+                %label{:for => "provincia"}
+                  Provincia:
+                = text_field_tag "provincia"
+
+              .box-wrap
+                %p
+                  Direccion a la cual enviar la documentacion
+                .form-group  
+                  %label{:for => "calle"}
+                    Calle, Plaza, Apartado de correos, etc:
+                  = text_field_tag "calle"
+
+                .form-group  
+                  %label{:for => "callenum"}
+                    Num de calle:
+                  = text_field_tag "callenum", ""
+
+                .form-group  
+                  %label{:for => "callepiso"}
+                    Piso:
+                  = text_field_tag "callepiso", ""
+
+                .form-group  
+                  %label{:for => "callepuerta"}
+                    Puerta:
+                  = text_field_tag "callepuerta", ""
+
+                .form-group  
+                  %label{:for => "callecodigopostal"}
+                    Codigo postal:
+                  = text_field_tag "callecodigopostal", ""
+
+                .form-group  
+                  %label{:for => "callemunicipio"}
+                    Municipio:
+                  = text_field_tag "callemunicipio", ""
+
+                .form-group  
+                  %label{:for => "calleprovincia"}
+                    Provincia:
+                  = text_field_tag "calleprovincia", ""
+
+              .form-group  
+                %label{:for => "delegar"}
+                  ¿Delegar el voto a alguien por enfermedad o incapacidad?
+                = check_box_tag "delegar", ""
+              :javascript
+                $('#delegar').click(function (e){
+                  var chkbox = e.toElement;
+                  if (chkbox.checked){
+                    $('#delegacion').show();
+                  }else{
+                    $('#delegacion').hide();
+                  }
+                });
+              #delegacion{:style => "display:none"}
+                .box-wrap
+                  %p
+                    Datos del delegado
+
+                  .form-group
+                    %label{:for => "nombreDelegado"}
+                      Nombre:
+                    = text_field_tag "nombreDelegado"
+
+                  .form-group
+                    %label{:for => "primerApellidoDelegado"}
+                      Primer apellido:
+                    = text_field_tag "primerApellidoDelegado"
+
+                  .form-group  
+                    %label{:for => "segundoApellidoDelegado"}
+                      Segundo Apellido:
+                    = text_field_tag "segundoApellidoDelegado"
+
+                  .form-group  
+                    %label{:for => "diaNacimientoDelegado"}
+                      Dia de nacimiento:
+                    = select_tag "diaNacimientoDelegado", options_for_select(1..31)
+
+                  .form-group  
+                    %label{:for => "mesNacimientoDelegado"}
+                      Mes de nacimiento:
+                    = select_tag "mesNacimientoDelegado", options_for_select(1..12)
+
+                  .form-group  
+                    %label{:for => "anioNacimientoDelegado"}
+                      Año de nacimiento:
+                    = select_tag "anioNacimientoDelegado", options_for_select(1900..2014)
+
+                  .form-group  
+                    %label{:for => "nacionalidadDelegado"}
+                      Nacionalidad (Solo para no españoles):
+                    = text_field_tag "nacionalidadDelegado"
+
+                  .form-group  
+                    %label{:for => "residenteEnDelegado"}
+                      Residente en:
+                    = select_tag "residenteEnDelegado", "<option>España</option><option>Extranjero</option>"
+
+                  .form-group  
+                    %label{:for => "tipoIDDelegado"}
+                      Tipo de identificacion:
+                    = select_tag "tipoIDDelegado", "<option>D.N.I.</option><option>Pasaporte</option><option>Tarjeta de residencia</option>"
+
+                  .form-group  
+                    %label{:for => "numIDDelegado"}
+                      Numero de la identificacion:
+                    = text_field_tag "numIDDelegado"
+
+                  .form-group  
+                    %label{:for => "domicilioDelegado"}
+                      Domicilio:
+                    = text_field_tag "domicilioDelegado"
+
+                  .form-group  
+                    %label{:for => "codigopostalDelegado"}
+                      Codigo postal:
+                    = text_field_tag "codigopostalDelegado"
+
+                  .form-group  
+                    %label{:for => "municipioDelegado"}
+                      Municipio:
+                    = text_field_tag "municipioDelegado"
+
+                  .form-group  
+                    %label{:for => "provinciaDelegado"}
+                      Provincia:
+                    = text_field_tag "provinciaDelegado"
+
+
+              .form-group  
+                = submit_tag "Imprimir formulario para votar por correo", :class => "btn btn-primary"

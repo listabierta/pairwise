@@ -48,6 +48,7 @@ ActionController::Routing::Routes.draw do |map|
   map.privacy_2009_07_06 '/privacy-2009-07-06', :controller => 'home', :action => 'privacy-2009-07-06'
   map.example '/example', :controller => 'home', :action => 'example'
   map.connect '/signup', :controller => 'users', :action => 'new'
+  map.votacorreo '/:id/votaCorreo', :controller => 'questions', :action => 'votaCorreo'
   map.root :controller => 'home', :action => 'index'
   #map.toggle_question '/questions/:id/toggle', :controller => 'questions'
   map.abingoTest "/abingo/:action/:id", :controller=> :abingo_dashboard

@@ -384,6 +384,7 @@ function loadNextPrompt(data) {
 
 		setField(boxName, 'nombre', candidate['nombre'] + ' ' + candidate['apellidos'])
 		setField(boxName, 'estudios', candidate['estudios'])
+		setField(boxName, 'partido_politico', candidate['partido_politico'])
 		setField(boxName, 'profesion', candidate['profesion'])
 		setField(boxName, 'idiomas', candidate['idiomas'])
 		setField(boxName, 'contribucion', candidate['contribucion_social'])
@@ -398,7 +399,7 @@ function loadNextPrompt(data) {
 		setSocialNetwork(boxName, 'blog', candidate['link_blog'])
 
 		var btnAvail = $('div.button2 > div > div.'+boxName+' a');
-		btnAvail.attr('href', 'javascript:messagevote('+candidate['foreign_id']+', "'+side+'");');
+		//btnAvail.attr('href', 'javascript:messagevote('+candidate['foreign_id']+', "'+side+'");');
 		
 		var btnVote = $('div.button1 > div div.'+boxName+' a');
 		btnVote.removeAttr('disabled');

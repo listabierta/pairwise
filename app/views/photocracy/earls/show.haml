@@ -5,22 +5,9 @@
     .section-header
       %h2 Europeas 2014
       %h3.indicaciones.hidden-xs
-        %strong (1)
         Elige entre los candidatos que se presentan aleatoriamente haciendo clic en
         %strong "Me parece mejor candidato/a"
         , aparecerán más al elegir uno/a
-      %h3.indicaciones.hidden-xs
-        %strong (2)
-        Haz clic en 
-        %strong "Avalar"
-        para avalar por SMS a tus candidatos/as favoritos (coste de SMS normal de tu operadora, nosotros asumimos el coste de la operativa de voto).
-      %h3.indicaciones.hidden-xs
-        %strong (3)
-        El candidato/a más avalado por SMS será el primero de la lista abierta.
-      %h3.indicaciones.hidden-xs
-        %strong (4)
-        Puedes ver el resultado de la votación y avalar directamente a los/las candidatos/as 
-        %a{:href => '/candidatos/results'} aquí.
         
     .section-content
       .container
@@ -91,13 +78,22 @@
       .row
         .row-wrap
           .hidden-xs.col-sm-3.cajita
+            %span.label-vs Partido politico:
+          .col-xs-6.col-sm-4.item.item-1.cajita
+            .item-wrapper
+              %p.def.field_partido_politico
+          .col-xs-6.col-sm-4.item.item-2.cajita
+            %p.def.field_partido_politico
+          .hidden-xs.col-sm-1.cajita
+      .row
+        .row-wrap
+          .hidden-xs.col-sm-3.cajita
             %span.label-vs Estudios:
           .col-xs-6.col-sm-4.item.item-1.cajita
             .item-wrapper
               %p.def.field_estudios
           .col-xs-6.col-sm-4.item.item-2.cajita
             %p.def.field_estudios
-          / columna vacia
           .hidden-xs.col-sm-1.cajita
       .row
         .row-wrap
@@ -108,7 +104,6 @@
               %p.def.field_profesion
           .col-xs-6.col-sm-4.item.item-2.cajita
             %p.def.field_profesion
-          / columna vacia
           .hidden-xs.col-sm-1.cajita
       .row
         .row-wrap
@@ -119,7 +114,6 @@
               %p.def.field_idiomas
           .col-xs-6.col-sm-4.item.item-2.cajita
             %p.def.field_idiomas
-          / columna vacia
           .hidden-xs.col-sm-1.cajita
       .row
         .row-wrap
@@ -130,7 +124,6 @@
               %p.def.field_contribucion
           .col-xs-6.col-sm-4.item.item-2.cajita
             %p.def.field_contribucion
-          / columna vacia
           .hidden-xs.col-sm-1.cajita
       #collapse01.panel-collapse.collapse
         .row
@@ -198,15 +191,15 @@
           .col-xs-6.col-sm-4.item.item-1.cajita
             .item-wrapper
               %p.def
-                %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
-                  %i.fa.fa-user.fa-lg
-                  Avalar *
+                %a.btn.btn-success.btn-lg.btn-block{href: "/candidatos/votaCorreo", role: "button"}
+                  %i.glyphicon.glyphicon-envelope
+                  Vota por correo
                 %p{:style => 'text-align:center;',:id => "leftavailMsg"}
           .col-xs-6.col-sm-4.item.item-2.cajita
             %p.def
-              %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
-                %i.fa.fa-user.fa-lg
-                Avalar *
+              %a.btn.btn-success.btn-lg.btn-block{href: "/candidatos/votaCorreo", role: "button"}
+                %i.glyphicon.glyphicon-envelope
+                Vota por correo
               %p{:style => 'text-align:center;', :id => "rightavailMsg"}
           .hidden-xs.col-sm-1.cajita
       .row.bottom
@@ -253,10 +246,6 @@
         .divider3
         .row
           .col-xs-12
-            %p.legal
-              (*)IMPORTANTE: Esta votación te sirve para conocer a los candidatos, sin embargo
-              %span
-                para votar oficialmente al candidato debes hacerlo con el aval por SMS.  (El sistema de avales no funciona con móviles DIA y Jazztel)
             %p.legal
               Este es un trabajo que hacemos de forma voluntaria y gratuita, pero si quieres, puedes ayudarnos con los gastos
             %p.legal

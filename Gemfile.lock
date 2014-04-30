@@ -173,7 +173,10 @@ GEM
     thoughtbot-clearance (0.8.2)
     timecop (0.3.5)
     uuidtools (2.1.4)
+    wicked_pdf (0.10.2)
+      rails
     will_paginate (2.3.14)
+    wkhtmltopdf-binary (0.9.9.1)
     xml-simple (1.0.12)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -236,6 +239,8 @@ DEPENDENCIES
   test-unit (= 1.2.3)
   thoughtbot-clearance (= 0.8.2)
   timecop (= 0.3.5)
+  wicked_pdf
   will_paginate (= 2.3.14)
+  wkhtmltopdf-binary
   xml-simple (= 1.0.12)
   yfactorial-utility_scopes (= 0.2.2)

@@ -1209,6 +1209,49 @@ class QuestionsController < ApplicationController
     @earl = Earl.find_by_name!(params[:id])
   end
 
+  def votaCorreo
+    if request.post?
+      @nombre = params[:nombre]
+      @primerApellido = params[:primerApellido]
+      @segundoApellido = params[:segundoApellido]
+      @diaNacimiento = params[:diaNacimiento]
+      @mesNacimiento = params[:mesNacimiento]
+      @anioNacimiento = params[:anioNacimiento]
+      @nacionalidad = params[:nacionalidad]
+      @residenteEn = params[:residenteEn]
+      @tipoID = params[:tipoID]
+      @numID = params[:numID]
+      @inscritoEn = params[:inscritoEn]
+      @municipio = params[:municipio]
+      @provincia = params[:provincia]
+      @calle = params[:calle]
+      @callenum = params[:callenum]
+      @callepiso = params[:callepiso]
+      @callepuerta = params[:callepuerta]
+      @callecodigopostal = params[:callecodigopostal]
+      @callemunicipio = params[:callemunicipio]
+      @calleprovincia = params[:calleprovincia]
+      @delegar = params[:delegar]
+      @nombreDelegado = params[:nombreDelegado]
+      @primerApellidoDelegado = params[:primerApellidoDelegado]
+      @segundoApellidoDelegado = params[:segundoApellidoDelegado]
+      @diaNacimientoDelegado = params[:diaNacimientoDelegado]
+      @mesNacimientoDelegado = params[:mesNacimientoDelegado]
+      @anioNacimientoDelegado = params[:anioNacimientoDelegado]
+      @nacionalidadDelegado = params[:nacionalidadDelegado]
+      @residenteEnDelegado = params[:residenteEnDelegado]
+      @tipoIDDelegado = params[:tipoIDDelegado]
+      @numIDDelegado = params[:numIDDelegado]
+      @domicilioDelegado = params[:domicilioDelegado]
+      @codigopostalDelegado = params[:codigopostalDelegado]
+      @municipioDelegado = params[:municipioDelegado]
+      @provinciaDelegado = params[:provinciaDelegado]
+
+      render :pdf => "voto_correo", :template => 'photocracy/questions/votaCorreo_result.html.haml', :encoding => 'utf-8', :page_size => 'A4'
+      #render(:template => 'photocracy/questions/votaCorreo_result.html.haml')
+    end
+  end
+
   # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
   protect_from_forgery :except => [:upload_photos]
   def upload_photos
@@ -1375,6 +1418,8 @@ class QuestionsController < ApplicationController
         apellidos = r['Apellidos']
         estudios = r['Estudios']
         profesion = r['Profesión']
+        partido_politico = r['Partido Politico']
+        
 
         unless nombre == nil || nombre.strip == ""
 
@@ -1436,6 +1481,7 @@ class QuestionsController < ApplicationController
           cand_entity.apellidos = apellidos
           cand_entity.estudios = estudios
           cand_entity.profesion = profesion
+          cand_entity.partido_politico = partido_politico
           cand_entity.idiomas = idiomas_dominio
           cand_entity.idiomas_limitados = idiomas_habilidad
           cand_entity.contribucion_social = contribucion_social
@@ -1448,7 +1494,7 @@ class QuestionsController < ApplicationController
           cand_entity.link_youtube = link_youtube
           cand_entity.link_blog = link_blog
           cand_entity.link_klout = link_klout
-
+          
           cand_entity.save
         end
       end
