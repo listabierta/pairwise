@@ -1246,6 +1246,7 @@ class QuestionsController < ApplicationController
       @codigopostalDelegado = params[:codigopostalDelegado]
       @municipioDelegado = params[:municipioDelegado]
       @provinciaDelegado = params[:provinciaDelegado]
+      @copiamia = params[:commit] == 'Imprimir copia para mi'
 
       render :pdf => "voto_correo", :template => 'photocracy/questions/votaCorreo_result.html.haml', :encoding => 'utf-8', :page_size => 'A4'
       #render(:template => 'photocracy/questions/votaCorreo_result.html.haml')

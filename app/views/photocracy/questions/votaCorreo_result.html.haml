@@ -333,7 +333,11 @@
 
       %p.c.v
         Firma del/de la interesado/a o del/de la representante
-    %td{:style => 'width:5%;'}
+    %td{:style => 'width:5%; vertical-align:middle; text-align:right;'}
+      - if @copiamia
+        =wicked_pdf_image_tag "votaCorreoA.png"
+      - else
+        =wicked_pdf_image_tag "votaCorreoB.png"
   %tr
     %td
     %td

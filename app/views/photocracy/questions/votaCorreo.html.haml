@@ -6,6 +6,10 @@
       .container
         -form_tag request.url, :method => :post, :target => "_blank" do
           .row
+            .col-md-12
+              %p{:style => 'font-style:italic;'}
+                Una vez que hayas rellenado este formulario, se generarán dos impresos que debes imprimir y llevar a la oficina de correos más cercana junto con tu DNI. En la oficina de correos, deberás rellenar un impreso de envío certificado (ellos te lo proporcionan) y ellos se encargarán de enviar a la Junta Electoral a la que perteneces la solicitud de tu voto por correo y te entregarán la copia de tu solicitud sellada. Este proceso no tiene coste para ti
+          .row
             .col-md-2
             .col-md-4.text-right
               .form-group
@@ -201,4 +205,6 @@
 
 
               .form-group  
-                = submit_tag "Imprimir formulario para votar por correo", :class => "btn btn-primary"
+                = submit_tag "Imprimir copia para entregar", :class => "btn btn-primary"
+              .form-group  
+                = submit_tag "Imprimir copia para mi", :class => "btn btn-primary"

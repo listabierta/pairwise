@@ -18,7 +18,7 @@ development:
 
 production:
     <<: *global
-    HOST: candidatos.europeas2014.eu:80
+    HOST: www.europeas2014.eu:80
     API_HOST: http://localhost:3000
     PAIRWISE_USERNAME: europeas@secret.com
     PAIRWISE_PASSWORD: dadsafte
@@ -26,7 +26,7 @@ production:
 
     PHOTOCRACY_USERNAME: europeas@secret.com
     PHOTOCRACY_PASSWORD: dadsafte
-    PHOTOCRACY_HOST: candidatos.europeas2014.eu:80
+    PHOTOCRACY_HOST: www.europeas2014.eu:80
 
     INFO_ALLOURIDEAS_EMAIL: <%= ENV['INFO_ALLOURIDEAS_EMAIL'] %>
     INFO_PHOTOCRACY_EMAIL: <%= ENV['INFO_PHOTOCRACY_EMAIL'] %>
