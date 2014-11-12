@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140322043109) do
+ActiveRecord::Schema.define(:version => 20141112201120) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20140322043109) do
     t.string   "partido_politico",                    :default => ""
     t.string   "url_mifirma",                         :default => ""
     t.string   "contribucion_social", :limit => 400
-    t.string   "motivaciones",        :limit => 400
+    t.text     "motivaciones"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20140322043109) do
     t.integer  "foreign_id"
     t.string   "idiomas_limitados"
     t.string   "additionalinfo",      :limit => 1000, :default => ""
-    t.string   "capacitacion",        :limit => 400,  :default => ""
+    t.text     "capacitacion"
     t.string   "link_linkedin",                       :default => ""
     t.string   "link_twitter",                        :default => ""
     t.string   "link_facebook",                       :default => ""

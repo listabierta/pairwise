@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1.xml
   # def show
   #   @question = Question.find(params[:id])
-  # 
+  #
   #   respond_to do |format|
   #     format.html # show.html.erb
   #     format.xml  { render :xml => @question }
@@ -71,7 +71,7 @@ class QuestionsController < ApplicationController
       choices = Choice.find(:all, :params => {:question_id => @question_id})
     else
       choices = Choice.find(:all, :params => {:question_id => @question_id,
-                            :limit => per_page, 
+                            :limit => per_page,
                             :offset => (current_page - 1) * per_page})
     end
 
@@ -89,7 +89,7 @@ class QuestionsController < ApplicationController
     @choices = choices
     avails_choice = choices.map {|c| {:id => c.id, :avales => Aval.count(:conditions => ["foreign_id = ?", Candidate.find(c.data).foreign_id])} }
     sorted_avails = avails_choice.sort_by { |k| -k[:avales] }
-    
+
     i=1
 
     @avails_rank = {}
@@ -188,7 +188,7 @@ class QuestionsController < ApplicationController
         @missing_color = "#CCCCCC"
         render(:template => 'wikipedia/questions_results_heat', :layout => '/wikipedia/layout')
       else
-        render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout')    
+        render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout')
       end
       return
     end
@@ -255,7 +255,7 @@ class QuestionsController < ApplicationController
       })
 
       respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"} 
+      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
         format.js { render :text => @votes_chart }
      end
 
@@ -284,7 +284,7 @@ class QuestionsController < ApplicationController
       "rgb(#{red},#{green},#{blue})"
     end
   end
-  
+
   # TODO: declare as private
   # scale numeric val from array src to array dst range, return integer
   def scale(val, src, dst)
@@ -325,7 +325,7 @@ class QuestionsController < ApplicationController
     @earl = Earl.find params[:id]
     type = params[:type]
 
-    ignore_word_list = %w( a an as and is or the of for in to with on / - &) 
+    ignore_word_list = %w( a an as and is or the of for in to with on / - &)
     @word_frequency = Hash.new(0)
     @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
@@ -414,7 +414,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html {render :layout => false}
       format.js
-    end 
+    end
   end
 
   def scatter_plot_user_vs_seed_ideas
@@ -439,11 +439,11 @@ class QuestionsController < ApplicationController
       point[:x] = c.score.round
       point[:y] = c.attributes['user_created'] ? 1 : 0
 
-      jitter[point[:y]][point[:x]] += 0.04 
+      jitter[point[:y]][point[:x]] += 0.04
 
       thejitter = [jitter[point[:y]][point[:x]], 0.5].min
 
-      point[:y] += thejitter 
+      point[:y] += thejitter
 
       if c.attributes['user_created']
         user_data << point
@@ -467,7 +467,7 @@ class QuestionsController < ApplicationController
                       location.href=the_url;}"
 
                       @votes_chart = Highchart.spline({
-                        :chart => { 
+                        :chart => {
                         :renderTo => "#{type}-chart-container",
                         :margin => [50, 25, 60, 100],
                         :borderColor =>  '#919191',
@@ -477,28 +477,28 @@ class QuestionsController < ApplicationController
                         :height => '500'
                       },
                         :legend => { :enabled => false },
-                        :title => { 
+                        :title => {
                         :text => t('results.scores_of_uploaded_and_orginal_ideas'),
                         :style => { :color => '#919191' }
                       },
-                        :subtitle => { 
-                        :text => t('results.rollover_to_see_more'), 
+                        :subtitle => {
+                        :text => t('results.rollover_to_see_more'),
                         :style => { :color => '#919191' }
                       },
-                        :x_axis => { 
-                        :min => '0', 
-                        :max => '100', 
-                        :endOnTick => true, 
+                        :x_axis => {
+                        :min => '0',
+                        :max => '100',
+                        :endOnTick => true,
                         :showLastLabel => true,
-                        :type => 'linear', 
+                        :type => 'linear',
                         :title => {:enabled => true, :text => t('common.score').titleize}
                       },
-                        :y_axis => { 
-                        :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], 
+                        :y_axis => {
+                        :categories => [t('results.original_ideas'), t('results.uploaded_ideas')],
                         :showLastLabel => false,
                         :gridLineWidth => 0,
-                        :max => 1.4, 
-                        :min => 0, 
+                        :max => 1.4,
+                        :min => 0,
                         :plotLines => [{ :id => 1, :color => "#000000", :value => 1, :width => 1 }]
                       },
                         :plotOptions => {
@@ -508,13 +508,13 @@ class QuestionsController < ApplicationController
                         :name => "Uploaded Ideas",
                         :type => 'scatter',
                         :color => 'rgba(223, 83, 83, .5)',
-                        :data => user_data 
+                        :data => user_data
                       },
                         {
                         :name => "Original Ideas",
                         :type => 'scatter',
                         :color => 'rgba( 49,152,193, .5)',
-                        :data => seed_data 
+                        :data => seed_data
                       }
 
                       ],
@@ -523,7 +523,7 @@ class QuestionsController < ApplicationController
                       })
 
     respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"} 
+      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
       format.js { render :text => @votes_chart }
     end
   end
@@ -633,7 +633,7 @@ class QuestionsController < ApplicationController
   end
 
   def scatter_votes_by_session
-    type = params[:type] 
+    type = params[:type]
     @earl = Earl.find params[:id]
     @question = Question.new(:id => @earl.question_id)
 
@@ -953,7 +953,7 @@ class QuestionsController < ApplicationController
                                             :backgroundColor => '#FFFFFF'
                                         },
                                           :legend => { :enabled => false },
-                                          :title => { :text => 'Number of Appearances per Choice by Number of Days Since Idea Marketplace Creation', 
+                                          :title => { :text => 'Number of Appearances per Choice by Number of Days Since Idea Marketplace Creation',
                                             :style => { :color => '#919191' }
                                         },
                                           :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since wiki survey creation",:enabled => true} },
@@ -984,7 +984,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.xml  {  head :ok }
-      format.js  { 
+      format.js  {
         @earl.active = !(@earl.active)
         verb = @earl.active ? t('items.list.activated') : t('items.list.deactivated')
         if @earl.save!
@@ -1124,7 +1124,7 @@ class QuestionsController < ApplicationController
           I18n.locale = @earl.default_lang
         end
         format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
-      else 
+      else
         @partial_results_url = "#{@earl.name}/results"
         @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
 
@@ -1151,7 +1151,7 @@ class QuestionsController < ApplicationController
         flash[:notice] = 'Question settings saved successfully!'
         format.html {redirect_to :action => "admin" and return }
         # format.xml  { head :ok }
-      else 
+      else
         format.html { render :action => "admin"}
         #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
       end
@@ -1167,7 +1167,7 @@ class QuestionsController < ApplicationController
       render :text => response and return
     end
 
-    #creates delayed job that: sends request to pairwise, waits for response from pairwise, 
+    #creates delayed job that: sends request to pairwise, waits for response from pairwise,
     #  does some work to add ip address and click information to csv file, store in public/
     #  create delayed job to delete file in 3 days, sends email to user with link
 
@@ -1186,7 +1186,7 @@ class QuestionsController < ApplicationController
 
 
 
-    response = "You have requested a data export of all #{params[:type]}. Our servers are hard at work compiling the necessary data right now. You should receive an email at #{current_user.email} with a link to your data export when the file is ready. Please be patient, this process can take up to an hour, depending on how much information is requested and how busy our servers are." 
+    response = "You have requested a data export of all #{params[:type]}. Our servers are hard at work compiling the necessary data right now. You should receive an email at #{current_user.email} with a link to your data export when the file is ready. Please be patient, this process can take up to an hour, depending on how much information is requested and how busy our servers are."
 
     render :text => response
     #send_data(csv_data,
@@ -1259,7 +1259,7 @@ class QuestionsController < ApplicationController
     failed = false
 
     outext = File.extname(params[:Filename])
-    
+
 
     if outext == '.zip' || outext == 'zip'
       Zip::ZipFile.open(params[:Filedata]) do |zipped|
@@ -1384,7 +1384,7 @@ class QuestionsController < ApplicationController
 
       @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
 
-      f_id = filename.split('_')[0]
+      f_id = filename.split('.')[0]
 
       cand_entity = Candidate.find_by_foreign_id(f_id)
 
@@ -1401,7 +1401,7 @@ class QuestionsController < ApplicationController
             return true
           end
         end
-        
+
       end
 
       return true
@@ -1414,53 +1414,14 @@ class QuestionsController < ApplicationController
         r = row.to_hash
 
 
-        f_id = r['ID de respuesta']
-        nombre = r['Nombre']
-        apellidos = r['Apellidos']
-        estudios = r['Estudios']
-        profesion = r['Profesión']
-        partido_politico = r['Partido Politico']
-        
+        f_id = r['id']
+        nombre = r['nombre']
+        capacitacion = r['biografia']
+        motivaciones = r['motivacion']
+        link_youtube = r['video']
+        additionalinfo = r['url']
 
-        unless nombre == nil || nombre.strip == ""
-
-          begin
-            contribucion_social = r.find {|k, v| k.include? 'Contribución social.'}[1]
-            motivaciones = r.find {|k, v| k.include? 'Motivación ¿Que te mueve'}[1]
-            additionalinfo = r.find {|k, v| k.include? 'Información adicional'}[1]
-            capacitacion = r.find {|k, v| k.include? 'Capacitación'}[1]
-            link_linkedin = r.find {|k, v| k.include? '[Linkedin'}[1]
-            link_twitter = r.find {|k, v| k.include? '[Twitter'}[1]
-            link_facebook = r.find {|k, v| k.include? '[Facebook'}[1]
-            link_youtube = r.find {|k, v| k.include? '[Canal de Youtube'}[1]
-            link_blog = r.find {|k, v| k.include? '[Blog'}[1]
-            link_klout = r.find {|k, v| k.include? '[Klout'}[1]
-          rescue
-          end
-
-          idiomas_array = [
-            ['Inglés', r['Idiomas [Inglés]']],
-            ['Francés',   r["Idiomas [Francés]"]],
-            ['Alemán',   r["Idiomas [Alemán]"]],
-            ['Italiano',   r["Idiomas [Italiano]"]],
-            ['Otro idioma comunitario',   r["Idiomas [Otro idioma comunitario]"]],
-            ['Otro idioma no comunitario',  r["Idiomas [Otro idioma no comunitario]"]]
-          ]
-
-          categorias_dominio = [
-            'Bilingue',
-            'Puedo mantener una entrevista televisada en directo con preguntas y respuestas'
-          ]
-
-          categorias_habilidad = [
-            'Puedo establecer una conversación y escribir un informe',
-            'Puedo leer en el idioma y entender con alguna dificultad cuando me hablan',
-            'Tengo algún conocimiento'
-          ]
-
-          idiomas_dominio = idiomas_array.select{ |x| categorias_dominio.include? x[1] }.map{|x| x[0]}.join(', ')
-          idiomas_habilidad = idiomas_array.select{ |x| categorias_habilidad.include? x[1]}.map{|x| x[0]}.join(', ')
-
+        unless f_id.nil? or nombre == ''
           cand_entity = Candidate.find_by_foreign_id(f_id)
 
           unless cand_entity
@@ -1475,27 +1436,12 @@ class QuestionsController < ApplicationController
           end
 
 
-
-
-
           cand_entity.nombre = nombre
-          cand_entity.apellidos = apellidos
-          cand_entity.estudios = estudios
-          cand_entity.profesion = profesion
-          cand_entity.partido_politico = partido_politico
-          cand_entity.idiomas = idiomas_dominio
-          cand_entity.idiomas_limitados = idiomas_habilidad
-          cand_entity.contribucion_social = contribucion_social
           cand_entity.motivaciones = motivaciones
           cand_entity.capacitacion = capacitacion
-          cand_entity.additionalinfo = additionalinfo
-          cand_entity.link_linkedin = link_linkedin
-          cand_entity.link_twitter = link_twitter
-          cand_entity.link_facebook = link_facebook
           cand_entity.link_youtube = link_youtube
-          cand_entity.link_blog = link_blog
-          cand_entity.link_klout = link_klout
-          
+          cand_entity.additionalinfo = additionalinfo
+
           cand_entity.save
         end
       end

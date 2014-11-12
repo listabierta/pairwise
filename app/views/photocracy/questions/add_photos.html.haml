@@ -15,7 +15,7 @@
   #{button_to 'Volver al admin', '/' + @earl.name.to_s + '/admin'}
 
   =stylesheet_link_tag 'photocracy/uploadify'
-  =javascript_include_tag 'photocracy/swfobject.js', 'photocracy/jquery.uploadify.v2.1.0.min.js'
+  =javascript_include_tag 'photocracy/swfobject.js', 'photocracy/jquery.uploadify.v2.1.4.js'
 
   :javascript
     $(document).ready(function() {
@@ -38,7 +38,7 @@
           'authenticity_token'  : AUTH_TOKEN
         },
         onComplete       : function() {
-        
+
           $('#status_message').html("Subida exitosa");
           $('#status_message').css('color', 'green');
         }

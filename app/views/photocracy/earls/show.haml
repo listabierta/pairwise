@@ -8,21 +8,22 @@
         Elige entre los candidatos que se presentan aleatoriamente haciendo clic en
         %strong "Me parece mejor candidato/a"
         , aparecerán más al elegir uno/a
-        
+
     .section-content
       .container
         =render :partial => '/shared/flashes'
       .row.top
-        .col-xs-6.col-sm-4.col-sm-offset-3.col-box
+        .col-xs-6.col-sm-5.col-sm-offset-3.col-box
           .box-wrap
             .box-cont
-        .col-xs-6.col-sm-4.dos
+        .col-xs-6.col-sm-5.dos
           .box-cont
           .item-vs
             %span VS
       .row.img-candidato
         .row-wrap
-          .col-xs-6.col-sm-4.col-sm-offset-3.item.item-1
+          .col-sm-2.hidden-xs.cajita
+          .col-xs-6.col-sm-5.item.item-1
             .item-wrapper
               .item-center
                 .img-container
@@ -43,7 +44,7 @@
                   %li.hidden-xs.li_blog
                     %a.soc-btn{href: "#", target: "_blank"}
                       %span.gh-ico.blogger
-          .col-xs-6.col-sm-4.item.item-2
+          .col-xs-6.col-sm-5.item.item-2
             .item-wrapper
               .item-center
                 .img-container
@@ -66,109 +67,42 @@
                       %span.gh-ico.blogger
       .row.field_nombre
         .row-wrap
-          .hidden-xs.col-sm-3.cajita
+          .hidden-xs.col-sm-2.cajita
             %span.label-vs Nombre y Apellidos:
-          .col-xs-6.col-sm-4.item.item-1.cajita
+          .col-xs-6.col-sm-5.item.item-1.cajita
             .item-wrapper
               %p.name-vs.field_nombre
-          .col-xs-6.col-sm-4.item.item-2.cajita
+          .col-xs-6.col-sm-5.item.item-2.cajita
             %p.name-vs.field_nombre
           / columna vacia
           .hidden-xs.col-sm-1.cajita
       .row
         .row-wrap
-          .hidden-xs.col-sm-3.cajita
-            %span.label-vs Partido politico:
-          .col-xs-6.col-sm-4.item.item-1.cajita
-            .item-wrapper
-              %p.def.field_partido_politico
-          .col-xs-6.col-sm-4.item.item-2.cajita
-            %p.def.field_partido_politico
-          .hidden-xs.col-sm-1.cajita
-      .row
-        .row-wrap
-          .hidden-xs.col-sm-3.cajita
-            %span.label-vs Estudios:
-          .col-xs-6.col-sm-4.item.item-1.cajita
-            .item-wrapper
-              %p.def.field_estudios
-          .col-xs-6.col-sm-4.item.item-2.cajita
-            %p.def.field_estudios
-          .hidden-xs.col-sm-1.cajita
-      .row
-        .row-wrap
-          .hidden-xs.col-sm-3.cajita
-            %span.label-vs Profesión:
-          .col-xs-6.col-sm-4.item.item-1.cajita
-            .item-wrapper
-              %p.def.field_profesion
-          .col-xs-6.col-sm-4.item.item-2.cajita
-            %p.def.field_profesion
-          .hidden-xs.col-sm-1.cajita
-      .row
-        .row-wrap
-          .hidden-xs.col-sm-3.cajita
-            %span.label-vs Idiomas:
-          .col-xs-6.col-sm-4.item.item-1.cajita
-            .item-wrapper
-              %p.def.field_idiomas
-          .col-xs-6.col-sm-4.item.item-2.cajita
-            %p.def.field_idiomas
-          .hidden-xs.col-sm-1.cajita
-      .row
-        .row-wrap
-          .hidden-xs.col-sm-3.cajita
-            %span.label-vs Contribución Social:
-          .col-xs-6.col-sm-4.item.item-1.cajita
-            .item-wrapper.item-fixed
-              %p.def.field_contribucion
-          .col-xs-6.col-sm-4.item.item-2.cajita
-            %p.def.field_contribucion
-          .hidden-xs.col-sm-1.cajita
-      #collapse01.panel-collapse.collapse
-        .row
-          .row-wrap
-            .hidden-xs.col-sm-3.cajita
-              %span.label-vs Motivaciones:
-            .col-xs-6.col-sm-4.item.item-1.cajita
-              .item-wrapper.item-fixed
-                %p.def.field_motivacion
-            .col-xs-6.col-sm-4.item.item-2.cajita
+          .hidden-xs.col-sm-2.cajita
+            %span.label-vs Motivaciones:
+          .col-xs-6.col-sm-5.item.item-1.cajita
+            .item-wrapper.item-fixed{style: 'overflow:auto; width:350px;'}
               %p.def.field_motivacion
-            .hidden-xs.col-sm-1.cajita
-        .row
-          .row-wrap
-            .hidden-xs.col-sm-3.cajita
-              %span.label-vs Capacitación:
-            .col-xs-6.col-sm-4.item.item-1.cajita
-              .item-wrapper.item-fixed
-                %p.def.field_capacitacion
-            .col-xs-6.col-sm-4.item.item-2.cajita
-              %p.def.field_capacitacion
-            .hidden-xs.col-sm-1.cajita
-        .row
-          .row-wrap
-            .hidden-xs.col-sm-3.cajita
-              %span.label-vs Información adicional:
-            .col-xs-6.col-sm-4.item.item-1.cajita
-              .item-wrapper.item-fixed
-                %p.def.field_additionalinfo
-            .col-xs-6.col-sm-4.item.item-2.cajita
-              %p.def.field_additionalinfo
-            .hidden-xs.col-sm-1.cajita
-      .row.button0
+          .col-xs-6.col-sm-5.item.item-2.cajita
+            .item-wrapper{style: 'overflow:auto; width:350px;'}
+              %p.def.field_motivacion
+          .hidden-xs.col-sm-1.cajita
+      .row
         .row-wrap
-          .hidden-xs.col-sm-3.cajita
-            %span.label-vs
-          .col-xs-12.col-sm-8.item.item-2.cajita{:style => 'text-align:center;'}
-            %a.collapsed.ver-mas-icon.btn.btn-primary{:href => '#!', 'onclick' => "toggleCollapse('01')", 'title' => 'Pincha aqui para ver mas!', :style => 'text-align:center;  margin-right:10px; padding-bottom:10px;'}
-              %span#vermas01.glyphicon.glyphicon-plus
+          .hidden-xs.col-sm-2.cajita
+            %span.label-vs Capacitación:
+          .col-xs-6.col-sm-5.item.item-1.cajita
+            .item-wrapper.item-fixed
+              %p.def.field_capacitacion{style: 'overflow:auto; width:350px;'}
+          .col-xs-6.col-sm-5.item.item-2.cajita
+            .item-wrapper{style: 'overflow:auto; width:350px;'}
+              %p.def.field_capacitacion
           .hidden-xs.col-sm-1.cajita
       .row.button1
         .row-wrap
-          .hidden-xs.col-sm-3.cajita
+          .hidden-xs.col-sm-2.cajita
             %span.label-vs
-          .col-xs-6.col-sm-4.item.item-1.cajita
+          .col-xs-6.col-sm-5.item.item-1.cajita
             .item-wrapper
               %p.def
                 %a.btn.btn-primary.btn-lg.btn-block.vote{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => 'left'),
@@ -176,7 +110,7 @@
                   %i.fa.fa-thumbs-o-up.fa-lg
                   %span.hidden-xs Me parece mejor candidato/a
                   %span.visible-xs Me parece mejor
-          .col-xs-6.col-sm-4.item.item-2.cajita
+          .col-xs-6.col-sm-5.item.item-2.cajita
             %p.def
               %a.btn.btn-primary.btn-lg.btn-block.vote{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => 'right'),
                 :thumb => @right_choice_photo.image.url(:thumb), :choice_url => url_for(:action => :show, :controller => :choices, :id => @right_choice_id, :question_id => params[:id]), :direction => 'right', :future_photo => @future_right_choice_photo.image.url(:medium), :id => "rightside" }
@@ -184,29 +118,11 @@
                 %span.hidden-xs Me parece mejor candidato/a
                 %span.visible-xs Me parece mejor
           .hidden-xs.col-sm-1.cajita
-      .row.button2
-        .row-wrap
-          .hidden-xs.col-sm-3.cajita
-            %span.label-vs
-          .col-xs-6.col-sm-4.item.item-1.cajita
-            .item-wrapper
-              %p.def
-                %a.btn.btn-success.btn-lg.btn-block{href: "/candidatos/votaCorreo", role: "button"}
-                  %i.glyphicon.glyphicon-envelope
-                  Vota por correo
-                %p{:style => 'text-align:center;',:id => "leftavailMsg"}
-          .col-xs-6.col-sm-4.item.item-2.cajita
-            %p.def
-              %a.btn.btn-success.btn-lg.btn-block{href: "/candidatos/votaCorreo", role: "button"}
-                %i.glyphicon.glyphicon-envelope
-                Vota por correo
-              %p{:style => 'text-align:center;', :id => "rightavailMsg"}
-          .hidden-xs.col-sm-1.cajita
       .row.bottom
-        .col-xs-6.col-sm-4.col-sm-offset-3.col-box
+        .col-xs-6.col-sm-5.col-sm-offset-3.col-box
           .box-wrap
             .box-cont
-        .col-xs-6.col-sm-4.dos
+        .col-xs-6.col-sm-5.dos
           .box-cont
           /%a.collapsed.ver-mas-icon{:href => '#!', 'onclick' => "toggleCollapse('01')", 'title' => 'Pincha aqui para ver mas!'}
           /  .triangle-down
@@ -239,7 +155,7 @@
             %p.final Hasta el momento
           .col-xs-6.item.item2
             .bola
-              %p.number 
+              %p.number
                 = @question.attributes['votes_count'].to_i
               %p.v-label Votos
             %p.final en #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} candidatos
