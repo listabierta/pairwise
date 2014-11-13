@@ -4,12 +4,8 @@
   .container
     .section-header
       %h2 Consejo Ciudadano de Podemos
-      %h3.hidden-xs
-        Participa en este experimento de elección en listas abiertas.
       %h3.indicaciones.hidden-xs
-        Elige entre los candidatos que se presentan aleatoriamente haciendo clic en
-        %strong "Me parece mejor candidato/a"
-        , aparecerán más al elegir uno/a
+        Participa en este experimento de elección en listas abiertas y elige entre los candidatos/as al Consejo Ciudadano de Podemos que se presentan aleatoriamente cada vez que haces clic en "Me parece mejor candidato/a". Interactúa cuantas veces quieras, puedes hacer clic en "Resultados" en el menú superior para ver como avanza la votación.
 
     .section-content
       .container
@@ -144,9 +140,6 @@
           .col-xs-12.col-sm-6.col-sm-offset-3
             %p
               =link_to_function "No lo puedo decidir", "submitCantDecide(this);", :id => "cant_decide_btn", :class => 'btn btn-default btn-lg btn-block btn-alpha', 'data-action' => "#{skip_question_prompt_url(@question.id, @prompt.id, :format => :js)}", :role => 'button'
-          .col-xs-12.col-sm-6.col-sm-offset-3
-            %p
-              =link_to 'Ver los Resultados', url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'btn btn-default btn-lg btn-block btn-beta', role: "button"
         .divider2
           %i.fa.fa-caret-down
         .row.votos
@@ -166,7 +159,9 @@
         .row
           .col-xs-12
             %p.legal
-              Este es un trabajo que hacemos de forma voluntaria y gratuita el equipo de ATD y ListAbierta para el fomento de la democracia participativa y directa
+              Este es un trabajo que hacemos de forma voluntaria y gratuita el equipo de ATD y ListAbierta para el fomento de la democracia participativa y directa. Puedes ver las bases teóricas de este sistema de votación abierta
+              %a{href:'http://arxiv.org/abs/1202.0500'}
+                aquí
         .row
           .col-xs-12
             -if !current_user.nil? && (current_user.owns?(@earl) || current_user.admin?)

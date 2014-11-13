@@ -3,13 +3,13 @@ theme para DP
 */
 
 body{
-	font-family: 'Open Sans', sans-serif;
-	font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
 }
 h2, .h2{
-	font-size: 60px;
-	font-weight: 800;
-	color: #f26321;
+  font-size: 50px;
+  font-weight: 800;
+  color: #f26321;
 }
 h3, .h3 {
     font-size: 24px;
@@ -20,7 +20,7 @@ h3.indicaciones {
   font-size:14px;
 }
 .navbar-brand{
-	height: 100px;
+  height: 80px;
 }
 .navbar-inverse {
   background-color: #f26321;
@@ -86,11 +86,11 @@ h3.indicaciones {
 }
 .adt-brand{ margin: 10px 0;}
 .footer-web{
-	font-family: Arial, sans-serif;
-	font-size: 11px;
-	background-color: #f26321;
-	padding: 20px 0;
-	color:#ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  background-color: #f26321;
+  padding: 20px 0;
+  color:#ffffff;
 }
 .section-1
 {margin-bottom: 30px}
@@ -129,28 +129,28 @@ h3.indicaciones {
     height:235px;
 }
 .item-fixed{
-	}
+  }
 .overflown{
-	overflow: hidden;
-	text-overflow: ellipsis;
-	max-height:120px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height:120px !important;
 }
 .notoverflown{
 
-	overflow: auto;
-	max-height:700px;
+  overflow: auto;
+  max-height:700px;
 }
 .textolargo{
 
-	transition: max-height 1s;
-	-moz-transition: max-height 1s; /* Firefox 4 */
-	-webkit-transition: max-height 1s; /* Safari and Chrome */
-	-o-transition: max-height 1s; /* Opera */
+  transition: max-height 1s;
+  -moz-transition: max-height 1s; /* Firefox 4 */
+  -webkit-transition: max-height 1s; /* Safari and Chrome */
+  -o-transition: max-height 1s; /* Opera */
 }
 
 .row .item-1{
-	margin-left:0px;
-	border-left:1px solid #F26321;
+  margin-left:0px;
+  border-left:1px solid #F26321;
     background: url("/images/ico-border-left.png") repeat-y scroll right 0 transparent;
     /*border-right: 15px solid transparent;*/
    background-position: -webkit-calc(100% - 15px);
@@ -158,19 +158,19 @@ h3.indicaciones {
  background-position: calc(100% - 15px);
 }
 .row .item-1 .item-wrapper{
-	/*border-right:1px solid #F26321;*/
-	padding-right: 15px;
+  /*border-right:1px solid #F26321;*/
+  padding-right: 15px;
 }
 .row .item-2{
-	border-left:1px solid #F26321;
-	border-right:1px solid #F26321;
+  border-left:1px solid #F26321;
+  border-right:1px solid #F26321;
 }
 .row .item-2 .item-wrapper{
-	/*border-left:1px solid #F26321;*/
+  /*border-left:1px solid #F26321;*/
 }
 .row  .item-wrapper > *
 {
-	margin: 0 0 10px;
+  margin: 0 0 10px;
     margin: 0;
     padding: 5px 0 10px;
 }
@@ -191,7 +191,7 @@ h3.indicaciones {
     border:1px solid #F26321;
     display: block;
     padding-left: 15px;
-		margin-left:1px;
+    margin-left:1px;
 }
 
 .box-cont {
@@ -203,13 +203,13 @@ h3.indicaciones {
 }
 .dos
 {
-		border:1px solid #F26321;
-		margin-left:0px;
+    border:1px solid #F26321;
+    margin-left:0px;
 }
 
 .row.top .box-wrap, .top .dos {
-	    border-radius: 10px 10px 0 0;
-	border-bottom: none;
+      border-radius: 10px 10px 0 0;
+  border-bottom: none;
  }
 .row.bottom .box-wrap, .row.bottom .dos {
      border-top: none;
@@ -239,8 +239,8 @@ h3.indicaciones {
     color: #FFFFFF;
 }
 .btn-lg, .btn-group-lg > .btn{
-	border-radius: 0px;
-	font-size: 13px;
+  border-radius: 0px;
+  font-size: 13px;
 }
 .btn-success {
   color: #fff;
@@ -296,8 +296,8 @@ h3.indicaciones {
 }
 /*----*/
 .divider{
-	 /* box-shadow: 1px 1.732px 4px 0px rgb( 48, 48, 48 );*/
-	    display: block;
+   /* box-shadow: 1px 1.732px 4px 0px rgb( 48, 48, 48 );*/
+      display: block;
     height: 10px;
     width: 100%;
     position: relative;
