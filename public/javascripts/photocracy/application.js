@@ -13,7 +13,7 @@ $(document).ready(function() {
 		// store image location
 		var x_click_offset = calculateClickOffset('x', e, $(this));
 		var y_click_offset = calculateClickOffset('y', e, $(this));
-		
+
 		castVote($(this), x_click_offset, y_click_offset);
 
 		e.preventDefault();
@@ -48,11 +48,11 @@ $(document).ready(function() {
 	      }
 	    },
 	    onComplete : function(file, response){
-	      
+
 	      $('#photo_step_1').hide();
 	      $('#photo_step_2').hide();
 	      $('#photo_step_3').show();
-	      
+
 	      if(response.response_status == "200"){
 	          thumbnail_url = response.thumbnail_url;
 
@@ -67,7 +67,7 @@ $(document).ready(function() {
 	          $('.photo_error_message').show();
 	          $('#photo_details_message').html(response.errors);
 	      }
-	      
+
 	    }
 	  });
 	};
@@ -238,11 +238,11 @@ function castVote(choice, x, y) {
 			// and others modify those attrs
 			if (!VOTE_CROSSFADE_TRANSITION) { loadNextPrompt(data); };
 			updateUrlsAndHiddenFields(data);
-			if (VOTE_CROSSFADE_TRANSITION) { 
-				$('table.fade').remove(); 
+			if (VOTE_CROSSFADE_TRANSITION) {
+				$('table.fade').remove();
 			};
 			incrementVoteCount();
-			incrementVisitorVoteCount(); 
+			incrementVisitorVoteCount();
 			choice.removeClass('checked');
 			PAGE_LOADED_AT = new Date(); // reset the page load time
 		}
@@ -315,10 +315,10 @@ function updateVotingHistory(data, update_visitor_votes) {
 	if(update_visitor_votes == undefined){
 	   update_visitor_votes = true  //update visitor_votes by default
 	}
-		
+
 
 	var winner = data['voted_prompt_winner'];
-	
+
 	if(update_visitor_votes)
 		updateVisitorVotes(data['visitor_votes']);
 
@@ -378,7 +378,7 @@ function loadNextPrompt(data) {
 		var candidate_box = $('div.img-candidato > div > div.' + boxName + ' > div > div > div.img-container');
 
 		var candidate = data['candidate_' + side]['candidate'];
-		
+
 		// change photos
 		candidate_box.html("<img height=\"188\" src='" + data['new' + side + '_photo'] + "'/>");
 
@@ -400,7 +400,7 @@ function loadNextPrompt(data) {
 
 		var btnAvail = $('div.button2 > div > div.'+boxName+' a');
 		//btnAvail.attr('href', 'javascript:messagevote('+candidate['foreign_id']+', "'+side+'");');
-		
+
 		var btnVote = $('div.button1 > div div.'+boxName+' a');
 		btnVote.removeAttr('disabled');
 
@@ -483,11 +483,12 @@ function clearImages() {
 	$('.candidate_box.right > .candidate_info > .candidate_photo').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
-	
+
 	$('.candidate_box.left > .candidate_info > .candidate_photo').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
 }
+
 
 function toggleCollapse(id){
 	var plus = $('#vermas' + id);
@@ -498,6 +499,24 @@ function toggleCollapse(id){
 		plus.addClass('glyphicon-minus');
 	}else{
 		$('#collapse' + id).collapse('hide');
+		plus.removeClass('glyphicon-minus');
+		plus.addClass('glyphicon-plus');
+	}
+}
+
+function abrirCandidatos(){
+
+
+	var plus = $('#vermas');
+
+	if (plus.hasClass('glyphicon-plus')){
+		$('.textolargo').removeClass('overflown');
+		$('.textolargo').addClass('notoverflown');
+		plus.removeClass('glyphicon-plus');
+		plus.addClass('glyphicon-minus');
+	}else{
+		$('.textolargo').removeClass('notoverflown');
+		$('.textolargo').addClass('overflown');
 		plus.removeClass('glyphicon-minus');
 		plus.addClass('glyphicon-plus');
 	}
@@ -525,4 +544,3 @@ function unCollapse(){
     }
   }
 })(jQuery)
-

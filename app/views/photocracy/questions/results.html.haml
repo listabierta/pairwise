@@ -14,8 +14,8 @@
           -if i % 4 == 0
             <div class="row">
           .col-xs-6.col-sm-4.col-md-3
-            .thumbnail.thumbnail-panel{href: "#"}
-              .item-center2
+            .thumbnail.thumbnail-panel
+              .item-center2{href: "#", style:'min-height:400px;'}
                 %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}/
                 %ul.list-inline.soc-list
                   - if cand.link_linkedin != ""
@@ -30,7 +30,7 @@
                     %li
                       %a.soc-btn{href: "#{cand.link_twitter}", target: "_blank"}
                         %span.gh-ico.twitter
-                  - if cand.link_youtube != ""
+                  - if cand.link_youtube != "" and not cand.link_youtube.nil?
                     %li
                       %a.soc-btn{href: "#{cand.link_youtube}", target: "_blank"}
                         %span.gh-ico.youtube
@@ -42,50 +42,27 @@
                   %li.aka.name
                     %span.item-label Nombre:
                     %p.item-panel
-                      =cand.nombre + ' ' + cand.apellidos
-                  %li.aka
-                    %span.item-label Estudios:
-                    %p.item-panel
-                      =cand.estudios
-                  %li.aka
-                    %span.item-label Profesión:
-                    %p.item-panel
-                      =cand.profesion
-                  %li.aka
-                    %span.item-label Idiomas:
-                    %p.item-panel
-                      =cand.idiomas
+                      =cand.nombre
                 .panel-collapse.collapse{:id => 'collapse' + i.to_s}
                   %ul.campos
                     %li.aka
-                      %span.item-label Partido politico:
+                      %span.item-label Biografia:
                       %p.item-panel
-                        =cand.partido_politico
-                    %li.aka
-                      %span.item-label Contribución Social:
-                      %p.item-panel
-                        =cand.contribucion_social
+                        =cand.capacitacion
                     %li.aka
                       %span.item-label Motivación:
                       %p.item-panel
                         =cand.motivaciones
                     %li.aka
-                      %span.item-label Capacitación:
+                      %span.item-label Candidatura original:
                       %p.item-panel
-                        =cand.capacitacion
-                    %li.aka
-                      %span.item-label Información adicional:
-                      %p.item-panel
-                        =cand.additionalinfo
+                        %a{href:cand.additionalinfo}
+                          Ver
                 %ul.campos
                   %li.aka.scores
-                    %span.item-label Posición por número de veces elegido/a:
+                    %span.item-label Posición:
                     %p.item-panel
                       =(i+1)
-                /%p.def
-                /  %a.btn.btn-success.btn-lg.btn-block{href: "#", role: "button"}
-                /    %i.fa.fa-user.fa-lg
-                /    Vótalo con tu móvil
                 .panel-tab
                   .panel-title
                     %a.ver-mas-icon.collapsed{href: "#collapse" + i.to_s, 'onclick' => "toggleCollapse('" + i.to_s + "')", 'title' => 'Pincha aqui para ver mas!'}
@@ -100,4 +77,3 @@
               Este es un trabajo que hacemos de forma voluntaria y gratuita, pero si quieres, puedes ayudarnos con los gastos
             %p.legal
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="YC7RZGPGADPC4"><input type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet."><img alt="" border="0" src="https://www.paypalobjects.com/es_ES/i/scr/pixel.gif" width="1" height="1"></form>
-

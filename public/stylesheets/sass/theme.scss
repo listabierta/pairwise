@@ -6,7 +6,7 @@ body{
 	font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
 }
-h2, .h2{ 
+h2, .h2{
 	font-size: 60px;
 	font-weight: 800;
 	color: #f26321;
@@ -42,7 +42,7 @@ h3.indicaciones {
   padding-bottom: 20px;
 }
 /**/
-.votos .item 
+.votos .item
 {
     text-align: center;
     line-height: 1;
@@ -129,8 +129,27 @@ h3.indicaciones {
     height:235px;
 }
 .item-fixed{
+	}
+.overflown{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-height:120px !important;
 }
+.notoverflown{
+
+	overflow: auto;
+	max-height:700px;
+}
+.textolargo{
+
+	transition: max-height 1s;
+	-moz-transition: max-height 1s; /* Firefox 4 */
+	-webkit-transition: max-height 1s; /* Safari and Chrome */
+	-o-transition: max-height 1s; /* Opera */
+}
+
 .row .item-1{
+	margin-left:0px;
 	border-left:1px solid #F26321;
     background: url("/images/ico-border-left.png") repeat-y scroll right 0 transparent;
     /*border-right: 15px solid transparent;*/
@@ -172,6 +191,7 @@ h3.indicaciones {
     border:1px solid #F26321;
     display: block;
     padding-left: 15px;
+		margin-left:1px;
 }
 
 .box-cont {
@@ -184,6 +204,7 @@ h3.indicaciones {
 .dos
 {
 		border:1px solid #F26321;
+		margin-left:0px;
 }
 
 .row.top .box-wrap, .top .dos {
@@ -217,7 +238,7 @@ h3.indicaciones {
     border-color: #D24301;
     color: #FFFFFF;
 }
-.btn-lg, .btn-group-lg > .btn{ 
+.btn-lg, .btn-group-lg > .btn{
 	border-radius: 0px;
 	font-size: 13px;
 }
@@ -289,7 +310,7 @@ h3.indicaciones {
     line-height:20px;
     text-align: center;
     margin-bottom: 20px;
-} 
+}
 
 .divider3 {
     border-bottom: 1px solid #424A56;
@@ -407,14 +428,15 @@ ul.footer-social-buttons li {
     border:0;
 }
 .campos li.name span{ display: none;}
-.campos li.name p{ 
+.campos li.name p{
   font-size: 16px;
 font-weight: bold;}
 
-.campos li.scores p{ 
-  font-size: 16px;
+.campos li.scores p{
+  font-size: 32px;
 font-weight: bold;
-text-align:right;}
+text-align:center;
+}
 
 .item-center2 {
     position: relative;
@@ -434,7 +456,7 @@ text-align:right;}
     border: 1px solid #F26321;
     padding: 10px;
 }
-.thumbnail:hover, 
+.thumbnail:hover,
 .thumbnail:hover .halfcircle-bottom {
     background: none repeat scroll 0 0 #EDEDED;
     /*border: 1px solid #ccc;*/
@@ -469,11 +491,11 @@ text-align:right;}
     font-size: 13px;
 }
 .triangle-down .panel-tab2 .panel-title2 {
-  
+
     color: #333333;
 }
 .triangle-down .panel-tab2 .panel-title2:hover {
-  
+
     color: #535353;
     color: #E25311;
 }
@@ -515,4 +537,3 @@ a .triangle-down{ cursor: pointer;}
 
 
 }
-
