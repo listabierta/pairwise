@@ -15,8 +15,11 @@
             <div class="row">
           .col-xs-6.col-sm-4.col-md-3
             .thumbnail.thumbnail-panel
-              .item-center2{href: "#", style:'min-height:400px;'}
-                %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}/
+              .item-center2{href: "#", style:'min-height:150px;'}
+                -if i < 20
+                  %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}
+                -else
+                  %img.img-responsive{id: 'imgres' + i.to_s,src: "#{cand.image.url(:medium)}", width: "188", style: 'display:none;'}
                 %ul.list-inline.soc-list
                   - if cand.link_linkedin != ""
                     %li
