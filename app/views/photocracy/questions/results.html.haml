@@ -10,7 +10,6 @@
         -@choices.each do |choice|
           -i = i + 1
           -cand = Candidate.find(choice.data)
-          -aval_count = Aval.count(:conditions => ["foreign_id = ?", cand.foreign_id])
 
           -if i % 4 == 0
             <div class="row">
@@ -63,7 +62,7 @@
                   %li.aka.scores
                     %span.item-label Posición:
                     %p.item-panel
-                      =(i+1)
+                      =@offset+i+1
                 .panel-tab
                   .panel-title
                     %a.ver-mas-icon.collapsed{href: "#collapse" + i.to_s, 'onclick' => "toggleCollapse('" + i.to_s + "')", 'title' => 'Pincha aqui para ver mas!'}

@@ -68,10 +68,11 @@ class QuestionsController < ApplicationController
     @partial_results_url = "#{@earl.name}/results"
 
     per_page = 24
+    @offset = (current_page - 1) * per_page
     choices = Choice.find(:all, :params => {
       :question_id => @question_id,
       :limit => per_page,
-      :offset => (current_page - 1) * per_page
+      :offset => @offset
     })
 
     @choices = choices
