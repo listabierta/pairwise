@@ -61,7 +61,6 @@ class QuestionsController < ApplicationController
     current_page = params[:page] || 1
     current_page = current_page.to_i
     current_page = 1 if current_page == 0
-    per_page = 10
 
     logger.info "current page is #{current_page} but params is #{params[:page]}"
 
@@ -74,7 +73,6 @@ class QuestionsController < ApplicationController
       :limit => per_page,
       :offset => (current_page - 1) * per_page
     })
-    @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
 
     @choices = choices
 
