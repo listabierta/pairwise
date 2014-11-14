@@ -3,11 +3,12 @@
 .section-1
   .container
     .section-header
-      %h2 Europeas 2014
+      %h2 Consejo Ciudadano de Podemos
     .section-content
       .container
+        -i = -1
         -@choices.each do |choice|
-          -i = @all_choices.index(choice)
+          -i = i + 1
           -cand = Candidate.find(choice.data)
           -aval_count = Aval.count(:conditions => ["foreign_id = ?", cand.foreign_id])
 
@@ -16,10 +17,7 @@
           .col-xs-6.col-sm-4.col-md-3
             .thumbnail.thumbnail-panel
               .item-center2{href: "#", style:'min-height:150px;'}
-                -if i < 20
-                  %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}
-                -else
-                  %img.img-responsive{id: 'imgres' + i.to_s,src: "#{cand.image.url(:medium)}", width: "188", style: 'display:none;'}
+                %img.img-responsive{src: "#{cand.image.url(:medium)}", width: "188"}
                 %ul.list-inline.soc-list
                   - if cand.link_linkedin != ""
                     %li
@@ -75,6 +73,8 @@
             </div>
 
         .row
-          .col-xs-12
-            %p.legal
-              Este es un trabajo que hacemos de forma voluntaria y gratuita el equipo de ATD y ListAbierta para el fomento de la democracia participativa y directa
+          .col-xs-12.col-sm-8.col-sm-offset-4
+            =will_paginate @choices, :previous_label => 'Anterior', :next_label => 'Siguiente', :class => 'paginador'
+        .row
+          %p.legal
+            Este es un trabajo que hacemos de forma voluntaria y gratuita el equipo de ATD y ListAbierta para el fomento de la democracia participativa y directa

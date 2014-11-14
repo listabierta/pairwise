@@ -67,130 +67,22 @@ class QuestionsController < ApplicationController
 
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
-    if params[:all]
-      choices = Choice.find(:all, :params => {:question_id => @question_id})
-    else
-      choices = Choice.find(:all, :params => {:question_id => @question_id,
-                            :limit => per_page,
-                            :offset => (current_page - 1) * per_page})
-    end
 
-    if @photocracy
-      per_page = 10
-      choices = Choice.find(:all, :params => {
-        :question_id => @question_id
-        #,
-        #:limit => per_page,
-        #:offset => (current_page - 1) * per_page
-      })
-      @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
-    end
+    per_page = 24
+    choices = Choice.find(:all, :params => {
+      :question_id => @question_id,
+      :limit => per_page,
+      :offset => (current_page - 1) * per_page
+    })
+    @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
 
     @choices = choices
-    avails_choice = choices.map {|c| {:id => c.id, :avales => Aval.count(:conditions => ["foreign_id = ?", Candidate.find(c.data).foreign_id])} }
-    sorted_avails = avails_choice.sort_by { |k| -k[:avales] }
 
-    i=1
+    @choices = WillPaginate::Collection.create(current_page, per_page) do |pager|
+      pager.replace(choices)
 
-    @avails_rank = {}
-    sorted_avails.each do |a|
-      @avails_rank[a[:id]] = i
-      i+= 1
-    end
+      pager.total_entries = @question.choices_count - @question.inactive_choices_count
 
-
-    #@choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
-    #  pager.replace(choices)
-
-    #  pager.total_entries = @question.choices_count - @question.inactive_choices_count
-
-    #end
-
-    @available_charts = {}
-    @available_charts['votes'] = { :title => t('results.votes_over_time_title')}
-    @available_charts['user_submitted_ideas'] = { :title => t('results.user_ideas_over_time_title')}
-    @available_charts['user_sessions'] = { :title => t('results.user_sessions_over_time_title')}
-
-    if @photocracy
-      @available_charts = [
-        {:title => :scatter_ideas_title, :link => 'scatter_plot_user_vs_seed_ideas', :type => 'scatter_ideas', :div_id => 'scatter_ideas-chart-container', :response_type => 'script'},
-        {:title => :world_map_title, :link => 'voter_map', :type => 'votes', :response_type => 'html', :div_id => 'voter_map'},
-        {:title => :votes_over_time_title, :link => 'timeline_graph', :type => 'votes', :div_id => 'votes-chart-container', :response_type => 'script'},
-        {:title => :user_ideas_over_time_title, :link => 'timeline_graph', :type => 'user_submitted_ideas', :div_id => 'user_submitted_ideas-chart-container', :response_type => 'script'},
-        {:title => :user_sessions_over_time_title, :link => 'timeline_graph', :type => 'user_sessions', :div_id => 'user_sessions-chart-container', :response_type => 'script'}
-      ]
-    end
-
-    if @widget == true
-      render :layout => false
-    elsif wikipedia?
-      if params[:heat]
-        @images = (1..12).map { |i| "00#{i < 10 ? "0" + i.to_s : i}" }
-        @banners = [
-          "The only non-profit website in the top 10.\nHelp keep us different",
-          "679 servers. 282 languages.\n20 million articles.\nWe need your help to keep growing.",
-          "Your donation powers the technology\nthat makes Wikipedia work",
-          "Your donations power the technology\nthat makes Wikipedia work",
-          "Your donation keeps Wikipedia's\nservers and staff running",
-          "Your donations keep Wikipedia's\nservers and staff running",
-          "Wikipedia is the #5 site on the Internet.\nYour $5 keeps us there.",
-          "Use it?\nSupport it!",
-          "Use Wikipedia?\nSupport Wikipedia!",
-          "You can help keep Wikipedia free of ads.\nFor more information, click here.",
-          "You can help keep Wikipedia free of ads.\nTo donate, click here.",
-          "What would the Internet look like\nwithout Wikipedia?\nLet's not find out. Donate today.",
-          "What would the Internet look like\nwithout Wikipedia?",
-          "Wikipedia is a not-for-profit organization.\nPlease consider making a donation.",
-          "Wikipedia is a not-for-profit organization.\nPlease make a donation.",
-          "Want to make the world a better place?\nDonate to Wikipedia.",
-          "Want to make the world a better place?\nWhat are you waiting for?",
-          "Imagine a world in which every person\non the planet had free access to all\nhuman knowledge.",
-          "Let's make a world in which every\nperson on the planet has free access to\nall human knowledge.",
-          "Let's keep Wikipedia ad-free",
-          "Let's keep Wikipedia free",
-          "Let's keep Wikipedia growing",
-          "Let's keep Wikipedia independent",
-  #        "A personal appeal from\nWikipedia founder Jimmy Wales",
-  #        "Please read:\nAdvertising isn't evil\nbut it doesn't belong on Wikipedia",
-  #        "Advertising isn't evil\nbut it doesn't belong on Wikipedia",
-  #        "Please read:\nA personal appeal from\nan author of 549 Wikipedia articles",
-  #        "Please read:\nA personal appeal from\nWikipedia editor Dr. James Heilman",
-  #        "Please read:\nA personal appeal from\nan author of 159 Wikipedia articles",
-  #        "Please read:\nA personal appeal from\nWikipedia editor Isaac Kosgei",
-  #        "I am a student, and I donated.\nWhat are you waiting for?",
-  #        "Wikipedia is a vital global resource.\nPlease donate.",
-  #        "To stay healthy and strong,\nWikipedia needs your donation",
-  #        "Wikipedia helps you stay healthy.\nNow you can return the favor",
-  #        "Just like a flower needs water,\nWikipedia needs your donation"
-        ]
-        @scores = {}
-        choices = Choice.find(:all, :params => {:question_id => @question_id})
-        scores = choices.map(&:score)
-        if params[:dynamic_range] and params[:dynamic_range] == 'true'
-          @max_score = scores.max
-          @min_score = scores.min
-        else
-          @max_score = 100
-          @min_score = 0
-        end
-        choices.each do |choice|
-          image = choice.data[0..3]
-          banner = choice.data[5..-1]
-          if @images.include?(image) and @banners.include?(banner)
-            @scores[banner] ||= {}
-            @scores[banner][image] = {
-              :score => choice.score,
-              :color => color_for_score(choice.score)
-            }
-          end
-          image = banner = nil
-        end
-        @missing_color = "#CCCCCC"
-        render(:template => 'wikipedia/questions_results_heat', :layout => '/wikipedia/layout')
-      else
-        render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout')
-      end
-      return
     end
 
   end
